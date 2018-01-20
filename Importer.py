@@ -24,6 +24,9 @@ def process_data(importer_directory, salesforce_type, client_type,
                  client_subtype, update_mode, client_emaillist):
     """Process Data based on data_mode"""
 
+    from os import makedirs
+    from os.path import exists
+
     data_mode = "Insert"
     if update_mode:
         data_mode = "Update"
@@ -35,7 +38,10 @@ def process_data(importer_directory, salesforce_type, client_type,
     user = 'db.powerbi@501commons.org'
     smtpsrv = "smtp.office365.com"
     subject = "Process Data (" + data_mode + ") Results -"
-    file_path = importer_directory + "\\status"
+    file_path = importer_directory + "\\Status"
+    if not exists(file_path):
+        makedirs(file_path)
+
     body = "Process Data (" + data_mode + ")\n\n"
 
     # Export data from Excel
@@ -104,9 +110,6 @@ def refresh_and_export(importer_directory, salesforce_type, client_type, client_
 
         if not os.path.exists(excel_file_path + "Import\\"):
             os.makedirs(excel_file_path + "Import\\")
-
-        if not os.path.exists(excel_file_path + "Status\\"):
-            os.makedirs(excel_file_path + "Status\\")
 
         #date_tag = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
