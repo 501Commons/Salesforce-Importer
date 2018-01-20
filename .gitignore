@@ -1,0 +1,10 @@
+.project
+.settings
+.sfdx/
+.vscode/
+Import/
+Incoming/
+status/
+*.properties
+key.txt
+importer.bat
