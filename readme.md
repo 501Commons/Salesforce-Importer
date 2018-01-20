@@ -27,6 +27,6 @@ Example: JAVA_HOME = C:\Program Files\Java\jre1.8.0_151\bin
 
 Running Import
 
-run Clients\[Client Type]\importer.bat to start the importer.  You can run
+Run Clients\[Client Type]\importer.bat to start the importer.  You can run
     - importer.bat manually
     - schedule with Task Scheduler (be sure to set working directory to the importer.bat directory)
