@@ -1,7 +1,7 @@
 .project
 .settings
 .sfdx/
-.vscode/
+settings.json
 Import/
 Incoming/
 status/
