@@ -250,7 +250,7 @@ def send_email(send_from, send_to, subject, text, file_path, server):
     server_password = os.environ['SERVER_EMAIL_PASSWORD']
     server.login(send_from, base64.b64decode(server_password))
     text = msg.as_string()
-    #server.sendmail(send_from, send_to, text)
+    server.sendmail(send_from, send_to, text)
     server.quit()
 
     # Delete all status files
