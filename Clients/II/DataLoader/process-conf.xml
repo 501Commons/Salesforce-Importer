@@ -9,15 +9,6 @@
             <map>
                 <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
                 <entry key="sfdc.username" value="db.ii@501commons.org.subpool"/>
-                <!-- password below has been encrypted using key file, therefore it will not work without the key setting: process.encryptionKeyFile
-                the password is not a valid encrypted value, please generate the real value using encrypt.bat utility
-                Example:
-                    1) Generate Key:     encrypt.bat -g 501Commons
-                    2) Encrypt Password: encrypt.bat -e [password][Security Token] c:\repo\Salesforce-Import-Automation\Clients\II\DataLoader\key.txt
-                    3) Import:           
-                        Environment set DATALOADER_HOME=C:\Program Files (x86)\salesforce.com\Data Loader
-                        process.bat C:\repo\Salesforce-Import-Automation\Clients\II\DataLoader\ contactUpsertProcess
-                 -->
                 <entry key="sfdc.password" value="513b395e9cfc257cdcaa8ffc3c613689c25a26c81d9b1332708c64ed4351b1528a086c4c625a2640"/>
                 <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Import-Automation\Clients\II\DataLoader\key.txt"/>
                 <entry key="sfdc.timeoutSecs" value="600"/>
@@ -41,15 +32,6 @@
             <map>
                 <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
                 <entry key="sfdc.username" value="db.ii@501commons.org.subpool"/>
-                <!-- password below has been encrypted using key file, therefore it will not work without the key setting: process.encryptionKeyFile
-                the password is not a valid encrypted value, please generate the real value using encrypt.bat utility
-                Example:
-                    1) Generate Key:     encrypt.bat -g 501Commons
-                    2) Encrypt Password: encrypt.bat -e [password][Security Token] c:\repo\Salesforce-Import-Automation\Clients\II\DataLoader\key.txt
-                    3) Import:           
-                        Environment set DATALOADER_HOME=C:\Program Files (x86)\salesforce.com\Data Loader
-                        process.bat C:\repo\Salesforce-Import-Automation\Clients\II\DataLoader\ contactUpsertProcess
-                 -->
                 <entry key="sfdc.password" value="513b395e9cfc257cdcaa8ffc3c613689c25a26c81d9b1332708c64ed4351b1528a086c4c625a2640"/>
                 <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Import-Automation\Clients\II\DataLoader\key.txt"/>
                 <entry key="sfdc.timeoutSecs" value="600"/>
