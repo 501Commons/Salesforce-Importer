@@ -215,7 +215,7 @@ def send_email(send_from, send_to, subject, text, file_path, server):
     import base64
     import os
     import smtplib
-    from os.path import basename
+    from os.path import basename, exists
     from email.mime.application import MIMEApplication
     from email.mime.multipart import MIMEMultipart
     from email.mime.text import MIMEText
@@ -261,12 +261,13 @@ def send_email(send_from, send_to, subject, text, file_path, server):
             continue
 
     # Delete all import files
-    import_path = join(file_path, "..\\import")
-    for file_name in listdir(import_path):
-        try:
-            remove(join(import_path, file_name))
-        except:
-            continue
+    import_path = join(file_path, "..\\Import")
+    if exists(import_path):
+        for file_name in listdir(import_path):
+            try:
+                remove(join(import_path, file_name))
+            except:
+                continue
 
 def send_salesforce():
     """Send results to Salesforce to handle notifications"""
