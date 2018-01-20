@@ -31,10 +31,7 @@ def process_data(importer_directory, salesforce_type, client_type,
     if update_mode:
         data_mode = "Update"
 
-    client_email = "db." + client_type + "@501commons.org"
-    sendto = [client_email, 'daveb@501commons.org']
-    sendto += client_emaillist.split(";")
-
+    sendto = client_emaillist.split(";")
     user = 'db.powerbi@501commons.org'
     smtpsrv = "smtp.office365.com"
     subject = "Process Data (" + data_mode + ") Results -"
