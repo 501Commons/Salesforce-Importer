@@ -25,7 +25,7 @@ Example: JAVA_HOME = C:\Program Files\Java\jre1.8.0_151\bin
 
 9) **501 Admin** will provider zip file for custom settings.  Extract zip to c:\repo\Salesforce-Importer\Clients\[Client Type]
 
-Running import
+Running Import
 
 run Clients\[Client Type]\importer.bat to start the importer.  You can run
     - importer.bat manually
