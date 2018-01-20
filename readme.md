@@ -11,12 +11,9 @@ Setup Instructions
 
 2) Install Java JRE 1.8
 
-3) Set JAVA_HOME Environment Variable
-Example: JAVA_HOME = C:\Program Files\Java\jre1.8.0_151\bin
+3) Install Python 2.7.14 https://www.python.org/downloads/ 
 
-4) Open 'Git CMD' and type: pip install pypiwin32
-
-5) **501 Admin** will provider zip file for custom settings.  Extract zip to c:\repo\Importer-Private
+4) **501 Admin** will provider zip file for custom settings.  Extract zip to c:\repo\Importer-Private
 
 Running Import
 
