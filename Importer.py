@@ -105,6 +105,9 @@ def refresh_and_export(importer_directory, salesforce_type, client_type, client_
         if not os.path.exists(excel_file_path + "Import\\"):
             os.makedirs(excel_file_path + "Import\\")
 
+        if not os.path.exists(excel_file_path + "Status\\"):
+            os.makedirs(excel_file_path + "Status\\")
+
         #date_tag = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
         for sheet in workbook.Sheets:
