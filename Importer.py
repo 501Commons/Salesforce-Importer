@@ -69,7 +69,8 @@ def process_data(importer_directory, salesforce_type, client_type,
     # Send email results
     send_email(user, sendto, subject, body, file_path, smtpsrv)
 
-def refresh_and_export(importer_directory, salesforce_type, client_type, client_subtype, update_mode):
+def refresh_and_export(importer_directory, salesforce_type,
+                       client_type, client_subtype, update_mode):
     """Refresh Excel connections"""
 
     #import datetime
