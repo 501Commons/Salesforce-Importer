@@ -9,14 +9,16 @@ Setup Instructions
 
 1) Install Git for Windows http://gitforwindows.org
 
-2) Install Java JRE 1.8
+2) Install Java JRE 1.8 http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html 
 
 3) Install Python 2.7.14 https://www.python.org/downloads/ 
 
-4) **501 Admin** will provider zip file for custom settings.  Extract zip to c:\repo\Importer-Private
+4) Install Salesforce Data Loader https://help.salesforce.com/articleView?id=000239784&type=1
+
+5) **501 Admin** will provider zip file for custom settings.  Extract zip to c:\repo\Importer-Private
 
 Running Import
 
-Run c:\repo\importer.bat to start the importer.  You can run
+Run c:\repo\Importer-Private\importer.bat to start the importer.  You can run
     - importer.bat manually
     - schedule with Task Scheduler (be sure to set working directory to the importer.bat directory)
