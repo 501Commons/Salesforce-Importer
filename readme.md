@@ -15,7 +15,14 @@ Setup Instructions
 
 4) Install Salesforce Data Loader https://help.salesforce.com/articleView?id=000239784&type=1
 
-5) **501 Admin** will provider zip file for custom settings.  Extract zip to c:\repo\Importer-Private
+5) **501 Admin** will provider zip file for custom settings.  Extract zip ideally to a Cloud Storage location w/ 501 Commons Access otherwise to c:\repo\Importer-Private.
+
+6) Edit c:\repo\Importer-Private\importer.bat
+    Check & Verify the following values - update accordingly
+    * EMAIL_LIST - include client emails
+    * IMPORT_DIRECTORY - change to client Import Location
+    * JAVA_HOME
+    * PYTHON_HOME
 
 Running Import
 
