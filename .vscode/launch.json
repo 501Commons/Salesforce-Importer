@@ -17,7 +17,7 @@
             "args": [
                 "Prod"
                 ,"II"
-                ,"Prod"
+                ,"SubPool"
                 ,"db.ii@501commons.org"
             ],
             "debugOptions": [

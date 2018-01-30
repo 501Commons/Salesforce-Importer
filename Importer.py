@@ -54,7 +54,8 @@ def process_data(importer_directory, salesforce_type, client_type,
     # Import data into Salesforce
     try:
         if not "Error" in subject:
-            status_import = import_dataloader(importer_directory, client_type, data_mode)
+            status_import = import_dataloader(importer_directory,
+                                              client_type, salesforce_type, data_mode)
         else:
             status_import = "Error detected so skipped"
     except Exception as ex:
@@ -151,8 +152,10 @@ def contains_data(file_name):
     line_index = 1
     with open(file_name) as file_open:
         for line in file_open:
-            # Check if line empty or if line missing data
-            if line_index == 2 and line != "" and not ",," in line and not '"",""' in line:
+            # Check if line empty
+            line_check = line.replace(",", "")
+            line_check = line_check.replace('"', '')
+            if (line_index == 2 and line_check != "\n"):
                 return True
             elif line_index > 2:
                 return True
@@ -161,7 +164,7 @@ def contains_data(file_name):
 
     return False
 
-def import_dataloader(importer_directory, client_type, data_mode):
+def import_dataloader(importer_directory, client_type, salesforce_type, data_mode):
     """Import into Salesforce using DataLoader"""
 
     import os
@@ -169,7 +172,7 @@ def import_dataloader(importer_directory, client_type, data_mode):
     from os.path import join
     from subprocess import Popen, PIPE
 
-    bat_path = importer_directory
+    bat_path = importer_directory + "\\DataLoader"
     import_path = importer_directory + "\\Import"
 
     return_code = ""
@@ -177,7 +180,7 @@ def import_dataloader(importer_directory, client_type, data_mode):
     return_stderr = ""
 
     for file_name in listdir(bat_path):
-        if not data_mode in file_name:
+        if not data_mode in file_name or not ".bat" in file_name:
             continue
 
         # Check if associated csv has any data
@@ -185,19 +188,17 @@ def import_dataloader(importer_directory, client_type, data_mode):
         if not os.path.exists(import_file) or not contains_data(import_file):
             continue
 
-        bat_file = join(bat_path, file_name)
+        bat_file = join(bat_path, file_name) + " " + salesforce_type + " "  + client_type
         import_process = Popen(bat_file, stdout=PIPE, stderr=PIPE)
 
-#debug
-#        stdout, stderr = import_process.communicate()
-        stdout = "stdout"
-        stderr = "stderr"
+        stdout, stderr = import_process.communicate()
 
         return_code += "import_dataloader (returncode): " + str(import_process.returncode)
         return_stdout += "\n\nimport_dataloader (stdout):\n" + stdout
         return_stderr += "\n\nimport_dataloader (stderr):\n" + stderr
 
-        if import_process.returncode != 0:
+        if (import_process.returncode != 0
+                or "We couldn't find the Java Runtime Environment (JRE)" in return_stdout):
             raise Exception("Invalid Return Code", return_code + return_stdout + return_stderr)
 
         status_path = ("C:\\repo\\Salesforce-Importer\\Clients\\" +
@@ -255,8 +256,6 @@ def send_email(send_from, send_to, subject, text, file_path, server):
     server.sendmail(send_from, send_to, text)
     server.quit()
 
-#debug
-'''
     # Delete all status files
     for file_name in onlyfiles:
         try:
@@ -272,7 +271,6 @@ def send_email(send_from, send_to, subject, text, file_path, server):
                 remove(join(import_path, file_name))
             except:
                 continue
-'''
 
 def send_salesforce():
     """Send results to Salesforce to handle notifications"""
