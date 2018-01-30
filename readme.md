@@ -15,7 +15,9 @@ Setup Instructions
 
 4) Install Salesforce Data Loader https://help.salesforce.com/articleView?id=000239784&type=1
 
-5) **501 Admin** will provider zip file for custom settings.  Extract zip ideally to a Cloud Storage location w/ 501 Commons Access otherwise to c:\repo\Importer-Private.
+5) **501 Admin** will provider zip file for custom settings ([Client].zip).  Extract zip into C:\repo\Salesforce-Importer-Private\Clients\[Client].
+
+Example: C:\repo\Salesforce-Importer-Private\Clients\XYZ where XYZ are the ClientInitials should contain an importer.bat file and a DataLoader directory.
 
 6) Edit c:\repo\Importer-Private\importer.bat
     Check & Verify the following values - update accordingly
