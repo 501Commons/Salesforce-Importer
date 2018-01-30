@@ -15,7 +15,7 @@
             "env": {},
             "envFile": "${workspaceFolder}/.env",
             "args": [
-                "Sandbox"
+                "Prod"
                 ,"II"
                 ,"Prod"
                 ,"db.ii@501commons.org"

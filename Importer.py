@@ -256,8 +256,7 @@ def send_email(send_from, send_to, subject, text, file_path, server):
     server.quit()
 
 #debug
-return
-
+'''
     # Delete all status files
     for file_name in onlyfiles:
         try:
@@ -273,6 +272,7 @@ return
                 remove(join(import_path, file_name))
             except:
                 continue
+'''
 
 def send_salesforce():
     """Send results to Salesforce to handle notifications"""
