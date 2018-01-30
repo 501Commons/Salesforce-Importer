@@ -102,7 +102,7 @@ def refresh_and_export(importer_directory, salesforce_type,
         print message
         refresh_status += message + "\n"
 
-        #workbook.RefreshAll()
+        workbook.RefreshAll()
         message = "Refreshing all connections...Completed"
         print message
         refresh_status += message + "\n"
