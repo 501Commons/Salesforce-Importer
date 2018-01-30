@@ -20,9 +20,8 @@ Setup Instructions
 6) Edit c:\repo\Importer-Private\importer.bat
     Check & Verify the following values - update accordingly
     * EMAIL_LIST - include client emails
-    * IMPORT_DIRECTORY - change to client Import Location
-    * JAVA_HOME
-    * PYTHON_HOME
+    * IMPORT_DIRECTORY - Location of incoming data files (e.g., DropBox, OneDrive)
+    * JAVA_HOME - Verify directory is valid or change to correct xxx version number based on installed C:\Program Files\Java\jre1.8.0_xxx\bin
 
 Running Import
 
