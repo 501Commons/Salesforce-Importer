@@ -187,7 +187,11 @@ def import_dataloader(importer_directory, client_type, data_mode):
 
         bat_file = join(bat_path, file_name)
         import_process = Popen(bat_file, stdout=PIPE, stderr=PIPE)
-        stdout, stderr = import_process.communicate()
+
+#debug
+#        stdout, stderr = import_process.communicate()
+        stdout = "stdout"
+        stderr = "stderr"
 
         return_code += "import_dataloader (returncode): " + str(import_process.returncode)
         return_stdout += "\n\nimport_dataloader (stdout):\n" + stdout
@@ -250,6 +254,9 @@ def send_email(send_from, send_to, subject, text, file_path, server):
     text = msg.as_string()
     server.sendmail(send_from, send_to, text)
     server.quit()
+
+#debug
+return
 
     # Delete all status files
     for file_name in onlyfiles:
