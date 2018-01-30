@@ -8,3 +8,4 @@ status/
 *.properties
 key.txt
 importer.bat
+*.csv
