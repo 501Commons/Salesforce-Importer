@@ -1,10 +1,10 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
-    <bean id="Insert-Contact-Facility_SANDBOX"
+    <bean id="INSERT-CONTACT-FACILITY_SANDBOX"
           class="com.salesforce.dataloader.process.ProcessRunner"
           singleton="false">
         <description>Contact Insert job gets the Contact record updates from a CSV file and uploads them to salesforce using 'insert'.</description>
-        <property name="name" value="Insert-Contact-Facility_SANDBOX"/>
+        <property name="name" value="INSERT-CONTACT-FACILITY_SANDBOX"/>
         <property name="configOverrideMap">
             <map>
                 <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
@@ -23,11 +23,11 @@
             </map>
         </property>
     </bean>
-    <bean id="Insert-Contact-Subs_SANDBOX"
+    <bean id="INSERT-CONTACTS-SUBS_SANDBOX"
           class="com.salesforce.dataloader.process.ProcessRunner"
           singleton="false">
         <description>Contact Insert job gets the Contact record updates from a CSV file and uploads them to salesforce using 'insert'.</description>
-        <property name="name" value="Insert-Contact-Subs_SANDBOX"/>
+        <property name="name" value="INSERT-CONTACTS-SUBS_SANDBOX"/>
         <property name="configOverrideMap">
             <map>
                 <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
@@ -46,11 +46,11 @@
             </map>
         </property>
     </bean>
-    <bean id="Insert-Contact-Facility_PROD"
+    <bean id="INSERT-CONTACT-FACILITY_PROD"
           class="com.salesforce.dataloader.process.ProcessRunner"
           singleton="false">
         <description>Contact Insert job gets the Contact record updates from a CSV file and uploads them to salesforce using 'insert'.</description>
-        <property name="name" value="Insert-Contact-Facility_PROD"/>
+        <property name="name" value="INSERT-CONTACT-FACILITY_PROD"/>
         <property name="configOverrideMap">
             <map>
                 <entry key="sfdc.endpoint" value="https://login.salesforce.com"/> 
@@ -69,11 +69,11 @@
             </map>
         </property>
     </bean>
-    <bean id="Insert-Contact-Subs_PROD"
+    <bean id="INSERT-CONTACTS-SUBS_PROD"
           class="com.salesforce.dataloader.process.ProcessRunner"
           singleton="false">
         <description>Contact Insert job gets the Contact record updates from a CSV file and uploads them to salesforce using 'insert'.</description>
-        <property name="name" value="Insert-Contact-Subs_PROD"/>
+        <property name="name" value="INSERT-CONTACTS-SUBS_PROD"/>
         <property name="configOverrideMap">
             <map>
                 <entry key="sfdc.endpoint" value="https://login.salesforce.com"/> 
@@ -87,6 +87,52 @@
                 <entry key="process.operation" value="insert"/>
                 <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\DataLoader\Insert-Contact-Subs.sdl"/>
                 <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\Import\Insert-Contact-Subs.csv"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="UPDATE-CONTACT-FACILITY-NOTAPP_PROD"
+          class="com.salesforce.dataloader.process.ProcessRunner"
+          singleton="false">
+        <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
+        <property name="name" value="UPDATE-CONTACT-FACILITY-NOTAPP_PROD"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.endpoint" value="https://login.salesforce.com"/> 
+                <entry key="sfdc.username" value="db.ii@501commons.org"/>
+                <entry key="sfdc.password" value="513b395e9cfc257c28e0ea5a85f1fbf91b3f165f86b8997e2aa7be735f8778c15d6015012c16aef9"/>
+                <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\DataLoader\key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <entry key="sfdc.externalIdField" value="Id"/>
+                <entry key="sfdc.entity" value="Contact"/>
+                <entry key="process.operation" value="update"/>
+                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\DataLoader\Update-Contact-Facility-NotApp.sdl"/>
+                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\Import\Update-Contact-Facility-NotApp.csv"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="UPDATE-CONTACT-SUBS-NOTAPP_PROD"
+          class="com.salesforce.dataloader.process.ProcessRunner"
+          singleton="false">
+        <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
+        <property name="name" value="UPDATE-CONTACT-SUBS-NOTAPP_PROD"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.endpoint" value="https://login.salesforce.com"/> 
+                <entry key="sfdc.username" value="db.ii@501commons.org"/>
+                <entry key="sfdc.password" value="513b395e9cfc257c28e0ea5a85f1fbf91b3f165f86b8997e2aa7be735f8778c15d6015012c16aef9"/>
+                <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\DataLoader\key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <entry key="sfdc.externalIdField" value="Id"/>
+                <entry key="sfdc.entity" value="Contact"/>
+                <entry key="process.operation" value="update"/>
+                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\DataLoader\Update-Contact-Subs-NotApp.sdl"/>
+                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\Import\Update-Contact-Subs-NotApp.csv"/>
                 <entry key="dataAccess.type" value="csvRead"/>
                 <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
             </map>

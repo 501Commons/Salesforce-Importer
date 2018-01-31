@@ -191,15 +191,17 @@ def import_dataloader(importer_directory, client_type, salesforce_type, data_mod
     return_stderr = ""
 
     for file_name in listdir(bat_path):
-        if not data_mode in file_name or not ".bat" in file_name:
+        if not data_mode in file_name or not ".sdl" in file_name:
             continue
 
         # Check if associated csv has any data
-        import_file = join(import_path, os.path.splitext(file_name)[0] + ".csv")
+        sheet_name = os.path.splitext(file_name)[0]
+        import_file = join(import_path, sheet_name + ".csv")
         if not os.path.exists(import_file) or not contains_data(import_file):
             continue
 
-        bat_file = join(bat_path, file_name) + " " + salesforce_type + " "  + client_type
+        bat_file = (join(bat_path, "RunDataLoader.bat")
+                    + " " + salesforce_type + " "  + client_type + " " + sheet_name)
 
         print "Staring Import Process: " + bat_file + " for file: " + import_file
         import_process = Popen(bat_file, stdout=PIPE, stderr=PIPE)
