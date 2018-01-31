@@ -3,23 +3,37 @@ def main():
     """Main entry point"""
 
     import sys
-    from os.path import join, dirname, realpath
+    from os.path import join
 
     salesforce_type = str(sys.argv[1])
     client_type = str(sys.argv[2])
     client_subtype = str(sys.argv[3])
     client_emaillist = str(sys.argv[4])
 
-    importer_directory = join(dirname(realpath(__file__)), "Clients\\" + client_type)
+    if len(sys.argv) < 5:
+        print ("Calling error - missing inputs.  Expecting " +
+               "salesforce_type client_type client_subtype client_emaillist [importer_root]\n")
+        return
+
+    if len(sys.argv) >= 6:
+        importer_root = str(sys.argv[5])
+    else:
+        importer_root = "C:\\repo\\Salesforce-Importer-Private\\Clients\\II\\Salesforce-Importer"
+
+    importer_directory = join(importer_root, "Clients\\" + client_type)
     print "Setting Importer Directory: " + importer_directory
 
     # Insert Data
+    print "Importer - Insert Data Process\n"
     process_data(importer_directory, salesforce_type, client_type,
                  client_subtype, False, client_emaillist)
 
     # Update Data
+    print "Importer - Update Data Process\n"
     process_data(importer_directory, salesforce_type, client_type,
                  client_subtype, True, client_emaillist)
+
+    print "Importer process completed\n"
 
 def process_data(importer_directory, salesforce_type, client_type,
                  client_subtype, update_mode, client_emaillist):
@@ -213,11 +227,12 @@ def import_dataloader(importer_directory, client_type, salesforce_type, data_mod
         return_stderr += "\n\nimport_dataloader (stderr):\n" + stderr
 
         if (import_process.returncode != 0
+                or "Error" in return_stdout
                 or "We couldn't find the Java Runtime Environment (JRE)" in return_stdout):
             raise Exception("Invalid Return Code", return_code + return_stdout + return_stderr)
 
-        status_path = ("C:\\repo\\Salesforce-Importer\\Clients\\" +
-                       client_type + "\\status")
+        status_path = importer_directory + "\\status"
+
         for file_name_status in listdir(status_path):
             file_name_status_full = join(status_path, file_name_status)
             if "error" in file_name_status_full and contains_data(file_name_status_full):
