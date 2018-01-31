@@ -7,19 +7,26 @@ http://www.developerforce.com/media/Cheatsheet_Setting_Up_Automated_Data_Loader_
 
 Setup Instructions
 
-1) Install Git for Windows http://gitforwindows.org
+1) Verify Microsoft Excel 2016 is installed and working 
 
-2) Install Java JRE 1.8 http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html 
+2) Install Salesforce Data Loader (Instructions -> https://help.salesforce.com/articleView?id=000239784&type=1)
 
-3) Install Python 2.7.14 https://www.python.org/downloads/ 
+NOTE:
+  a) Make sure your current user has Administrator access on the machine
+  b) During Installation on the 'Install for admins only?' screen when prompted for 'Do you have administrator rights on this machine?' select Yes
 
-4) Install Salesforce Data Loader https://help.salesforce.com/articleView?id=000239784&type=1
+3) Run Salesforce Data Loader to verify installation.  If you need Java installed then you will be prompted to install Java and follow the process to install Java. After Java installed run Data Loader to verify installation. 
 
-5) **501 Admin** will provider zip file for custom settings ([Client].zip).  Extract zip into C:\repo\Salesforce-Importer-Private\Clients\[Client].
+4) Install Git for Windows http://gitforwindows.org
+    NOTE: Don't need to have an account just need the application installed
+
+5) Install Python 2.7.14 https://www.python.org/downloads/ 
+
+7) **501 Admin** will provider zip file for custom settings ([Client].zip).  Extract zip into C:\repo\Salesforce-Importer-Private\Clients\[Client].
 
 Example: C:\repo\Salesforce-Importer-Private\Clients\XYZ where XYZ are the ClientInitials should contain an importer.bat file and a DataLoader directory.
 
-6) Edit c:\repo\Importer-Private\importer.bat
+7) Edit c:\repo\Importer-Private\importer.bat
     Check & Verify the following values - update accordingly
     * EMAIL_LIST - include client emails
     * IMPORT_DIRECTORY - Location of incoming data files (e.g., DropBox, OneDrive)
@@ -30,3 +37,9 @@ Running Import
 Run c:\repo\Importer-Private\importer.bat to start the importer.  You can run
     - importer.bat manually
     - schedule with Task Scheduler (be sure to set working directory to the importer.bat directory)
+
+Troubleshooting
+
+1) Excel gives an error when trying to authenticate with Salesforce
+Resolution: Enable Excel to use TLS 1.2
+https://social.technet.microsoft.com/Forums/en-US/92811d44-1165-4da2-96e7-20dc99bdf718/can-power-query-be-updated-to-use-tls-version-12?forum=powerquery
