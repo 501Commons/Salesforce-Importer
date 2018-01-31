@@ -108,7 +108,8 @@ def refresh_and_export(importer_directory, salesforce_type,
 
         # Wait for excel to finish refresh
         wait_time = 30
-        message = "Pausing " + str(wait_time) + " seconds to give Excel time to complete data queries..."
+        message = ("Pausing " + str(wait_time) +
+                   " seconds to give Excel time to complete data queries...")
         print message
         refresh_status += message + "\n"
         time.sleep(wait_time)
