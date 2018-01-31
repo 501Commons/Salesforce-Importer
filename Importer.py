@@ -11,6 +11,7 @@ def main():
     client_emaillist = str(sys.argv[4])
 
     importer_directory = join(dirname(realpath(__file__)), "Clients\\" + client_type)
+    print "Setting Importer Directory: " + importer_directory
 
     # Insert Data
     process_data(importer_directory, salesforce_type, client_type,
@@ -105,8 +106,12 @@ def refresh_and_export(importer_directory, salesforce_type,
 
         workbook.RefreshAll()
 
-        # Wait for 5 seconds for excel to finish refresh
-        time.sleep(5)
+        # Wait for excel to finish refresh
+        wait_time = 30
+        message = "Pausing " + wait_time + " seconds to give Excel time to complete data queries..."
+        print message
+        refresh_status += message + "\n"
+        time.sleep(wait_time)
 
         message = "Refreshing all connections...Completed"
         print message
@@ -194,6 +199,8 @@ def import_dataloader(importer_directory, client_type, salesforce_type, data_mod
             continue
 
         bat_file = join(bat_path, file_name) + " " + salesforce_type + " "  + client_type
+
+        print "Staring Import Process: " + bat_file + " for file: " + import_file
         import_process = Popen(bat_file, stdout=PIPE, stderr=PIPE)
 
         stdout, stderr = import_process.communicate()
