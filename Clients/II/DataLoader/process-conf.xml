@@ -92,11 +92,11 @@
             </map>
         </property>
     </bean>
-    <bean id="UPDATE-CONTACT-FACILITY-NOTAPP_PROD"
+    <bean id="Update-Contact-Facility-NotApp_PROD"
           class="com.salesforce.dataloader.process.ProcessRunner"
           singleton="false">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
-        <property name="name" value="UPDATE-CONTACT-FACILITY-NOTAPP_PROD"/>
+        <property name="name" value="Update-Contact-Facility-NotApp_PROD"/>
         <property name="configOverrideMap">
             <map>
                 <entry key="sfdc.endpoint" value="https://login.salesforce.com"/> 
@@ -115,11 +115,11 @@
             </map>
         </property>
     </bean>
-    <bean id="UPDATE-CONTACT-SUBS-NOTAPP_PROD"
+    <bean id="Update-Contact-Subs-NotApp_PROD"
           class="com.salesforce.dataloader.process.ProcessRunner"
           singleton="false">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
-        <property name="name" value="UPDATE-CONTACT-SUBS-NOTAPP_PROD"/>
+        <property name="name" value="Update-Contact-Subs-NotApp_PROD"/>
         <property name="configOverrideMap">
             <map>
                 <entry key="sfdc.endpoint" value="https://login.salesforce.com"/> 
