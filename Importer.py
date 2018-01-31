@@ -77,6 +77,7 @@ def refresh_and_export(importer_directory, salesforce_type,
     #import datetime
     import os
     import os.path
+    import time
     import win32com.client
 
     try:
@@ -103,6 +104,10 @@ def refresh_and_export(importer_directory, salesforce_type,
         refresh_status += message + "\n"
 
         workbook.RefreshAll()
+
+        # Wait for 5 seconds for excel to finish refresh
+        time.sleep(5)
+
         message = "Refreshing all connections...Completed"
         print message
         refresh_status += message + "\n"
