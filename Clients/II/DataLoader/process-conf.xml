@@ -69,11 +69,11 @@
             </map>
         </property>
     </bean>
-    <bean id="Insert-Contacts-Subs_PROD"
+    <bean id="Insert-Contact-Subs_PROD"
           class="com.salesforce.dataloader.process.ProcessRunner"
           singleton="false">
         <description>Contact Insert job gets the Contact record updates from a CSV file and uploads them to salesforce using 'insert'.</description>
-        <property name="name" value="Insert-Contacts-Subs_PROD"/>
+        <property name="name" value="Insert-Contact-Subs_PROD"/>
         <property name="configOverrideMap">
             <map>
                 <entry key="sfdc.endpoint" value="https://login.salesforce.com"/> 
