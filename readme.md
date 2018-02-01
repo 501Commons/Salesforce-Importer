@@ -43,3 +43,9 @@ Troubleshooting
 1) Excel gives an error when trying to authenticate with Salesforce
 Resolution: Enable Excel to use TLS 1.2
 https://social.technet.microsoft.com/Forums/en-US/92811d44-1165-4da2-96e7-20dc99bdf718/can-power-query-be-updated-to-use-tls-version-12?forum=powerquery
+
+2) Importer process keeps popping up Privacy Levels dialog.
+Resolution: Checking ignore doesn't always stop further prompting so set to Public if you keep getting prompted.  Another option is open the Excel file in C:\repo\Salesforce-Importer-Private\Clients\[Client]\Salesforce-Importer\Clients\[Client] and set the Privacy levels then save the Excel file.
+
+3) Salesforce Data Loader can't install Admin version to C:\Program Files (x86)\salesforce.com
+Resolution: You can install on another machine where you are an administrator and then just copy the salesforce.com directory to C:\Program Files (x86) to your target machine.
