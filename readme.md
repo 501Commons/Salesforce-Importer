@@ -49,3 +49,6 @@ Resolution: Checking ignore doesn't always stop further prompting so set to Publ
 
 3) Salesforce Data Loader can't install Admin version to C:\Program Files (x86)\salesforce.com
 Resolution: You can install on another machine where you are an administrator and then just copy the salesforce.com directory to C:\Program Files (x86) to your target machine.
+
+4) Running importer and getting an error in the console window that says, "Unlink of file '[excelfile]].xlsx' failed. Should I try again? (y/n)"
+Resolution: Importer did not properly close the previous Excel session(s) - restarting your computer will solve the problem.
