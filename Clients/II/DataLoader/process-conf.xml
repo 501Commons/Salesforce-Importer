@@ -53,7 +53,7 @@
         <property name="name" value="Insert-Contact-Facility_PROD"/>
         <property name="configOverrideMap">
             <map>
-                <entry key="sfdc.endpoint" value="https://login.salesforce.com"/> 
+                <entry key="sfdc.endpoint" value="https://imagineinstitute.my.salesforce.com"/> 
                 <entry key="sfdc.username" value="db.ii@501commons.org"/>
                 <entry key="sfdc.password" value="513b395e9cfc257c28e0ea5a85f1fbf91b3f165f86b8997e2aa7be735f8778c15d6015012c16aef9"/>
                 <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\DataLoader\key.txt"/>
@@ -76,7 +76,7 @@
         <property name="name" value="Insert-Contact-Subs_PROD"/>
         <property name="configOverrideMap">
             <map>
-                <entry key="sfdc.endpoint" value="https://login.salesforce.com"/> 
+                <entry key="sfdc.endpoint" value="https://imagineinstitute.my.salesforce.com"/> 
                 <entry key="sfdc.username" value="db.ii@501commons.org"/>
                 <entry key="sfdc.password" value="513b395e9cfc257c28e0ea5a85f1fbf91b3f165f86b8997e2aa7be735f8778c15d6015012c16aef9"/>
                 <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\DataLoader\key.txt"/>
@@ -99,7 +99,7 @@
         <property name="name" value="Update-Contact-Facility_PROD"/>
         <property name="configOverrideMap">
             <map>
-                <entry key="sfdc.endpoint" value="https://login.salesforce.com"/> 
+                <entry key="sfdc.endpoint" value="https://imagineinstitute.my.salesforce.com"/> 
                 <entry key="sfdc.username" value="db.ii@501commons.org"/>
                 <entry key="sfdc.password" value="513b395e9cfc257c28e0ea5a85f1fbf91b3f165f86b8997e2aa7be735f8778c15d6015012c16aef9"/>
                 <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\DataLoader\key.txt"/>
@@ -122,7 +122,7 @@
         <property name="name" value="Update-Contact-Subs_PROD"/>
         <property name="configOverrideMap">
             <map>
-                <entry key="sfdc.endpoint" value="https://login.salesforce.com"/> 
+                <entry key="sfdc.endpoint" value="https://imagineinstitute.my.salesforce.com"/> 
                 <entry key="sfdc.username" value="db.ii@501commons.org"/>
                 <entry key="sfdc.password" value="513b395e9cfc257c28e0ea5a85f1fbf91b3f165f86b8997e2aa7be735f8778c15d6015012c16aef9"/>
                 <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\DataLoader\key.txt"/>
@@ -145,7 +145,7 @@
         <property name="name" value="Update-Contact-Facility-NotApp_PROD"/>
         <property name="configOverrideMap">
             <map>
-                <entry key="sfdc.endpoint" value="https://login.salesforce.com"/> 
+                <entry key="sfdc.endpoint" value="https://imagineinstitute.my.salesforce.com"/> 
                 <entry key="sfdc.username" value="db.ii@501commons.org"/>
                 <entry key="sfdc.password" value="513b395e9cfc257c28e0ea5a85f1fbf91b3f165f86b8997e2aa7be735f8778c15d6015012c16aef9"/>
                 <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\DataLoader\key.txt"/>
@@ -168,7 +168,7 @@
         <property name="name" value="Update-Contact-Subs-NotApp_PROD"/>
         <property name="configOverrideMap">
             <map>
-                <entry key="sfdc.endpoint" value="https://login.salesforce.com"/> 
+                <entry key="sfdc.endpoint" value="https://imagineinstitute.my.salesforce.com"/> 
                 <entry key="sfdc.username" value="db.ii@501commons.org"/>
                 <entry key="sfdc.password" value="513b395e9cfc257c28e0ea5a85f1fbf91b3f165f86b8997e2aa7be735f8778c15d6015012c16aef9"/>
                 <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\DataLoader\key.txt"/>
