@@ -269,14 +269,16 @@ def send_email(send_from, send_to, subject, text, file_path, server):
                  if isfile(join(file_path, f))]
 
     for file_name in onlyfiles:
-        with open(file_name, "rb") as file_name_open:
-            part = MIMEApplication(
-                file_name_open.read(),
-                Name=basename(file_name)
-                )
-        # After the file is closed
-        part['Content-Disposition'] = 'attachment; filename="%s"' % basename(file_name)
-        msg.attach(part)
+        if contains_data(file_name):
+            with open(file_name, "rb") as file_name_open:
+                part = MIMEApplication(
+                    file_name_open.read(),
+                    Name=basename(file_name)
+                    )
+
+            # After the file is closed
+            part['Content-Disposition'] = 'attachment; filename="%s"' % basename(file_name)
+            msg.attach(part)
 
     server = smtplib.SMTP(server, 587)
     server.starttls()
