@@ -215,9 +215,12 @@ def import_dataloader(importer_directory, client_type, salesforce_type, data_mod
             continue
 
         bat_file = (join(bat_path, "RunDataLoader.bat")
-                    + " " + salesforce_type + " "  + client_type + " " + sheet_name)
+                    + " " + salesforce_type + " "  + client_type + " " + sheet_name
+                    + " 2> RunDataLoader.log &1")
 
-        print "Staring Import Process: " + bat_file + " for file: " + import_file
+        message = "Staring Import Process: " + bat_file + " for file: " + import_file
+        print message
+        return_stdout += message + "\n"
         import_process = Popen(bat_file, stdout=PIPE, stderr=PIPE)
 
         stdout, stderr = import_process.communicate()
