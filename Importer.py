@@ -218,7 +218,7 @@ def import_dataloader(importer_directory, client_type, salesforce_type, data_mod
         log_file = join(file_path, "RunDataLoader.log")
         bat_file = (join(bat_path, "RunDataLoader.bat")
                     + " " + salesforce_type + " "  + client_type + " " + sheet_name
-                    + " > " + log_file + "2>&1")
+                    + " > " + log_file + " 2>&1")
 
         message = "Staring Import Process: " + bat_file + " for file: " + import_file
         print message
