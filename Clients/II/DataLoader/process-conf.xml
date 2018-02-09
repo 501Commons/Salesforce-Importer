@@ -1,10 +1,10 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
-    <bean id="Insert-Contact-Facility_SANDBOX"
+    <bean id="Insert-Contact-Facility_Sandbox"
           class="com.salesforce.dataloader.process.ProcessRunner"
           singleton="false">
         <description>Contact Insert job gets the Contact record updates from a CSV file and uploads them to salesforce using 'insert'.</description>
-        <property name="name" value="Insert-Contact-Facility_SANDBOX"/>
+        <property name="name" value="Insert-Contact-Facility_Sandbox"/>
         <property name="configOverrideMap">
             <map>
                 <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
@@ -23,11 +23,11 @@
             </map>
         </property>
     </bean>
-    <bean id="Insert-Contact-Subs_SANDBOX"
+    <bean id="Insert-Contact-Subs_Sandbox"
           class="com.salesforce.dataloader.process.ProcessRunner"
           singleton="false">
         <description>Contact Insert job gets the Contact record updates from a CSV file and uploads them to salesforce using 'insert'.</description>
-        <property name="name" value="Insert-Contact-Subs_SANDBOX"/>
+        <property name="name" value="Insert-Contact-Subs_Sandbox"/>
         <property name="configOverrideMap">
             <map>
                 <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
@@ -46,11 +46,11 @@
             </map>
         </property>
     </bean>
-    <bean id="Insert-Contact-Facility_PROD"
+    <bean id="Insert-Contact-Facility_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
           singleton="false">
         <description>Contact Insert job gets the Contact record updates from a CSV file and uploads them to salesforce using 'insert'.</description>
-        <property name="name" value="Insert-Contact-Facility_PROD"/>
+        <property name="name" value="Insert-Contact-Facility_Prod"/>
         <property name="configOverrideMap">
             <map>
                 <entry key="sfdc.endpoint" value="https://imagineinstitute.my.salesforce.com"/> 
@@ -69,11 +69,11 @@
             </map>
         </property>
     </bean>
-    <bean id="Insert-Contact-Subs_PROD"
+    <bean id="Insert-Contact-Subs_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
           singleton="false">
         <description>Contact Insert job gets the Contact record updates from a CSV file and uploads them to salesforce using 'insert'.</description>
-        <property name="name" value="Insert-Contact-Subs_PROD"/>
+        <property name="name" value="Insert-Contact-Subs_Prod"/>
         <property name="configOverrideMap">
             <map>
                 <entry key="sfdc.endpoint" value="https://imagineinstitute.my.salesforce.com"/> 
@@ -92,11 +92,11 @@
             </map>
         </property>
     </bean>
-    <bean id="Update-Contact-Facility_PROD"
+    <bean id="Update-Contact-Facility_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
           singleton="false">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
-        <property name="name" value="Update-Contact-Facility_PROD"/>
+        <property name="name" value="Update-Contact-Facility_Prod"/>
         <property name="configOverrideMap">
             <map>
                 <entry key="sfdc.endpoint" value="https://imagineinstitute.my.salesforce.com"/> 
@@ -115,11 +115,11 @@
             </map>
         </property>
     </bean>
-    <bean id="Update-Contact-Subs_PROD"
+    <bean id="Update-Contact-Subs_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
           singleton="false">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
-        <property name="name" value="Update-Contact-Subs_PROD"/>
+        <property name="name" value="Update-Contact-Subs_Prod"/>
         <property name="configOverrideMap">
             <map>
                 <entry key="sfdc.endpoint" value="https://imagineinstitute.my.salesforce.com"/> 
@@ -138,11 +138,11 @@
             </map>
         </property>
     </bean>    
-    <bean id="Update-Contact-Facility-NotApp_PROD"
+    <bean id="Update-Contact-Facility-NotApp_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
           singleton="false">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
-        <property name="name" value="Update-Contact-Facility-NotApp_PROD"/>
+        <property name="name" value="Update-Contact-Facility-NotApp_Prod"/>
         <property name="configOverrideMap">
             <map>
                 <entry key="sfdc.endpoint" value="https://imagineinstitute.my.salesforce.com"/> 
@@ -161,11 +161,11 @@
             </map>
         </property>
     </bean>
-    <bean id="Update-Contact-Subs-NotApp_PROD"
+    <bean id="Update-Contact-Subs-NotApp_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
           singleton="false">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
-        <property name="name" value="Update-Contact-Subs-NotApp_PROD"/>
+        <property name="name" value="Update-Contact-Subs-NotApp_Prod"/>
         <property name="configOverrideMap">
             <map>
                 <entry key="sfdc.endpoint" value="https://imagineinstitute.my.salesforce.com"/> 
