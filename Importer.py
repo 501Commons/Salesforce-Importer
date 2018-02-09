@@ -70,7 +70,8 @@ def process_data(importer_directory, salesforce_type, client_type,
     try:
         if not "Error" in subject:
             status_import = import_dataloader(importer_directory,
-                                              client_type, salesforce_type, data_mode)
+                                              client_type, salesforce_type, data_mode,
+                                              file_path)
         else:
             status_import = "Error detected so skipped"
     except Exception as ex:
@@ -189,7 +190,7 @@ def contains_data(file_name):
 
     return False
 
-def import_dataloader(importer_directory, client_type, salesforce_type, data_mode):
+def import_dataloader(importer_directory, client_type, salesforce_type, data_mode, file_path):
     """Import into Salesforce using DataLoader"""
 
     import os
@@ -214,9 +215,10 @@ def import_dataloader(importer_directory, client_type, salesforce_type, data_mod
         if not os.path.exists(import_file) or not contains_data(import_file):
             continue
 
+        log_file = join(file_path, "RunDataLoader.log")
         bat_file = (join(bat_path, "RunDataLoader.bat")
                     + " " + salesforce_type + " "  + client_type + " " + sheet_name
-                    + " 2> RunDataLoader.log &1")
+                    + " > " + log_file + "2>&1")
 
         message = "Staring Import Process: " + bat_file + " for file: " + import_file
         print message
