@@ -122,7 +122,7 @@ def refresh_and_export(importer_directory, salesforce_type,
         workbook.RefreshAll()
 
         # Wait for excel to finish refresh
-        wait_time = 30
+        wait_time = 60
         message = ("Pausing " + str(wait_time) +
                    " seconds to give Excel time to complete data queries...")
         print message
@@ -215,10 +215,8 @@ def import_dataloader(importer_directory, client_type, salesforce_type, data_mod
         if not os.path.exists(import_file) or not contains_data(import_file):
             continue
 
-        log_file = join(file_path, "RunDataLoader.log")
         bat_file = (join(bat_path, "RunDataLoader.bat")
-                    + " " + salesforce_type + " "  + client_type + " " + sheet_name
-                    + " > " + log_file + " 2>&1")
+                    + " " + salesforce_type + " "  + client_type + " " + sheet_name)
 
         message = "Staring Import Process: " + bat_file + " for file: " + import_file
         print message
