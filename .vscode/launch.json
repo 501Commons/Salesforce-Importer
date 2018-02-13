@@ -15,7 +15,7 @@
             "env": {},
             "envFile": "${workspaceFolder}/.env",
             "args": [
-                "PROD"
+                "Prod"
                 ,"II"
                 ,"SubPool"
                 ,"db.ii@501commons.org"
