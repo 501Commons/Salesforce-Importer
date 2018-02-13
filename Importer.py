@@ -140,9 +140,10 @@ def refresh_and_export(importer_directory, salesforce_type,
 
         for sheet in workbook.Sheets:
             # Only export update, insert, or report sheets
-            if ("update" not in sheet.name.lower()
-                and "insert" not in sheet.name.lower()
-                and "report" not in sheet.name.lower()):
+            sheet_name_lower = sheet.name.lower()
+            if ("update" not in sheet_name_lower
+                    and "insert" not in sheet_name_lower
+                    and "report" not in sheet_name_lower):
                 continue
 
             message = "Exporting csv for sheet: " + sheet.name
@@ -153,7 +154,7 @@ def refresh_and_export(importer_directory, salesforce_type,
             sheet_file = excel_file_path + "Import\\" + sheet.name + ".csv"
             
             # Save report to Status to get attached to email
-            if "report" in sheet.name.lower()):
+            if "report" in sheet.name.lower():
                 sheet_file = excel_file_path + "Status\\" + sheet.name + ".csv"
 
             # Check for existing file
