@@ -139,8 +139,11 @@ def refresh_and_export(importer_directory, salesforce_type,
         #date_tag = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
         for sheet in workbook.Sheets:
-            # Only export update or insert sheets
-            if "update" not in sheet.name.lower() and "insert" not in sheet.name.lower():
+            # Only export update, insert, or report sheets
+            sheet_name_lower = sheet.name.lower()
+            if ("update" not in sheet_name_lower
+                    and "insert" not in sheet_name_lower
+                    and "report" not in sheet_name_lower):
                 continue
 
             message = "Exporting csv for sheet: " + sheet.name
@@ -149,6 +152,10 @@ def refresh_and_export(importer_directory, salesforce_type,
 
             excel_connection.Sheets(sheet.name).Select()
             sheet_file = excel_file_path + "Import\\" + sheet.name + ".csv"
+            
+            # Save report to Status to get attached to email
+            if "report" in sheet.name.lower():
+                sheet_file = excel_file_path + "Status\\" + sheet.name + ".csv"
 
             # Check for existing file
             if os.path.isfile(sheet_file):
