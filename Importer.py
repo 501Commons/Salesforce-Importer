@@ -18,7 +18,7 @@ def main():
     if len(sys.argv) >= 6:
         importer_root = str(sys.argv[5])
     else:
-        importer_root = "C:\\repo\\Salesforce-Importer-Private\\Clients\\II\\Salesforce-Importer"
+        importer_root = "C:\\repo\\Salesforce-Importer-Private\\Clients\\" + sys.argv[5] + "\\Salesforce-Importer"
 
     importer_directory = join(importer_root, "Clients\\" + client_type)
     print "Setting Importer Directory: " + importer_directory
