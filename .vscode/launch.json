@@ -15,10 +15,10 @@
             "env": {},
             "envFile": "${workspaceFolder}/.env",
             "args": [
-                "Prod"
-                ,"II"
-                ,"SubPool"
-                ,"db.ii@501commons.org"
+                "Sandbox"
+                ,"OPPCO"
+                ,"LIHEAP"
+                ,"db.oppco@501commons.org"
             ],
             "debugOptions": [
                 "RedirectOutput"

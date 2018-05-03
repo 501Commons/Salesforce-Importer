@@ -111,7 +111,7 @@ def refresh_and_export(importer_directory, salesforce_type,
             # BackgroundQuery does not work so have to do manually in Excel for each Connection
             #connection.BackgroundQuery = False
 
-        # RefreshAll is Syncronous iif
+        # RefreshAll is Synchronous iif
         #   1) Enable background refresh disabled/unchecked in xlsx for all Connections
         #   2) Include in Refresh All enabled/checked in xlsx for all Connections
         #   To verify: Open xlsx Data > Connections > Properties for each to verify
