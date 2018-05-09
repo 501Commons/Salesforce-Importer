@@ -1,0 +1,12 @@
+#Mapping values
+#Tue Jan 30 02:46:50 PST 2018
+FirstName=FirstName
+LastName=LastName
+MailingCity=MailingCity
+MobilePhone=MobilePhone
+MailingState=MailingState
+MailingStreet=MailingStreet
+MailingPostalCode=MailingPostalCode
+Id=Id
+Email=Email
+Phone=Phone
