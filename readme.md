@@ -52,3 +52,6 @@ Resolution: You can install on another machine where you are an administrator an
 
 4) Running importer and getting an error in the console window that says, "Unlink of file '[excelfile]].xlsx' failed. Should I try again? (y/n)"
 Resolution: Importer did not properly close the previous Excel session(s) - restarting your computer will solve the problem.
+
+5) Importer Email says - Error Import and within the email there is a 'java.lang.RuntimeException: java.lang.NullPointerException'
+Resolution: This is probably related to empty columns in the generated CSV file.  Open your Excel file and save out each sheet then edit the CSV files in Notepad.  If you see a bunch of ,,,,,,,,,, in the header columns then that is the issue.  To fix open Excel and select all the empty columns after your last data column and delete the columns.  The other method is delete the sheet and then right click on your Data source and Load to... a new sheet.
