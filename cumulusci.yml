@@ -1,0 +1,7 @@
+project:
+    name: Salesforce-Importer
+    package:
+        name:  Salesforce-Importer
+        api_version: '42.0'
+
+
