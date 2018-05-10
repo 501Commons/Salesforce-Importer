@@ -12,7 +12,7 @@ def main():
 
     if len(sys.argv) < 5:
         print ("Calling error - missing inputs.  Expecting " +
-               "salesforce_type client_type client_subtype client_emaillist [importer_root]\n")
+               "salesforce_type client_type client_subtype client_emaillist [importer_root]\n<br>")
         return
 
     if len(sys.argv) >= 6:
@@ -24,16 +24,16 @@ def main():
     print "Setting Importer Directory: " + importer_directory
 
     # Insert Data
-    print "Importer - Insert Data Process\n"
+    print "Importer - Insert Data Process\n<br>"
     process_data(importer_directory, salesforce_type, client_type,
                  client_subtype, False, client_emaillist)
 
     # Update Data
-    print "Importer - Update Data Process\n"
+    print "Importer - Update Data Process\n<br>"
     process_data(importer_directory, salesforce_type, client_type,
                  client_subtype, True, client_emaillist)
 
-    print "Importer process completed\n"
+    print "Importer process completed\n<br>"
 
 def process_data(importer_directory, salesforce_type, client_type,
                  client_subtype, update_mode, client_emaillist):
@@ -54,7 +54,7 @@ def process_data(importer_directory, salesforce_type, client_type,
     if not exists(file_path):
         makedirs(file_path)
 
-    body = "Process Data (" + data_mode + ")\n\n"
+    body = "Process Data (" + data_mode + ")\n<br>\n<br>"
 
     # Export data from Excel
     try:
@@ -64,7 +64,7 @@ def process_data(importer_directory, salesforce_type, client_type,
         subject += " Error Export"
         body += "Unexpected export error:" + str(ex)
     else:
-        body += "Export\n" + status_export
+        body += "Export\n<br>" + status_export
 
     # Import data into Salesforce
     try:
@@ -76,9 +76,9 @@ def process_data(importer_directory, salesforce_type, client_type,
             status_import = "Error detected so skipped"
     except Exception as ex:
         subject += " Error Import"
-        body += "\n\nUnexpected import error:" + str(ex)
+        body += "\n<br>\n<br>Unexpected import error:" + str(ex)
     else:
-        body += "\n\nImport\n" + status_import
+        body += "\n<br>\n<br>Import\n<br>" + status_import
 
     if not "Error" in subject:
         subject += " Successful"
@@ -97,7 +97,7 @@ def refresh_and_export(importer_directory, salesforce_type,
     import win32com.client
 
     try:
-        refresh_status = "refresh_and_export\n"
+        refresh_status = "refresh_and_export\n<br>"
         excel_connection = win32com.client.DispatchEx("Excel.Application")
         excel_file_path = importer_directory + "\\"
         workbook = excel_connection.workbooks.open((
@@ -117,7 +117,7 @@ def refresh_and_export(importer_directory, salesforce_type,
         #   To verify: Open xlsx Data > Connections > Properties for each to verify
         message = "Refreshing all connections..."
         print message
-        refresh_status += message + "\n"
+        refresh_status += message + "\n<br>"
 
         workbook.RefreshAll()
 
@@ -126,12 +126,12 @@ def refresh_and_export(importer_directory, salesforce_type,
         message = ("Pausing " + str(wait_time) +
                    " seconds to give Excel time to complete data queries...")
         print message
-        refresh_status += message + "\n"
+        refresh_status += message + "\n<br>"
         time.sleep(wait_time)
 
         message = "Refreshing all connections...Completed"
         print message
-        refresh_status += message + "\n"
+        refresh_status += message + "\n<br>"
 
         if not os.path.exists(excel_file_path + "Import\\"):
             os.makedirs(excel_file_path + "Import\\")
@@ -148,7 +148,7 @@ def refresh_and_export(importer_directory, salesforce_type,
 
             message = "Exporting csv for sheet: " + sheet.name
             print message
-            refresh_status += message + "\n"
+            refresh_status += message + "\n<br>"
 
             excel_connection.Sheets(sheet.name).Select()
             sheet_file = excel_file_path + "Import\\" + sheet.name + ".csv"
@@ -188,7 +188,7 @@ def contains_data(file_name):
             # Check if line empty
             line_check = line.replace(",", "")
             line_check = line_check.replace('"', '')
-            if (line_index == 2 and line_check != "\n"):
+            if (line_index == 2 and line_check != "\n<br>"):
                 return True
             elif line_index > 2:
                 return True
@@ -227,14 +227,14 @@ def import_dataloader(importer_directory, client_type, salesforce_type, data_mod
 
         message = "Starting Import Process: " + bat_file + " for file: " + import_file
         print message
-        return_stdout += message + "\n"
+        return_stdout += message + "\n<br>"
         import_process = Popen(bat_file, stdout=PIPE, stderr=PIPE)
 
         stdout, stderr = import_process.communicate()
 
         return_code += "import_dataloader (returncode): " + str(import_process.returncode)
-        return_stdout += "\n\nimport_dataloader (stdout):\n" + stdout
-        return_stderr += "\n\nimport_dataloader (stderr):\n" + stderr
+        return_stdout += "\n<br>\n<br>import_dataloader (stdout):\n<br>" + stdout
+        return_stderr += "\n<br>\n<br>import_dataloader (stderr):\n<br>" + stderr
 
         if (import_process.returncode != 0
                 or "Error" in return_stdout
