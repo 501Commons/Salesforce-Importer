@@ -28,6 +28,11 @@ def main():
     process_data(importer_directory, salesforce_type, client_type,
                  client_subtype, False, client_emaillist)
 
+    # Insert Data - Second Pass for related inserts for Detail inserts in Master/Detail Relationship or Lookup Relationship
+    print "Importer - Insert Data Process - Dependency Phase\n"
+    process_data(importer_directory, salesforce_type, client_type,
+                 client_subtype, False, client_emaillist)
+
     # Update Data
     print "Importer - Update Data Process\n"
     process_data(importer_directory, salesforce_type, client_type,
