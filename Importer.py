@@ -24,7 +24,7 @@ def main():
     print "Setting Importer Directory: " + importer_directory
 
     # Insert Data
-    print "Importer - Insert Data Process\n"
+    print "\nImporter - Insert Data Process\n"
     process_data(importer_directory, salesforce_type, client_type,
                  client_subtype, False, client_emaillist)
 
