@@ -1,0 +1,6 @@
+#Mapping values
+#Thu May 03 16:59:53 PDT 2018
+ProgramOnly=Name
+DateCreated=C501_Start_Date__c
+CertificationDate=C501_End_Date__c
+ProgramOnly=C501_Program__c
