@@ -1,0 +1,11 @@
+#Mapping values
+#Thu May 03 16:59:53 PDT 2018
+Account.Id=Id
+RESIDENCE_STREET_ADDRESS=BillingStreet
+RESIDENCE_CITY=BillingCity
+RESIDENCE_STATE=BillingState
+RESIDENCE_ZIP_CODE=BillingPostalCode
+MAILING_STREET_ADDRESS=ShippingStreet
+MAILING_CITY=ShippingCity
+MAILING_STATE=ShippingState
+MAILING_ZIP_CODE=ShippingPostalCode
