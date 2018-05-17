@@ -2,5 +2,5 @@
 #Fri May 11 13:31:13 PDT 2018
 CertificationDate=C501_End_Date__c
 ProgramOnly=C501_Program__c
-Service\ Record.Id=Id
 DateCreated=C501_Start_Date__c
+C501_IsActive__c=C501_IsActive__c

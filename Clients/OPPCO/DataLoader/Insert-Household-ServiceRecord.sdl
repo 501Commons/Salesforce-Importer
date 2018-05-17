@@ -1,6 +1,0 @@
-#Mapping values
-#Fri May 11 13:27:35 PDT 2018
-Account.Id=Account.Id
-C501_ID_LIHEAP_HH__c=C501_ID_HH__c
-ProgramOnly=C501_Program__c
-ServiceRecord.C501_Household__c=C501_Service__c
