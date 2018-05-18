@@ -1,6 +1,6 @@
 #Mapping values
 #Fri May 11 13:31:13 PDT 2018
-ServiceRecord.Id=Id
+C501_Service_Record__c.Id=Id
 CertificationDate=C501_End_Date__c
 DateCreated=C501_Start_Date__c
 C501_IsActive__c=C501_IsActive__c
