@@ -3,3 +3,4 @@
 C501_Service_Household__c.Id=C501_Service_Household__c
 Household.Id=C501_Household__c
 _kp_hh_data_id=C501_ID_HH__c
+ProgramOnly=C501_Program__c
