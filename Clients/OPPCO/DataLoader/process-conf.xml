@@ -1,10 +1,10 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
-    <bean id="Insert-Service_Sandbox"
+    <bean id="Insert-ServiceHousehold_Sandbox"
           class="com.salesforce.dataloader.process.ProcessRunner"
           singleton="false">
         <description>Service Insert job'.</description>
-        <property name="name" value="Insert-Service_Sandbox"/>
+        <property name="name" value="Insert-ServiceHousehold_Sandbox"/>
         <property name="configOverrideMap">
             <map>
                 <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
@@ -14,20 +14,20 @@
                 <entry key="sfdc.timeoutSecs" value="600"/>
                 <entry key="sfdc.loadBatchSize" value="200"/>
                 <entry key="sfdc.externalIdField" value="C501_ID_HH_LIHEAP__c"/>
-                <entry key="sfdc.entity" value="Account"/>
+                <entry key="sfdc.entity" value="C501_Service_Household__c"/>
                 <entry key="process.operation" value="insert"/>
-                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\DataLoader\Insert-Service.sdl"/>
-                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\Import\Insert-Service.csv"/>
+                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\DataLoader\Insert-ServiceHousehold.sdl"/>
+                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\Import\Insert-ServiceHousehold.csv"/>
                 <entry key="dataAccess.type" value="csvRead"/>
                 <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
             </map>
         </property>
     </bean>
-    <bean id="Update-Service_Sandbox"
+    <bean id="Update-ServiceHousehold_Sandbox"
           class="com.salesforce.dataloader.process.ProcessRunner"
           singleton="false">
         <description>Service Insert job'.</description>
-        <property name="name" value="Update-Service_Sandbox"/>
+        <property name="name" value="Update-ServiceHousehold_Sandbox"/>
         <property name="configOverrideMap">
             <map>
                 <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
@@ -37,20 +37,20 @@
                 <entry key="sfdc.timeoutSecs" value="600"/>
                 <entry key="sfdc.loadBatchSize" value="200"/>
                 <entry key="sfdc.externalIdField" value="Id"/>
-                <entry key="sfdc.entity" value="Account"/>
+                <entry key="sfdc.entity" value="C501_Service_Household__c"/>
                 <entry key="process.operation" value="update"/>
-                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\DataLoader\Update-Service.sdl"/>
-                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\Import\Update-Service.csv"/>
+                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\DataLoader\Update-ServiceHousehold.sdl"/>
+                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\Import\Update-ServiceHousehold.csv"/>
                 <entry key="dataAccess.type" value="csvRead"/>
                 <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
             </map>
         </property>
     </bean>
-    <bean id="Insert-Service-ServiceRecord_Sandbox"
+    <bean id="Insert-ServiceRecord_Sandbox"
           class="com.salesforce.dataloader.process.ProcessRunner"
           singleton="false">
         <description>Service Insert job'.</description>
-        <property name="name" value="Insert-Service-ServiceRecord_Sandbox"/>
+        <property name="name" value="Insert-ServiceRecord_Sandbox"/>
         <property name="configOverrideMap">
             <map>
                 <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
@@ -62,18 +62,18 @@
                 <entry key="sfdc.externalIdField" value="C501_ID_HH__c"/>
                 <entry key="sfdc.entity" value="C501_Service_Record__c"/>
                 <entry key="process.operation" value="insert"/>
-                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\DataLoader\Insert-Service-ServiceRecord.sdl"/>
-                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\Import\Insert-Service-ServiceRecord.csv"/>
+                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\DataLoader\Insert-ServiceRecord.sdl"/>
+                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\Import\Insert-ServiceRecord.csv"/>
                 <entry key="dataAccess.type" value="csvRead"/>
                 <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
             </map>
         </property>
     </bean>
-    <bean id="Update-Service-ServiceRecord_Sandbox"
+    <bean id="Update-ServiceRecord_Sandbox"
           class="com.salesforce.dataloader.process.ProcessRunner"
           singleton="false">
         <description>Service Insert job'.</description>
-        <property name="name" value="Update-Service-ServiceRecord_Sandbox"/>
+        <property name="name" value="Update-ServiceRecord_Sandbox"/>
         <property name="configOverrideMap">
             <map>
                 <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
@@ -85,8 +85,8 @@
                 <entry key="sfdc.externalIdField" value="Id"/>
                 <entry key="sfdc.entity" value="C501_Service_Record__c"/>
                 <entry key="process.operation" value="update"/>
-                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\DataLoader\Update-Service-ServiceRecord.sdl"/>
-                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\Import\Update-Service-ServiceRecord.csv"/>
+                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\DataLoader\Update-ServiceRecord.sdl"/>
+                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\Import\Update-ServiceRecord.csv"/>
                 <entry key="dataAccess.type" value="csvRead"/>
                 <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
             </map>

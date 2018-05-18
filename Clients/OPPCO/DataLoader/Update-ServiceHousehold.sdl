@@ -1,0 +1,11 @@
+#Mapping values
+#Thu May 03 16:59:53 PDT 2018
+C501_Service_Household.Id=Id
+RESIDENCE_STREET_ADDRESS=C501_BillingStreet__c
+RESIDENCE_CITY=C501_BillingCity__c
+RESIDENCE_STATE=C501_BillingState__c
+RESIDENCE_ZIP_CODE=C501_BillingPostalCode__c
+MAILING_STREET_ADDRESS=C501_ShippingStreet__c
+MAILING_CITY=C501_ShippingCity__c
+MAILING_STATE=C501_ShippingState__c
+MAILING_ZIP_CODE=C501_ShippingPostalCode__c
