@@ -12,11 +12,16 @@ def main():
 
     if len(sys.argv) < 5:
         print ("Calling error - missing inputs.  Expecting " +
-               "salesforce_type client_type client_subtype client_emaillist [importer_root]\n")
+               "salesforce_type client_type client_subtype client_emaillist [wait_time] [importer_root]\n")
         return
 
-    if len(sys.argv) >= 6:
-        importer_root = str(sys.argv[5])
+    if len(sys.argv) == 6:
+        wait_time = int(sys.argv[5])
+    else:
+        wait_time = 60
+
+    if len(sys.argv) == 7:
+        importer_root = str(sys.argv[6])
     else:
         importer_root = "C:\\repo\\Salesforce-Importer-Private\\Clients\\" + sys.argv[2] + "\\Salesforce-Importer"
 
@@ -26,22 +31,22 @@ def main():
     # Insert Data
     print "\nImporter - Insert Data Process\n"
     process_data(importer_directory, salesforce_type, client_type,
-                 client_subtype, False, client_emaillist)
+                 client_subtype, False, wait_time, client_emaillist)
 
     # Insert Data - Second Pass for related inserts for Detail inserts in Master/Detail Relationship or Lookup Relationship
     print "Importer - Insert Data Process - Dependency Phase\n"
     process_data(importer_directory, salesforce_type, client_type,
-                 client_subtype, False, client_emaillist)
+                 client_subtype, False, wait_time, client_emaillist)
 
     # Update Data
     print "Importer - Update Data Process\n"
     process_data(importer_directory, salesforce_type, client_type,
-                 client_subtype, True, client_emaillist)
+                 client_subtype, True, wait_time, client_emaillist)
 
     print "Importer process completed\n"
 
 def process_data(importer_directory, salesforce_type, client_type,
-                 client_subtype, update_mode, client_emaillist):
+                 client_subtype, update_mode, wait_time, client_emaillist):
     """Process Data based on data_mode"""
 
     from os import makedirs
@@ -64,7 +69,7 @@ def process_data(importer_directory, salesforce_type, client_type,
     # Export data from Excel
     try:
         status_export = refresh_and_export(importer_directory, salesforce_type, client_type,
-                                           client_subtype, update_mode)
+                                           client_subtype, update_mode, wait_time)
     except Exception as ex:
         subject += " Error Export"
         body += "Unexpected export error:" + str(ex)
@@ -92,7 +97,7 @@ def process_data(importer_directory, salesforce_type, client_type,
     send_email(user, sendto, subject, body, file_path, smtpsrv)
 
 def refresh_and_export(importer_directory, salesforce_type,
-                       client_type, client_subtype, update_mode):
+                       client_type, client_subtype, update_mode, wait_time):
     """Refresh Excel connections"""
 
     #import datetime
@@ -127,7 +132,6 @@ def refresh_and_export(importer_directory, salesforce_type,
         workbook.RefreshAll()
 
         # Wait for excel to finish refresh
-        wait_time = 60
         message = ("Pausing " + str(wait_time) +
                    " seconds to give Excel time to complete data queries...")
         print message
