@@ -1,4 +1,6 @@
 #Mapping values
 #Thu May 03 16:59:53 PDT 2018
 Name=Name
-_kp_hh_data_id=C501_ID_HH_LIHEAP__c
+_kp_hh_data_id=C501_Service_Id__c
+Account.Id=C501_Household__c
+C501_Service_Record__c.Id=C501_Service_Record__c

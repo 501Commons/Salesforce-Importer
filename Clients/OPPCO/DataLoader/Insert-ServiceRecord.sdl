@@ -1,6 +1,4 @@
 #Mapping values
 #Fri May 11 13:27:35 PDT 2018
-C501_Service_Household__c.Id=C501_Service_Household__c
-Household.Id=C501_Household__c
-_kp_hh_data_id=C501_ID_HH__c
+_kp_hh_data_id=C501_Service_Id__c
 ProgramOnly=C501_Program__c
