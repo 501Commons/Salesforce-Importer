@@ -1,4 +1,6 @@
 #Mapping values
 #Thu May 03 16:59:53 PDT 2018
-Name=Name
+name_last=Name
+_kp_hh_member_data_id=C501_Contact_Id__c
 C501_Service_Id__c=C501_Service_Id__c
+Account.Id=AccountId

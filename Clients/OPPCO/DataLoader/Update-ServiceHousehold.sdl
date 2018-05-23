@@ -1,6 +1,8 @@
 #Mapping values
 #Thu May 03 16:59:53 PDT 2018
 C501_Service_Household__c.Id=Id
+C501_Household__c=C501_Household__c
+C501_Service_Record__c=C501_Service_Record__c
 RESIDENCE_STREET_ADDRESS=C501_BillingStreet__c
 RESIDENCE_CITY=C501_BillingCity__c
 RESIDENCE_STATE=C501_BillingState__c
@@ -22,3 +24,7 @@ C501_Annual_Income__c=C501_Annual_Income__c
 C501_Housing__c=C501_Housing__c
 C501_Household_Size__c=C501_Household_Size__c
 C501_Household_Type__c=C501_Household_Type__c
+C501_Phone__c=C501_Phone__c
+C501_Other_Phone__c=C501_Other_Phone__c
+ResidencyYears=C501_Years_At_Current_Address__c
+DateMovedIntoResidence=C501_Current_Address_Move_In_Year__c
