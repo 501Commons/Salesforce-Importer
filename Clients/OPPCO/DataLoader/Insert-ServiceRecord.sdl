@@ -1,4 +1,4 @@
 #Mapping values
 #Fri May 11 13:27:35 PDT 2018
 C501_Service_Id__c=C501_Service_Id__c
-ProgramOnly=C501_Program__c
+Program=C501_Program__c
