@@ -29,8 +29,8 @@ def main():
     print "Setting Importer Directory: " + importer_directory
 
     # Insert Data
-    for insertRun in range(0, 5):
-        print "\n\nImporter - Insert Data Process: %d run\n\n" % (insertRun)
+    for insertRun in range(1, 5):
+        print "\n\nImporter - Insert Data Process (run: %d)\n\n" % (insertRun)
 
         status_import = process_data(importer_directory, salesforce_type, client_type,
                     client_subtype, False, wait_time, client_emaillist)
