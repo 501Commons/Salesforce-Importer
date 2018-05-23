@@ -29,17 +29,18 @@ def main():
     print "Setting Importer Directory: " + importer_directory
 
     # Insert Data
-    print "\nImporter - Insert Data Process\n"
-    process_data(importer_directory, salesforce_type, client_type,
-                 client_subtype, False, wait_time, client_emaillist)
+    for insertRun in range(0, 5):
+        print "\n\nImporter - Insert Data Process: %d run\n\n" % (insertRun)
 
-    # Insert Data - Second Pass for related inserts for Detail inserts in Master/Detail Relationship or Lookup Relationship
-    print "Importer - Insert Data Process - Dependency Phase\n"
-    process_data(importer_directory, salesforce_type, client_type,
-                 client_subtype, False, wait_time, client_emaillist)
+        status_import = process_data(importer_directory, salesforce_type, client_type,
+                    client_subtype, False, wait_time, client_emaillist)
+
+        # Insert files are empty so continue to update process        
+        if not "import_dataloader (returncode)" in status_import:
+            break
 
     # Update Data
-    print "Importer - Update Data Process\n"
+    print "\n\nImporter - Update Data Process\n\n"
     process_data(importer_directory, salesforce_type, client_type,
                  client_subtype, True, wait_time, client_emaillist)
 
@@ -95,6 +96,8 @@ def process_data(importer_directory, salesforce_type, client_type,
 
     # Send email results
     send_email(user, sendto, subject, body, file_path, smtpsrv)
+
+    return status_import
 
 def refresh_and_export(importer_directory, salesforce_type,
                        client_type, client_subtype, update_mode, wait_time):
