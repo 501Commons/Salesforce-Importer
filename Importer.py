@@ -77,6 +77,8 @@ def process_data(importer_directory, salesforce_type, client_type,
     else:
         body += "Export\n" + status_export
 
+    status_import = ""
+    
     # Import data into Salesforce
     try:
         if not "Error" in subject:
