@@ -113,7 +113,7 @@ def refresh_and_export(importer_directory, salesforce_type,
 
     try:
         refresh_status = "refresh_and_export\n"
-        excel_connection = win32com.client.DispatchEx("Excel.Application")
+        excel_connection = win32com.gencache.EnsureDispatch("Excel.Application")
         excel_file_path = importer_directory + "\\"
         workbook = excel_connection.workbooks.open((
             excel_file_path + client_type + "-" + client_subtype + "_" + salesforce_type + ".xlsx"))
