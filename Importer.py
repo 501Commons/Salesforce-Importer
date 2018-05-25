@@ -154,22 +154,22 @@ def refresh_and_export(importer_directory, salesforce_type,
 
         for sheet in workbook.Sheets:
             # Only export update, insert, or report sheets
-            sheet_name_lower = sheet.name.lower()
+            sheet_name_lower = sheet.Name.lower()
             if ("update" not in sheet_name_lower
                     and "insert" not in sheet_name_lower
                     and "report" not in sheet_name_lower):
                 continue
 
-            message = "Exporting csv for sheet: " + sheet.name
+            message = "Exporting csv for sheet: " + sheet.Name
             print message
             refresh_status += message + "\n"
 
-            excel_connection.Sheets(sheet.name).Select()
-            sheet_file = excel_file_path + "Import\\" + sheet.name + ".csv"
+            excel_connection.Sheets(sheet.Name).Select()
+            sheet_file = excel_file_path + "Import\\" + sheet.Name + ".csv"
             
             # Save report to Status to get attached to email
-            if "report" in sheet.name.lower():
-                sheet_file = excel_file_path + "Status\\" + sheet.name + ".csv"
+            if "report" in sheet.Name.lower():
+                sheet_file = excel_file_path + "Status\\" + sheet.Name + ".csv"
 
             # Check for existing file
             if os.path.isfile(sheet_file):
@@ -178,7 +178,7 @@ def refresh_and_export(importer_directory, salesforce_type,
             workbook.SaveAs(sheet_file, 6)
 
             # Update check to make sure insert sheet is empty
-            if update_mode and "insert" in sheet.name.lower() and contains_data(sheet_file):
+            if update_mode and "insert" in sheet.Name.lower() and contains_data(sheet_file):
                 raise Exception("Update Error", (
                     "Insert sheet contains data and should be empty during update process: " +
                     sheet_file))
