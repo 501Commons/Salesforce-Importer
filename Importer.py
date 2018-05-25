@@ -188,8 +188,8 @@ def refresh_and_export(importer_directory, salesforce_type,
         raise Exception("Export Error", refresh_status)
 
     finally:
-        """workbook.Close(True)"""
-        """excel_connection.Quit()"""
+        workbook.Close(True)
+        excel_connection.Quit()
 
     return refresh_status
 
