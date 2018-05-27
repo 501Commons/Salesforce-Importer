@@ -9,7 +9,7 @@ def main():
     sys.stdout.write('Importer Startup3')
 
     sys.stdout = open('log.txt', 'w')
-    print('Importer Startup1'
+    print('Importer Startup1')
 
     salesforce_type = str(sys.argv[1])
     client_type = str(sys.argv[2])
