@@ -115,7 +115,8 @@ def refresh_and_export(importer_directory, salesforce_type,
         refresh_status = "refresh_and_export\n"
         excel_connection = win32.gencache.EnsureDispatch("Excel.Application")
         excel_file_path = importer_directory + "\\"
-        workbook = excel_connection.Workbooks.Open((
+        workbooks = excel_connection.Workbooks 
+        workbook = workbooks.Open((
             excel_file_path + client_type + "-" + client_subtype + "_" + salesforce_type + ".xlsx"))
 
         # Uncomment if you want to see the Excel file opened
@@ -188,7 +189,10 @@ def refresh_and_export(importer_directory, salesforce_type,
         raise Exception("Export Error", refresh_status)
 
     finally:
-        workbook.Close(True)
+        workbook.Close()
+        Marshal.ReleaseComObject(workbooks)
+        Marshal.ReleaseComObject(workbook)
+        Marshal.ReleaseComObject(excel_connection)
         excel_connection.Quit()
 
     return refresh_status
