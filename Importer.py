@@ -195,7 +195,7 @@ def refresh_and_export(importer_directory, salesforce_type,
         raise Exception("Export Error", refresh_status)
 
     finally:
-        workbook.Close()
+        workbook.Close(TRUE)
         Marshal.ReleaseComObject(workbooks)
         Marshal.ReleaseComObject(workbook)
         Marshal.ReleaseComObject(excel_connection)
