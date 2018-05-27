@@ -123,10 +123,10 @@ def refresh_and_export(importer_directory, salesforce_type,
             excel_file_path + client_type + "-" + client_subtype + "_" + salesforce_type + ".xlsx"))
 
         # Uncomment if you want to see the Excel file opened
-        excel_connection.Visible = True
+        #excel_connection.Visible = True
 
         # Comment if you want to see alerts
-        #excel_connection.DisplayAlerts = False
+        excel_connection.DisplayAlerts = False
 
         #for connection in workbook.Connections:
             #print connection.name
