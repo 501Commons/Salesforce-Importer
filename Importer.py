@@ -125,6 +125,9 @@ def refresh_and_export(importer_directory, salesforce_type,
         # Uncomment if you want to see the Excel file opened
         #excel_connection.Visible = True
 
+        # Comment if you want to see alerts
+        excel_connection.DisplayAlerts = False
+
         #for connection in workbook.Connections:
             #print connection.name
             # BackgroundQuery does not work so have to do manually in Excel for each Connection
@@ -179,6 +182,7 @@ def refresh_and_export(importer_directory, salesforce_type,
             if os.path.isfile(sheet_file):
                 os.remove(sheet_file)
 
+            print('Attempting to SaveAs: ', sheet_file)
             workbook.SaveAs(sheet_file, 6)
 
             # Update check to make sure insert sheet is empty
