@@ -5,12 +5,6 @@ def main():
     import sys
     from os.path import join
 
-    sys.stdout = open('log.txt', 'w')
-    print('Importer Startup1')
-
-    print('Importer Startup2')
-    sys.stdout.write('Importer Startup3')
-
     salesforce_type = str(sys.argv[1])
     client_type = str(sys.argv[2])
     client_subtype = str(sys.argv[3])
@@ -30,6 +24,12 @@ def main():
         importer_root = str(sys.argv[6])
     else:
         importer_root = "C:\\repo\\Salesforce-Importer-Private\\Clients\\" + sys.argv[2] + "\\Salesforce-Importer"
+
+    sys.stdout = open(join(importer_root, 'log.txt'), 'w')
+    print('Importer Startup1')
+
+    print('Importer Startup2')
+    sys.stdout.write('Importer Startup3')
 
     importer_directory = join(importer_root, "Clients\\" + client_type)
     print "Setting Importer Directory: " + importer_directory
