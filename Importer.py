@@ -25,11 +25,8 @@ def main():
     else:
         importer_root = "C:\\repo\\Salesforce-Importer-Private\\Clients\\" + sys.argv[2] + "\\Salesforce-Importer"
 
-    sys.stdout = open(join(importer_root, 'log.txt'), 'w')
-    print('Importer Startup1')
-
-    print('Importer Startup2')
-    sys.stdout.write('Importer Startup3')
+    sys.stdout = open(join(importer_root, '..\\importer.log'), 'w')
+    print('Importer Startup')
 
     importer_directory = join(importer_root, "Clients\\" + client_type)
     print "Setting Importer Directory: " + importer_directory
