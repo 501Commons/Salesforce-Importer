@@ -300,30 +300,30 @@ def export_dataloader(importer_directory):
     if "\\Salesforce-Exporter\\" in exporter_directory:
         exporter_directory += "\\..\\..\\.."
 
-    if not exists(exporter_directory):
-        return
-
     bat_file = exporter_directory + "\\exporter.bat"
 
     return_code = ""
     return_stdout = ""
     return_stderr = ""
 
-    message = "Starting Export Process: " + bat_file
-    print message
-    return_stdout += message + "\n"
-    export_process = Popen(bat_file, stdout=PIPE, stderr=PIPE)
+    if not exists(exporter_directory):
+        print "Skip Export Process (export not detected)"
+    else:
+        message = "Starting Export Process: " + bat_file
+        print message
+        return_stdout += message + "\n"
+        export_process = Popen(bat_file, stdout=PIPE, stderr=PIPE)
 
-    stdout, stderr = export_process.communicate()
+        stdout, stderr = export_process.communicate()
 
-    return_code += "\n\nexport_dataloader (returncode): " + str(export_process.returncode)
-    return_stdout += "\n\nexport_dataloader (stdout):\n" + stdout
-    return_stderr += "\n\nexport_dataloader (stderr):\n" + stderr
+        return_code += "\n\nexport_dataloader (returncode): " + str(export_process.returncode)
+        return_stdout += "\n\nexport_dataloader (stdout):\n" + stdout
+        return_stderr += "\n\nexport_dataloader (stderr):\n" + stderr
 
-    if (export_process.returncode != 0
-            or "Error" in return_stdout
-            or "We couldn't find the Java Runtime Environment (JRE)" in return_stdout):
-        raise Exception("Invalid Return Code", return_code + return_stdout + return_stderr)
+        if (export_process.returncode != 0
+                or "Error" in return_stdout
+                or "We couldn't find the Java Runtime Environment (JRE)" in return_stdout):
+            raise Exception("Invalid Return Code", return_code + return_stdout + return_stderr)
 
     return return_code + return_stdout + return_stderr
 
