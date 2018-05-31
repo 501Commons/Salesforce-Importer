@@ -293,10 +293,11 @@ def import_dataloader(importer_directory, client_type, salesforce_type, data_mod
 def export_dataloader(importer_directory):
     """Export out of Salesforce using DataLoader"""
 
+    from os.path import join
     from subprocess import Popen, PIPE
 
     exporter_directory = importer_directory.replace("Importer", "Exporter")
-    bat_file = exporter_directory + "..\\..\\..\\exporter.bat"
+    bat_file = join(exporter_directory, "..\\..\\..\\exporter.bat")
 
     return_code = ""
     return_stdout = ""
