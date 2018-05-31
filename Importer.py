@@ -296,7 +296,10 @@ def export_dataloader(importer_directory):
     from subprocess import Popen, PIPE
 
     exporter_directory = importer_directory.replace("Importer", "Exporter")
-    bat_file = exporter_directory + "\\..\\..\\..\\exporter.bat"
+    if "\\Salesforce-Exporter\\" in exporter_directory:
+        exporter_directory += "\\..\\..\\.."
+
+    bat_file = exporter_directory + "\\exporter.bat"
 
     return_code = ""
     return_stdout = ""
