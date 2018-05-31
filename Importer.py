@@ -294,50 +294,30 @@ def import_dataloader(importer_directory, client_type, salesforce_type, data_mod
 def export_dataloader(importer_directory, client_type, salesforce_type):
     """Export out of Salesforce using DataLoader"""
 
-    import os
-    from os import listdir
-    from os.path import join
     from subprocess import Popen, PIPE
 
     exporter_directory = importer_directory.replace("Importer", "Exporter")
-    bat_path = exporter_directory + "\\DataLoader"
+    bat_file = exporter_directory + "\\exporter.bat"
 
     return_code = ""
     return_stdout = ""
     return_stderr = ""
 
-    for file_name in listdir(bat_path):
-        if not ".sdl" in file_name:
-            continue
+    message = "Starting Export Process: " + bat_file
+    print message
+    return_stdout += message + "\n"
+    export_process = Popen(bat_file, stdout=PIPE, stderr=PIPE)
 
-        # Check if associated csv has any data
-        export_name = os.path.splitext(file_name)[0]
-        bat_file = (join(bat_path, "RunDataLoader.bat")
-                    + " " + salesforce_type + " "  + client_type + " " + export_name)
+    stdout, stderr = export_process.communicate()
 
-        message = "Starting Export Process: " + bat_file
-        print message
-        return_stdout += message + "\n"
-        export_process = Popen(bat_file, stdout=PIPE, stderr=PIPE)
+    return_code += "\n\nexport_dataloader (returncode): " + str(export_process.returncode)
+    return_stdout += "\n\nexport_dataloader (stdout):\n" + stdout
+    return_stderr += "\n\nexport_dataloader (stderr):\n" + stderr
 
-        stdout, stderr = export_process.communicate()
-
-        return_code += "\n\nexport_dataloader (returncode): " + str(export_process.returncode)
-        return_stdout += "\n\nexport_dataloader (stdout):\n" + stdout
-        return_stderr += "\n\nexport_dataloader (stderr):\n" + stderr
-
-        if (export_process.returncode != 0
-                or "Error" in return_stdout
-                or "We couldn't find the Java Runtime Environment (JRE)" in return_stdout):
-            raise Exception("Invalid Return Code", return_code + return_stdout + return_stderr)
-
-        status_path = exporter_directory + "\\status"
-
-        for file_name_status in listdir(status_path):
-            file_name_status_full = join(status_path, file_name_status)
-            if "error" in file_name_status_full and contains_data(file_name_status_full):
-                raise Exception("error file contains data: " + file_name_status_full, (
-                    return_code + return_stdout + return_stderr))
+    if (export_process.returncode != 0
+            or "Error" in return_stdout
+            or "We couldn't find the Java Runtime Environment (JRE)" in return_stdout):
+        raise Exception("Invalid Return Code", return_code + return_stdout + return_stderr)
 
     return return_code + return_stdout + return_stderr
 
