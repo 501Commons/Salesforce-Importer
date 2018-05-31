@@ -293,11 +293,15 @@ def import_dataloader(importer_directory, client_type, salesforce_type, data_mod
 def export_dataloader(importer_directory):
     """Export out of Salesforce using DataLoader"""
 
+    from os.path import exists
     from subprocess import Popen, PIPE
 
     exporter_directory = importer_directory.replace("Importer", "Exporter")
     if "\\Salesforce-Exporter\\" in exporter_directory:
         exporter_directory += "\\..\\..\\.."
+
+    if not exists(exporter_directory):
+        return
 
     bat_file = exporter_directory + "\\exporter.bat"
 
