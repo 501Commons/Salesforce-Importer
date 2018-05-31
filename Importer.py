@@ -26,19 +26,20 @@ def main():
         importer_root = "C:\\repo\\Salesforce-Importer-Private\\Clients\\" + sys.argv[2] + "\\Salesforce-Importer"
 
     sys.stdout = open(join(importer_root, '..\\importer.log'), 'w')
-    print('Importer Startup')
+    print 'Importer Startup'
 
     importer_directory = join(importer_root, "Clients\\" + client_type)
     print "Setting Importer Directory: " + importer_directory
 
     # Insert Data
-    for insertRun in range(1, 5):
-        print "\n\nImporter - Insert Data Process (run: %d)\n\n" % (insertRun)
+    for insert_run in range(1, 5):
+
+        print "\n\nImporter - Insert Data Process (run: %d)\n\n" % (insert_run)
 
         status_import = process_data(importer_directory, salesforce_type, client_type,
-                    client_subtype, False, wait_time, client_emaillist)
+                                     client_subtype, False, wait_time, client_emaillist)
 
-        # Insert files are empty so continue to update process        
+        # Insert files are empty so continue to update process
         if not "import_dataloader (returncode)" in status_import:
             break
 
@@ -70,24 +71,39 @@ def process_data(importer_directory, salesforce_type, client_type,
 
     body = "Process Data (" + data_mode + ")\n\n"
 
+    # Export data from Salesforce
+    try:
+        if not "Error" in subject:
+            status_export = export_dataloader(importer_directory,
+                                              client_type, salesforce_type)
+        else:
+            status_export = "Error detected so skipped"
+    except Exception as ex:
+        subject += " Error Export"
+        body += "\n\nUnexpected export error:" + str(ex)
+    else:
+        body += "\n\nExport\n" + status_export
+
     # Export data from Excel
     try:
-        status_export = refresh_and_export(importer_directory, salesforce_type, client_type,
-                                           client_subtype, update_mode, wait_time)
+        if not "Error" in subject:
+            status_export = refresh_and_export(importer_directory, salesforce_type, client_type,
+                                            client_subtype, update_mode, wait_time)
+        else:
+            status_export = "Error detected so skipped"
     except Exception as ex:
         subject += " Error Export"
         body += "Unexpected export error:" + str(ex)
     else:
         body += "Export\n" + status_export
 
-    status_import = ""
-    
     # Import data into Salesforce
+    status_import = ""
+
     try:
         if not "Error" in subject:
             status_import = import_dataloader(importer_directory,
-                                              client_type, salesforce_type, data_mode,
-                                              file_path)
+                                              client_type, salesforce_type, data_mode)
         else:
             status_import = "Error detected so skipped"
     except Exception as ex:
@@ -118,7 +134,7 @@ def refresh_and_export(importer_directory, salesforce_type,
         refresh_status = "refresh_and_export\n"
         excel_connection = win32.gencache.EnsureDispatch("Excel.Application")
         excel_file_path = importer_directory + "\\"
-        workbooks = excel_connection.Workbooks 
+        workbooks = excel_connection.Workbooks
         workbook = workbooks.Open((
             excel_file_path + client_type + "-" + client_subtype + "_" + salesforce_type + ".xlsx"))
 
@@ -173,7 +189,7 @@ def refresh_and_export(importer_directory, salesforce_type,
 
             excel_connection.Sheets(sheet.Name).Select()
             sheet_file = excel_file_path + "Import\\" + sheet.Name + ".csv"
-            
+
             # Save report to Status to get attached to email
             if "report" in sheet.Name.lower():
                 sheet_file = excel_file_path + "Status\\" + sheet.Name + ".csv"
@@ -221,7 +237,7 @@ def contains_data(file_name):
 
     return False
 
-def import_dataloader(importer_directory, client_type, salesforce_type, data_mode, file_path):
+def import_dataloader(importer_directory, client_type, salesforce_type, data_mode):
     """Import into Salesforce using DataLoader"""
 
     import os
@@ -266,6 +282,56 @@ def import_dataloader(importer_directory, client_type, salesforce_type, data_mod
             raise Exception("Invalid Return Code", return_code + return_stdout + return_stderr)
 
         status_path = importer_directory + "\\status"
+
+        for file_name_status in listdir(status_path):
+            file_name_status_full = join(status_path, file_name_status)
+            if "error" in file_name_status_full and contains_data(file_name_status_full):
+                raise Exception("error file contains data: " + file_name_status_full, (
+                    return_code + return_stdout + return_stderr))
+
+    return return_code + return_stdout + return_stderr
+
+def export_dataloader(importer_directory, client_type, salesforce_type):
+    """Export out of Salesforce using DataLoader"""
+
+    import os
+    from os import listdir
+    from os.path import join
+    from subprocess import Popen, PIPE
+
+    exporter_directory = importer_directory.replace("Importer", "Exporter")
+    bat_path = exporter_directory + "\\DataLoader"
+
+    return_code = ""
+    return_stdout = ""
+    return_stderr = ""
+
+    for file_name in listdir(bat_path):
+        if not ".sdl" in file_name:
+            continue
+
+        # Check if associated csv has any data
+        export_name = os.path.splitext(file_name)[0]
+        bat_file = (join(bat_path, "RunDataLoader.bat")
+                    + " " + salesforce_type + " "  + client_type + " " + export_name)
+
+        message = "Starting Export Process: " + bat_file
+        print message
+        return_stdout += message + "\n"
+        export_process = Popen(bat_file, stdout=PIPE, stderr=PIPE)
+
+        stdout, stderr = export_process.communicate()
+
+        return_code += "\n\nexport_dataloader (returncode): " + str(export_process.returncode)
+        return_stdout += "\n\nexport_dataloader (stdout):\n" + stdout
+        return_stderr += "\n\nexport_dataloader (stderr):\n" + stderr
+
+        if (export_process.returncode != 0
+                or "Error" in return_stdout
+                or "We couldn't find the Java Runtime Environment (JRE)" in return_stdout):
+            raise Exception("Invalid Return Code", return_code + return_stdout + return_stderr)
+
+        status_path = exporter_directory + "\\status"
 
         for file_name_status in listdir(status_path):
             file_name_status_full = join(status_path, file_name_status)
@@ -341,7 +407,8 @@ def send_email(send_from, send_to, subject, text, file_path, server):
 def send_salesforce():
     """Send results to Salesforce to handle notifications"""
     #Future update to send to salesforce to handle notifications instead of send_email
-    #https://developer.salesforce.com/blogs/developer-relations/2014/01/python-and-the-force-com-rest-api-simple-simple-salesforce-example.html
+    #https://developer.salesforce.com/blogs/developer-relations/2014/01/
+    #python-and-the-force-com-rest-api-simple-simple-salesforce-example.html
 
 if __name__ == "__main__":
     main()
