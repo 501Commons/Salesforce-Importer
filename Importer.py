@@ -15,12 +15,12 @@ def main():
                "salesforce_type client_type client_subtype client_emaillist [wait_time] [importer_root]\n")
         return
 
-    if len(sys.argv) == 6:
+    if len(sys.argv) >= 6:
         wait_time = int(sys.argv[5])
     else:
         wait_time = 60
 
-    if len(sys.argv) == 7:
+    if len(sys.argv) >= 7:
         importer_root = str(sys.argv[6])
     else:
         importer_root = "C:\\repo\\Salesforce-Importer-Private\\Clients\\" + sys.argv[2] + "\\Salesforce-Importer"
@@ -74,8 +74,7 @@ def process_data(importer_directory, salesforce_type, client_type,
     # Export data from Salesforce
     try:
         if not "Error" in subject:
-            status_export = export_dataloader(importer_directory,
-                                              client_type, salesforce_type)
+            status_export = export_dataloader(importer_directory)
         else:
             status_export = "Error detected so skipped"
     except Exception as ex:
@@ -291,7 +290,7 @@ def import_dataloader(importer_directory, client_type, salesforce_type, data_mod
 
     return return_code + return_stdout + return_stderr
 
-def export_dataloader(importer_directory, client_type, salesforce_type):
+def export_dataloader(importer_directory):
     """Export out of Salesforce using DataLoader"""
 
     from subprocess import Popen, PIPE
