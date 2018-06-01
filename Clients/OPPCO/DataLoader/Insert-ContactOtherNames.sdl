@@ -1,6 +1,6 @@
 #Mapping values
 #Thu May 03 16:59:53 PDT 2018
-C501_CONTACT_ID__C=Id
+ID=Id
 C501_Other_Name__c=C501_Other_Name__c
 C501_Type__c=C501_Type__c
 C501_START_DATE__C=C501_Start_Date__c
