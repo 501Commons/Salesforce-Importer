@@ -36,7 +36,7 @@
                 <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\DataLoader\key.txt"/>
                 <entry key="sfdc.timeoutSecs" value="600"/>
                 <entry key="sfdc.loadBatchSize" value="200"/>
-                <entry key="sfdc.entity" value="C501_Service_Household__c"/>
+                <entry key="sfdc.entity" value="C501_Other_Name__c"/>
                 <entry key="process.operation" value="insert"/>
                 <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\DataLoader\Insert-ContactOtherNames.sdl"/>
                 <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\Import\Insert-ContactOtherNames.csv"/>

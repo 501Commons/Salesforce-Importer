@@ -32,6 +32,7 @@ def main():
     print "Setting Importer Directory: " + importer_directory
 
     # Insert Data
+    status_import = ""
     for insert_run in range(1, 5):
 
         print "\n\nImporter - Insert Data Process (run: %d)\n\n" % (insert_run)
@@ -44,9 +45,10 @@ def main():
             break
 
     # Update Data
-    print "\n\nImporter - Update Data Process\n\n"
-    process_data(importer_directory, salesforce_type, client_type,
-                 client_subtype, True, wait_time, client_emaillist)
+    if not "Unexpected export error" in status_import:
+        print "\n\nImporter - Update Data Process\n\n"
+        process_data(importer_directory, salesforce_type, client_type,
+                    client_subtype, True, wait_time, client_emaillist)
 
     print "Importer process completed\n"
 
@@ -92,9 +94,9 @@ def process_data(importer_directory, salesforce_type, client_type,
             status_export = "Error detected so skipped"
     except Exception as ex:
         subject += " Error Export"
-        body += "Unexpected export error:" + str(ex)
+        body += "\n\nUnexpected export error:" + str(ex)
     else:
-        body += "Export\n" + status_export
+        body += "\n\nExport\n" + status_export
 
     # Import data into Salesforce
     status_import = ""
