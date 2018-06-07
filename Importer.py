@@ -12,7 +12,8 @@ def main():
 
     if len(sys.argv) < 5:
         print ("Calling error - missing inputs.  Expecting " +
-               "salesforce_type client_type client_subtype client_emaillist [wait_time] [importer_root]\n")
+               "salesforce_type client_type client_subtype client_emaillist" +
+               " [wait_time] [importer_root]\n")
         return
 
     if len(sys.argv) >= 6:
@@ -23,7 +24,8 @@ def main():
     if len(sys.argv) >= 7:
         importer_root = str(sys.argv[6])
     else:
-        importer_root = "C:\\repo\\Salesforce-Importer-Private\\Clients\\" + sys.argv[2] + "\\Salesforce-Importer"
+        importer_root = ("C:\\repo\\Salesforce-Importer-Private\\Clients\\" + sys.argv[2] +
+                         "\\Salesforce-Importer")
 
     sys.stdout = open(join(importer_root, '..\\importer.log'), 'w')
     print 'Importer Startup'
@@ -47,8 +49,8 @@ def main():
     # Update Data
     if not "Unexpected export error" in status_import:
         print "\n\nImporter - Update Data Process\n\n"
-        process_data(importer_directory, salesforce_type, client_type,
-                    client_subtype, True, wait_time, client_emaillist)
+ #       process_data(importer_directory, salesforce_type, client_type,
+ #                    client_subtype, True, wait_time, client_emaillist)
 
     print "Importer process completed\n"
 
@@ -177,6 +179,8 @@ def refresh_and_export(importer_directory, salesforce_type,
         #date_tag = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
         for sheet in workbook.Sheets:
+            print 'sheet: ' + sheet.Name
+            
             # Only export update, insert, or report sheets
             sheet_name_lower = sheet.Name.lower()
             if ("update" not in sheet_name_lower
