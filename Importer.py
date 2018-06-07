@@ -142,7 +142,7 @@ def refresh_and_export(importer_directory, salesforce_type,
             excel_file_path + client_type + "-" + client_subtype + "_" + salesforce_type + ".xlsx"))
 
         # Uncomment if you want to see the Excel file opened
-        excel_connection.Visible = True
+        #excel_connection.Visible = True
 
         # Comment if you want to see alerts
         #excel_connection.DisplayAlerts = False
@@ -179,8 +179,6 @@ def refresh_and_export(importer_directory, salesforce_type,
         #date_tag = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
         for sheet in workbook.Sheets:
-            print 'sheet: ' + sheet.Name
-            
             # Only export update, insert, or report sheets
             sheet_name_lower = sheet.Name.lower()
             if ("update" not in sheet_name_lower
