@@ -49,8 +49,8 @@ def main():
     # Update Data
     if not "Unexpected export error" in status_import:
         print "\n\nImporter - Update Data Process\n\n"
- #       process_data(importer_directory, salesforce_type, client_type,
- #                    client_subtype, True, wait_time, client_emaillist)
+        process_data(importer_directory, salesforce_type, client_type,
+                     client_subtype, True, wait_time, client_emaillist)
 
     print "Importer process completed\n"
 
