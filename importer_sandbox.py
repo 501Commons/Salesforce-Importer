@@ -378,22 +378,6 @@ def send_email(send_from, send_to, subject, text, file_path, server):
     server.sendmail(send_from, send_to, text)
     server.quit()
 
-    # Delete all status files
-    for file_name in onlyfiles:
-        try:
-            remove(file_name)
-        except:
-            continue
-
-    # Delete all import files
-    import_path = join(file_path, "..\\Import")
-    if exists(import_path):
-        for file_name in listdir(import_path):
-            try:
-                remove(join(import_path, file_name))
-            except:
-                continue
-
 def send_salesforce():
     """Send results to Salesforce to handle notifications"""
     #Future update to send to salesforce to handle notifications instead of send_email
