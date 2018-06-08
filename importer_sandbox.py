@@ -160,7 +160,7 @@ def refresh_and_export(importer_directory, salesforce_type,
         print message
         refresh_status += message + "\n"
 
-        #workbook.RefreshAll()
+        workbook.RefreshAll()
 
         # Wait for excel to finish refresh
         message = ("Pausing " + str(wait_time) +
