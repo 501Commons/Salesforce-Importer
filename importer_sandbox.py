@@ -202,6 +202,7 @@ def refresh_and_export(importer_directory, salesforce_type,
                 os.remove(sheet_file)
 
             #workbook.SaveAs(sheet_file, 6)
+            workbook.SaveAs(sheet_file)
 
             # Update check to make sure insert sheet is empty
             if update_mode and "insert" in sheet.Name.lower() and contains_data(sheet_file):
