@@ -104,10 +104,10 @@ def process_data(importer_directory, salesforce_type, client_type,
     status_import = ""
 
     try:
-        if not "Error" in subject:
+#        if not "Error" in subject:
 #            status_import = import_dataloader(importer_directory,
 #                                              client_type, salesforce_type, data_mode)
-        else:
+#        else:
             status_import = "Error detected so skipped"
     except Exception as ex:
         subject += " Error Import"
