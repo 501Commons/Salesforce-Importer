@@ -145,7 +145,7 @@ def refresh_and_export(importer_directory, salesforce_type,
         #excel_connection.Visible = True
 
         # Comment if you want to see alerts
-        #excel_connection.DisplayAlerts = False
+        excel_connection.DisplayAlerts = False
 
         #for connection in workbook.Connections:
             #print connection.name
