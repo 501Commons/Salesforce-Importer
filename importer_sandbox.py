@@ -38,8 +38,8 @@ def main():
     status_export = export_external_data(importer_directory, client_emaillist)
 
     # Insert Data
-    if not "Invalid Return Code" in status_export:
-        status_import = ""
+    status_import = ""
+    if "Invalid Return Code" not in status_export:
         for insert_run in range(1, 5):
 
             print "\n\nImporter - Insert Data Process (run: %d)\n\n" % (insert_run)
@@ -48,11 +48,11 @@ def main():
                                          client_subtype, False, wait_time, client_emaillist)
 
             # Insert files are empty so continue to update process
-            if not "import_dataloader (returncode)" in status_import:
+            if "import_dataloader (returncode)" not in status_import:
                 break
 
     # Update Data
-    if not "Unexpected export error" in status_import:
+    if "Unexpected export error" not in status_import:
         print "\n\nImporter - Update Data Process\n\n"
         process_data(importer_directory, salesforce_type, client_type,
                      client_subtype, True, wait_time, client_emaillist)
@@ -79,7 +79,7 @@ def process_data(importer_directory, salesforce_type, client_type,
 
     # Export data from Salesforce
     try:
-        if not "Error" in subject:
+        if "Error" not in subject:
             status_export = export_dataloader(importer_directory)
         else:
             status_export = "Error detected so skipped"
@@ -91,7 +91,7 @@ def process_data(importer_directory, salesforce_type, client_type,
 
     # Export data from Excel
     try:
-        if not "Error" in subject:
+        if "Error" not in subject:
             status_export = refresh_and_export(importer_directory, salesforce_type, client_type,
                                                client_subtype, update_mode, wait_time)
         else:
@@ -106,7 +106,7 @@ def process_data(importer_directory, salesforce_type, client_type,
     status_import = ""
 
     try:
-        if not "Error" in subject:
+        if "Error" not in subject:
             status_import = import_dataloader(importer_directory,
                                               client_type, salesforce_type, data_mode)
         else:
@@ -117,7 +117,7 @@ def process_data(importer_directory, salesforce_type, client_type,
     else:
         body += "\n\nImport\n" + status_import
 
-    if not "Error" in subject:
+    if "Error" not in subject:
         subject += " Successful"
 
     # Send email results
@@ -150,7 +150,7 @@ def export_external_data(importer_directory, client_emaillist):
     else:
         body += "\n\nExport\n" + status_export
 
-    if not "Error" in subject:
+    if "Error" not in subject:
         subject += " Successful"
 
     # Send email results
@@ -291,7 +291,7 @@ def import_dataloader(importer_directory, client_type, salesforce_type, data_mod
     return_stderr = ""
 
     for file_name in listdir(bat_path):
-        if not data_mode in file_name or not ".sdl" in file_name:
+        if not data_mode in file_name or ".sdl" not in file_name:
             continue
 
         # Check if associated csv has any data
