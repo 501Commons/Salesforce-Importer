@@ -33,24 +33,29 @@ def main():
     importer_directory = join(importer_root, "Clients\\" + client_type)
     print "Setting Importer Directory: " + importer_directory
 
+    # Export External Data
+    print "\n\nExporter - Export External Data\n\n"
+    status_export = export_external_data(importer_directory, client_emaillist)
+
     # Insert Data
-    status_import = ""
-    for insert_run in range(1, 5):
+    if not "Invalid Return Code" in status_export:
+        status_import = ""
+        for insert_run in range(1, 5):
 
-        print "\n\nImporter - Insert Data Process (run: %d)\n\n" % (insert_run)
+            print "\n\nImporter - Insert Data Process (run: %d)\n\n" % (insert_run)
 
-        status_import = process_data(importer_directory, salesforce_type, client_type,
-                                     client_subtype, False, wait_time, client_emaillist)
+            status_import = process_data(importer_directory, salesforce_type, client_type,
+                                         client_subtype, False, wait_time, client_emaillist)
 
-        # Insert files are empty so continue to update process
-        if not "import_dataloader (returncode)" in status_import:
-            break
+            # Insert files are empty so continue to update process
+            if not "import_dataloader (returncode)" in status_import:
+                break
 
     # Update Data
     if not "Unexpected export error" in status_import:
         print "\n\nImporter - Update Data Process\n\n"
-#        process_data(importer_directory, salesforce_type, client_type,
-#                     client_subtype, True, wait_time, client_emaillist)
+        process_data(importer_directory, salesforce_type, client_type,
+                     client_subtype, True, wait_time, client_emaillist)
 
     print "Importer process completed\n"
 
@@ -65,9 +70,6 @@ def process_data(importer_directory, salesforce_type, client_type,
     if update_mode:
         data_mode = "Update"
 
-    sendto = client_emaillist.split(";")
-    user = 'db.powerbi@501commons.org'
-    smtpsrv = "smtp.office365.com"
     subject = "Process Data (" + data_mode + ") Results -"
     file_path = importer_directory + "\\Status"
     if not exists(file_path):
@@ -131,9 +133,39 @@ def process_data(importer_directory, salesforce_type, client_type,
         subject += " Successful"
 
     # Send email results
-    send_email(user, sendto, subject, body, file_path, smtpsrv)
+    send_email(client_emaillist, subject, body, file_path)
 
     return status_import
+
+def export_external_data(importer_directory, client_emaillist):
+    """Process Data based on data_mode"""
+
+    from os import makedirs
+    from os.path import exists
+
+    subject = "Export External Data Results -"
+    file_path = importer_directory + "\\Status"
+    if not exists(file_path):
+        makedirs(file_path)
+
+    body = "Export External Data\n\n"
+
+    # Export data from ODBC
+    try:
+        if "Error" not in subject:
+            status_export = export_odbc(importer_directory)
+        else:
+            status_export = "Error detected so skipped"
+    except Exception as ex:
+        subject += " Error ODBC Export"
+        body += "\n\nUnexpected export error:" + str(ex)
+    else:
+        body += "\n\nExport\n" + status_export
+
+    # Send email results
+    send_email(client_emaillist, subject, body, file_path)
+
+    return status_export
 
 def refresh_and_export(importer_directory, salesforce_type,
                        client_type, client_subtype, update_mode, wait_time):
@@ -349,7 +381,7 @@ def export_odbc(importer_directory):
     from os.path import exists
     from subprocess import Popen, PIPE
 
-    exporter_directory = importer_directory.replace("Importer", "ODBC")
+    exporter_directory = importer_directory.replace("Salesforce-Importer", "ODBC-Exporter")
     if "\\ODBC-Exporter\\" in exporter_directory:
         exporter_directory += "\\..\\..\\.."
 
@@ -380,8 +412,12 @@ def export_odbc(importer_directory):
 
     return return_code + return_stdout + return_stderr
 
-def send_email(send_from, send_to, subject, text, file_path, server):
+def send_email(client_emaillist, subject, text, file_path):
     """Send email via O365"""
+
+    send_to = client_emaillist.split(";")
+    send_from = 'db.powerbi@501commons.org'
+    server = "smtp.office365.com"
 
     #https://stackoverflow.com/questions/3362600/how-to-send-email-attachments
     import base64
