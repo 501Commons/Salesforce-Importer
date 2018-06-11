@@ -87,6 +87,18 @@ def process_data(importer_directory, salesforce_type, client_type,
     else:
         body += "\n\nExport\n" + status_export
 
+    # Export data from ODBC
+    try:
+        if not "Error" in subject:
+            status_export = export_odbc(importer_directory)
+        else:
+            status_export = "Error detected so skipped"
+    except Exception as ex:
+        subject += " Error ODBC Export"
+        body += "\n\nUnexpected export error:" + str(ex)
+    else:
+        body += "\n\nExport\n" + status_export
+
     # Export data from Excel
     try:
         if not "Error" in subject:
@@ -104,10 +116,10 @@ def process_data(importer_directory, salesforce_type, client_type,
     status_import = ""
 
     try:
-#        if not "Error" in subject:
-#            status_import = import_dataloader(importer_directory,
-#                                              client_type, salesforce_type, data_mode)
-#        else:
+        if not "Error" in subject:
+            status_import = import_dataloader(importer_directory,
+                                              client_type, salesforce_type, data_mode)
+        else:
             status_import = "Error detected so skipped"
     except Exception as ex:
         subject += " Error Import"
@@ -202,7 +214,6 @@ def refresh_and_export(importer_directory, salesforce_type,
                 os.remove(sheet_file)
 
             workbook.SaveAs(sheet_file, 6)
-            #workbook.SaveAs(sheet_file)
 
             # Update check to make sure insert sheet is empty
             if update_mode and "insert" in sheet.Name.lower() and contains_data(sheet_file):
@@ -332,6 +343,43 @@ def export_dataloader(importer_directory):
 
     return return_code + return_stdout + return_stderr
 
+def export_odbc(importer_directory):
+    """Export out of Salesforce using DataLoader"""
+
+    from os.path import exists
+    from subprocess import Popen, PIPE
+
+    exporter_directory = importer_directory.replace("Importer", "ODBC")
+    if "\\ODBC-Exporter\\" in exporter_directory:
+        exporter_directory += "\\..\\..\\.."
+
+    bat_file = exporter_directory + "\\exporter.bat"
+
+    return_code = ""
+    return_stdout = ""
+    return_stderr = ""
+
+    if not exists(exporter_directory):
+        print "Skip ODBC Export Process (export not detected)"
+    else:
+        message = "Starting ODBC Export Process: " + bat_file
+        print message
+        return_stdout += message + "\n"
+        export_process = Popen(bat_file, stdout=PIPE, stderr=PIPE)
+
+        stdout, stderr = export_process.communicate()
+
+        return_code += "\n\nexport_odbc (returncode): " + str(export_process.returncode)
+        return_stdout += "\n\nexport_odbc (stdout):\n" + stdout
+        return_stderr += "\n\nexport_odbc (stderr):\n" + stderr
+
+        if (export_process.returncode != 0
+                or "Error" in return_stdout
+                or "We couldn't find the Java Runtime Environment (JRE)" in return_stdout):
+            raise Exception("Invalid Return Code", return_code + return_stdout + return_stderr)
+
+    return return_code + return_stdout + return_stderr
+
 def send_email(send_from, send_to, subject, text, file_path, server):
     """Send email via O365"""
 
@@ -339,7 +387,7 @@ def send_email(send_from, send_to, subject, text, file_path, server):
     import base64
     import os
     import smtplib
-    from os.path import basename, exists
+    from os.path import basename
     from email.mime.application import MIMEApplication
     from email.mime.multipart import MIMEMultipart
     from email.mime.text import MIMEText
@@ -354,7 +402,7 @@ def send_email(send_from, send_to, subject, text, file_path, server):
 
     msg.attach(MIMEText(text))
 
-    from os import listdir, remove
+    from os import listdir
     from os.path import isfile, join
     onlyfiles = [join(file_path, f) for f in listdir(file_path)
                  if isfile(join(file_path, f))]
