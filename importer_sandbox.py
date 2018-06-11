@@ -89,18 +89,6 @@ def process_data(importer_directory, salesforce_type, client_type,
     else:
         body += "\n\nExport\n" + status_export
 
-    # Export data from ODBC
-    try:
-        if not "Error" in subject:
-            status_export = export_odbc(importer_directory)
-        else:
-            status_export = "Error detected so skipped"
-    except Exception as ex:
-        subject += " Error ODBC Export"
-        body += "\n\nUnexpected export error:" + str(ex)
-    else:
-        body += "\n\nExport\n" + status_export
-
     # Export data from Excel
     try:
         if not "Error" in subject:
@@ -161,6 +149,9 @@ def export_external_data(importer_directory, client_emaillist):
         body += "\n\nUnexpected export error:" + str(ex)
     else:
         body += "\n\nExport\n" + status_export
+
+    if not "Error" in subject:
+        subject += " Successful"
 
     # Send email results
     send_email(client_emaillist, subject, body, file_path)
