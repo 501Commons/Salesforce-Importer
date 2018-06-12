@@ -35,7 +35,7 @@ def main():
 
     # Export External Data
     print "\n\nExporter - Export External Data\n\n"
-    status_export = export_external_data(importer_directory, client_emaillist)
+    status_export = export_odbc(importer_directory)
 
     # Insert Data
     status_import = ""
@@ -124,39 +124,6 @@ def process_data(importer_directory, salesforce_type, client_type,
     send_email(client_emaillist, subject, body, file_path)
 
     return status_import
-
-def export_external_data(importer_directory, client_emaillist):
-    """Process Data based on data_mode"""
-
-    from os import makedirs
-    from os.path import exists
-
-    subject = "Export External Data Results -"
-    file_path = importer_directory + "\\Status"
-    if not exists(file_path):
-        makedirs(file_path)
-
-    body = "Export External Data\n\n"
-
-    # Export data from ODBC
-    try:
-        if "Error" not in subject:
-            status_export = export_odbc(importer_directory)
-        else:
-            status_export = "Error detected so skipped"
-    except Exception as ex:
-        subject += " Error ODBC Export"
-        body += "\n\nUnexpected export error:" + str(ex)
-    else:
-        body += "\n\nExport\n" + status_export
-
-    if "Error" not in subject:
-        subject += " Successful"
-
-    # Send email results
-    send_email(client_emaillist, subject, body, file_path)
-
-    return status_export
 
 def refresh_and_export(importer_directory, salesforce_type,
                        client_type, client_subtype, update_mode, wait_time):
