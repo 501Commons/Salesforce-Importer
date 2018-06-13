@@ -35,7 +35,7 @@ def main():
 
     # Export External Data
     print "\n\nExporter - Export External Data\n\n"
-    status_export = export_odbc(importer_directory)
+    status_export = export_odbc(importer_directory, salesforce_type)
 
     # Insert Data
     status_import = ""
@@ -80,7 +80,7 @@ def process_data(importer_directory, salesforce_type, client_type,
     # Export data from Salesforce
     try:
         if "Error" not in subject:
-            status_export = export_dataloader(importer_directory)
+            status_export = export_dataloader(importer_directory, salesforce_type)
         else:
             status_export = "Error detected so skipped"
     except Exception as ex:
@@ -296,7 +296,7 @@ def import_dataloader(importer_directory, client_type, salesforce_type, data_mod
 
     return return_code + return_stdout + return_stderr
 
-def export_dataloader(importer_directory):
+def export_dataloader(importer_directory, salesforce_type):
     """Export out of Salesforce using DataLoader"""
 
     from os.path import exists
@@ -306,7 +306,7 @@ def export_dataloader(importer_directory):
     if "\\Salesforce-Exporter\\" in exporter_directory:
         exporter_directory += "\\..\\..\\.."
 
-    bat_file = exporter_directory + "\\exporter.bat"
+    bat_file = exporter_directory + "\\exporter.bat " + salesforce_type
 
     return_code = ""
     return_stdout = ""
@@ -333,7 +333,7 @@ def export_dataloader(importer_directory):
 
     return return_code + return_stdout + return_stderr
 
-def export_odbc(importer_directory):
+def export_odbc(importer_directory, salesforce_type):
     """Export out of Salesforce using DataLoader"""
 
     from os.path import exists
@@ -343,7 +343,7 @@ def export_odbc(importer_directory):
     if "\\ODBC-Exporter\\" in exporter_directory:
         exporter_directory += "\\..\\..\\.."
 
-    bat_file = exporter_directory + "\\exporter.bat"
+    bat_file = exporter_directory + "\\exporter.bat " + salesforce_type
 
     return_code = ""
     return_stdout = ""
