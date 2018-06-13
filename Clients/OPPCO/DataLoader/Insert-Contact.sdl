@@ -4,3 +4,4 @@ name_last=LastName
 _kp_hh_member_data_id=C501_Contact_Id__c
 C501_Service_Id__c=C501_Service_Id__c
 Account.Id=AccountId
+RecordTypeId=RecordTypeId

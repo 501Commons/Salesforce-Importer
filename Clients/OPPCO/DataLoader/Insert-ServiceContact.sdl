@@ -5,3 +5,4 @@ _kp_hh_member_data_id=C501_Contact_Id__c
 C501_Service_Id__c=C501_Service_Id__c
 C501_Service_Household__c.Id=C501_Service_Household_Id__c
 ContactExtract.ID=C501_Contact__c
+RecordTypeId=RecordTypeId
