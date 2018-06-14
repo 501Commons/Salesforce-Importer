@@ -1,6 +1,6 @@
 #Mapping values
 #Thu May 03 16:59:53 PDT 2018
 Name=Name
-Account.Id=C501_Household__c
+AccountExtract.ID=C501_Household__c
 C501_Service_Id__c=C501_Service_Id__c
 RecordTypeId=RecordTypeId
