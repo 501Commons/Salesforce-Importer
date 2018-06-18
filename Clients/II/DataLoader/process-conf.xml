@@ -9,7 +9,7 @@
             <map>
                 <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
                 <entry key="sfdc.username" value="db.ii@501commons.org.subpool"/>
-                <entry key="sfdc.password" value="513b395e9cfc257cdcaa8ffc3c613689c25a26c81d9b1332708c64ed4351b1528a086c4c625a2640"/>
+                <entry key="sfdc.password" value="513b395e9cfc257c2524c586123a73f83ea662ab4617b28b116e991183c857339499b00c65917110eb04337db91fdbd3"/>
                 <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\DataLoader\key.txt"/>
                 <entry key="sfdc.timeoutSecs" value="600"/>
                 <entry key="sfdc.loadBatchSize" value="200"/>
@@ -32,7 +32,7 @@
             <map>
                 <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
                 <entry key="sfdc.username" value="db.ii@501commons.org.subpool"/>
-                <entry key="sfdc.password" value="513b395e9cfc257cdcaa8ffc3c613689c25a26c81d9b1332708c64ed4351b1528a086c4c625a2640"/>
+                <entry key="sfdc.password" value="513b395e9cfc257c2524c586123a73f83ea662ab4617b28b116e991183c857339499b00c65917110eb04337db91fdbd3"/>
                 <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\DataLoader\key.txt"/>
                 <entry key="sfdc.timeoutSecs" value="600"/>
                 <entry key="sfdc.loadBatchSize" value="200"/>
