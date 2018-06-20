@@ -1,6 +1,7 @@
 #Mapping values
 #Tue Jan 30 01:12:21 PST 2018
-C501_Service_Contact__c.Id=Id
+C501_Service_Contact__c.ID=Id
+Contact_Id=C501_Contact__c
 name_first=C501_First_Name__c
 name_mi=C501_Middle_Name__c
 name_last=C501_Last_Name__c
