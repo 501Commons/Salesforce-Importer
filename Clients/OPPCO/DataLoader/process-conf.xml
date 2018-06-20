@@ -173,7 +173,7 @@
                 <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\DataLoader\key.txt"/>
                 <entry key="sfdc.timeoutSecs" value="600"/>
                 <entry key="sfdc.loadBatchSize" value="200"/>
-                <entry key="sfdc.externalIdField" value="C501_Service_Id__c"/>
+                <entry key="sfdc.externalIdField" value="C501_Contact_Id__c"/>
                 <entry key="sfdc.entity" value="Contact"/>
                 <entry key="process.operation" value="insert"/>
                 <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\DataLoader\Insert-Contact.sdl"/>
