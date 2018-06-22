@@ -402,7 +402,7 @@ def send_email(client_emaillist, subject, text, file_path):
                  if isfile(join(file_path, f))]
 
     for file_name in onlyfiles:
-        if contains_data(file_name):
+        if contains_data(file_name) and ".sent" not in file_name:
             with open(file_name, "rb") as file_name_open:
                 part = MIMEApplication(
                     file_name_open.read(),
@@ -412,6 +412,9 @@ def send_email(client_emaillist, subject, text, file_path):
             # After the file is closed
             part['Content-Disposition'] = 'attachment; filename="%s"' % basename(file_name)
             msg.attach(part)
+
+            # Rename files so not attached again
+            os.rename(file_name, file_name + '.sent')
 
     server = smtplib.SMTP(server, 587)
     server.starttls()
