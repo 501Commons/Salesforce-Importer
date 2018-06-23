@@ -425,7 +425,7 @@ def send_email(client_emaillist, subject, text, file_path):
 
             # Rename file so do not attached again
             sent_file = file_path + '.sent'
-            if not exists(sent_file):
+            if exists(sent_file):
                 os.remove(sent_file)
 
             os.rename(file_name, sent_file)
