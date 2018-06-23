@@ -57,7 +57,7 @@ def main():
         process_data(importer_directory, salesforce_type, client_type,
                      client_subtype, True, wait_time, client_emaillist)
 
-    print "Importer process completed\n"
+    print "\nImporter process completed\n"
 
 def process_data(importer_directory, salesforce_type, client_type,
                  client_subtype, update_mode, wait_time, client_emaillist):
@@ -158,7 +158,7 @@ def refresh_and_export(importer_directory, salesforce_type,
         #   1) Enable background refresh disabled/unchecked in xlsx for all Connections
         #   2) Include in Refresh All enabled/checked in xlsx for all Connections
         #   To verify: Open xlsx Data > Connections > Properties for each to verify
-        message = "Refreshing all connections..."
+        message = "\nRefreshing all connections..."
         print message
         refresh_status += message + "\n"
 
@@ -294,6 +294,9 @@ def import_dataloader(importer_directory, client_type, salesforce_type, data_mod
                 raise Exception("error file contains data: " + file_name_status_full, (
                     return_code + return_stdout + return_stderr))
 
+        message = "Finished Import Process: " + bat_file + " for file: " + import_file
+        print message
+
     return return_code + return_stdout + return_stderr
 
 def export_dataloader(importer_directory, salesforce_type):
@@ -373,6 +376,9 @@ def export_odbc(importer_directory, salesforce_type):
 def send_email(client_emaillist, subject, text, file_path):
     """Send email via O365"""
 
+    message = "\n\nPreparing email results\n"
+    print message
+
     send_to = client_emaillist.split(";")
     send_from = 'db.powerbi@501commons.org'
     server = "smtp.office365.com"
@@ -403,6 +409,10 @@ def send_email(client_emaillist, subject, text, file_path):
 
     for file_name in onlyfiles:
         if contains_data(file_name) and ".sent" not in file_name:
+
+            message = "Email attaching file: " + file_name + "\n"
+            print message
+
             with open(file_name, "rb") as file_name_open:
                 part = MIMEApplication(
                     file_name_open.read(),
@@ -423,6 +433,9 @@ def send_email(client_emaillist, subject, text, file_path):
     text = msg.as_string()
     server.sendmail(send_from, send_to, text)
     server.quit()
+
+    message = "\nSent email results\n"
+    print message
 
 def send_salesforce():
     """Send results to Salesforce to handle notifications"""
