@@ -403,7 +403,7 @@ def send_email(client_emaillist, subject, text, file_path):
     msg.attach(MIMEText(text))
 
     from os import listdir
-    from os.path import isfile, join
+    from os.path import isfile, join, exists
     onlyfiles = [join(file_path, f) for f in listdir(file_path)
                  if isfile(join(file_path, f))]
 
@@ -423,8 +423,12 @@ def send_email(client_emaillist, subject, text, file_path):
             part['Content-Disposition'] = 'attachment; filename="%s"' % basename(file_name)
             msg.attach(part)
 
-            # Rename files so not attached again
-            os.rename(file_name, file_name + '.sent')
+            # Rename file so do not attached again
+            sent_file = file_path + '.sent'
+            if not exists(sent_file):
+                os.remove(sent_file)
+
+            os.rename(file_name, sent_file)
 
     server = smtplib.SMTP(server, 587)
     server.starttls()
