@@ -40,7 +40,7 @@ def main():
     # Insert Data
     status_import = ""
     if "Invalid Return Code" not in status_export:
-        for insert_run in range(1, 5):
+        for insert_run in range(1, 10):
 
             print "\n\nImporter - Insert Data Process (run: %d)\n\n" % (insert_run)
 
