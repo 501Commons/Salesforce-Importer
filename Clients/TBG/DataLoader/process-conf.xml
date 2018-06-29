@@ -14,7 +14,7 @@
                 <entry key="sfdc.timeoutSecs" value="600"/>
                 <entry key="sfdc.loadBatchSize" value="200"/>
                 <entry key="sfdc.externalIdField" value=""/>
-                <entry key="sfdc.entity" value="npsp_DataImport__c"/>
+                <entry key="sfdc.entity" value="npsp__DataImport__c"/>
                 <entry key="process.operation" value="insert"/>
                 <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\TBG\Salesforce-Importer\Clients\TBG\DataLoader\Insert-PayPal.sdl"/>
                 <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\TBG\Salesforce-Importer\Clients\TBG\Import\Insert-PayPal.csv"/>
