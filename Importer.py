@@ -21,8 +21,14 @@ def main():
     else:
         wait_time = 60
 
+    insert_attempts = 10
     if len(sys.argv) >= 7:
-        importer_root = str(sys.argv[6])
+        insert_attempts = int(sys.argv[6])
+    else:
+        wait_time = 60
+
+    if len(sys.argv) >= 8:
+        importer_root = str(sys.argv[7])
     else:
         importer_root = ("C:\\repo\\Salesforce-Importer-Private\\Clients\\" + sys.argv[2] +
                          "\\Salesforce-Importer")
@@ -40,7 +46,7 @@ def main():
     # Insert Data
     status_import = ""
     if "Invalid Return Code" not in status_export:
-        for insert_run in range(1, 10):
+        for insert_run in range(1, insert_attempts):
 
             print "\n\nImporter - Insert Data Process (run: %d)\n\n" % (insert_run)
 
