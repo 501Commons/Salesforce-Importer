@@ -9,7 +9,7 @@
             <map>
                 <entry key="sfdc.endpoint" value="https://techbridgegirls.my.salesforce.com"/> 
                 <entry key="sfdc.username" value="501commons@techbridgegirls.org"/>
-                <entry key="sfdc.password" value="af85a9566f26307aa62b558ecc4e1c3bf257d12534cdbcc5c44bb0ebf5fe2c3d0fe05e100e8ae49b"/>
+                <entry key="sfdc.password" value="af85a9566f26307ae2abcb3be3fed3d57f567560a94ad15da2b385c52a60b63120939af0ac45b4ee"/>
                 <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\TBG\DataLoader\key.txt"/>
                 <entry key="sfdc.timeoutSecs" value="600"/>
                 <entry key="sfdc.loadBatchSize" value="200"/>
