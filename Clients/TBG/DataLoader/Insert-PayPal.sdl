@@ -1,0 +1,14 @@
+#Mapping values
+#Fri Jun 29 14:56:54 PDT 2018
+Note=npsp__Donation_Description__c
+State/Province/Region/County/Territory/Prefecture/Republic=npsp__Home_State_Province__c
+Contact\ Phone\ Number=npsp__Contact1_Other_Phone__c
+Gross=npsp__Donation_Amount__c
+Town/City=npsp__Home_City__c
+Date=npsp__Donation_Date__c
+Status=npsp__Status__c
+Net=C501_Donation_Net_Amount__c
+Country=npsp__Home_Country__c
+From\ Email\ Address=npsp__Contact1_Work_Email__c
+Zip/Postal\ Code=npsp__Home_Zip_Postal_Code__c
+Address\ Line\ 1=npsp__Home_Street__c
