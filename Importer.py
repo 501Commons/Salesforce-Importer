@@ -56,9 +56,9 @@ def main():
     print "Setting Importer Directory: " + importer_directory
 
     # Export External Data
+    status_export = ""
     if not noexportodbc:
         print "\n\nExporter - Export External Data\n\n"
-        status_export = ""
         status_export = export_odbc(importer_directory, salesforce_type)
 
     # Insert Data
