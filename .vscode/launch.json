@@ -19,9 +19,15 @@
                 ,"OPPCO"
                 ,"LIHEAP"
                 ,"db.oppco@501commons.org"
+                ,"-wait"
                 ,"10"
+                ,"insertattempts"
                 ,"1"
-                ,"C:\\repo\\Salesforce-Importer-Private"
+                ,"-noupdate"
+                ,"-rootdir",
+                "C:\\repo\\Salesforce-Importer-Private",
+                "-noexportodbc",
+                "-noexportsf"
             ],
             "debugOptions": [
                 "RedirectOutput"

@@ -5,6 +5,10 @@ def main():
     import sys
     from os.path import join
 
+    #
+    # Required Parameters
+    #
+
     salesforce_type = str(sys.argv[1])
     client_type = str(sys.argv[2])
     client_subtype = str(sys.argv[3])
@@ -16,22 +20,34 @@ def main():
                " [wait_time] [importer_root]\n")
         return
 
-    if len(sys.argv) >= 6:
-        wait_time = int(sys.argv[5])
-    else:
-        wait_time = 60
+    #
+    # Optional Parameters
+    #
+
+    wait_time = 60
+    if '-wait' in sys.argv:
+        wait_time = int(sys.argv[sys.argv.index('-wait') + 1])
+
+    noupdate = False
+    if '-noupdate' in sys.argv:
+        noupdate = True
+
+    noexportodbc = False
+    if '-noexportodbc' in sys.argv:
+        noexportodbc = True
+
+    noexportsf = False
+    if '-noexportsf' in sys.argv:
+        noexportsf = True
 
     insert_attempts = 10
-    if len(sys.argv) >= 7:
-        insert_attempts = int(sys.argv[6])
-    else:
-        wait_time = 60
+    if '-insertattempts' in sys.argv:
+        insert_attempts = int(sys.argv[sys.argv.index('-insertattempts') + 1])
 
-    if len(sys.argv) >= 8:
-        importer_root = str(sys.argv[7])
-    else:
-        importer_root = ("C:\\repo\\Salesforce-Importer-Private\\Clients\\" + sys.argv[2] +
-                         "\\Salesforce-Importer")
+    importer_root = ("C:\\repo\\Salesforce-Importer-Private\\Clients\\" + sys.argv[2] +
+                     "\\Salesforce-Importer")
+    if '-rootdir' in sys.argv:
+        importer_root = sys.argv[sys.argv.index('-rootdir') + 1]
 
     sys.stdout = open(join(importer_root, '..\\importer.log'), 'w')
     print 'Importer Startup'
@@ -40,9 +56,10 @@ def main():
     print "Setting Importer Directory: " + importer_directory
 
     # Export External Data
-    print "\n\nExporter - Export External Data\n\n"
-    status_export = ""
-    #status_export = export_odbc(importer_directory, salesforce_type)
+    if not noexportodbc:
+        print "\n\nExporter - Export External Data\n\n"
+        status_export = ""
+        status_export = export_odbc(importer_directory, salesforce_type)
 
     # Insert Data
     status_import = ""
@@ -52,22 +69,22 @@ def main():
             print "\n\nImporter - Insert Data Process (run: %d)\n\n" % (insert_run)
 
             status_import = process_data(importer_directory, salesforce_type, client_type,
-                                         client_subtype, False, wait_time, client_emaillist)
+                                         client_subtype, False, wait_time, client_emaillist, noexportsf)
 
             # Insert files are empty so continue to update process
             if "import_dataloader (returncode)" not in status_import:
                 break
 
     # Update Data
-    if "Unexpected export error" not in status_import:
+    if not noupdate and "Unexpected export error" not in status_import:
         print "\n\nImporter - Update Data Process\n\n"
         process_data(importer_directory, salesforce_type, client_type,
-                     client_subtype, True, wait_time, client_emaillist)
+                     client_subtype, True, wait_time, client_emaillist, noexportsf)
 
     print "\nImporter process completed\n"
 
 def process_data(importer_directory, salesforce_type, client_type,
-                 client_subtype, update_mode, wait_time, client_emaillist):
+                 client_subtype, update_mode, wait_time, client_emaillist, noexportsf):
     """Process Data based on data_mode"""
 
     from os import makedirs
@@ -86,10 +103,10 @@ def process_data(importer_directory, salesforce_type, client_type,
 
     # Export data from Salesforce
     try:
-        if "Error" not in subject:
+        if not noexportsf and "Error" not in subject:
             status_export = export_dataloader(importer_directory, salesforce_type)
         else:
-            status_export = "Error detected so skipped"
+            status_export = "Skipping export from Salesforce"
     except Exception as ex:
         subject += " Error Export"
         body += "\n\nUnexpected export error:" + str(ex)
@@ -102,7 +119,7 @@ def process_data(importer_directory, salesforce_type, client_type,
             status_export = refresh_and_export(importer_directory, salesforce_type, client_type,
                                                client_subtype, update_mode, wait_time)
         else:
-            status_export = "Error detected so skipped"
+            status_export = "Skipping export from Excel"
     except Exception as ex:
         subject += " Error Export"
         body += "\n\nUnexpected export error:" + str(ex)
