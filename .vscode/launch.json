@@ -20,6 +20,7 @@
                 ,"LIHEAP"
                 ,"db.oppco@501commons.org"
                 ,"10"
+                ,"1"
                 ,"C:\\repo\\Salesforce-Importer-Private"
             ],
             "debugOptions": [
@@ -61,26 +62,6 @@
             "env": {},
             "envFile": "${workspaceFolder}/.env",
             "debugOptions": []
-        },
-        {
-            "name": "Python: Django",
-            "type": "python",
-            "request": "launch",
-            "stopOnEntry": true,
-            "pythonPath": "${config:python.pythonPath}",
-            "program": "${workspaceFolder}/manage.py",
-            "cwd": "${workspaceFolder}",
-            "args": [
-                "runserver",
-                "--noreload",
-                "--nothreading"
-            ],
-            "env": {},
-            "envFile": "${workspaceFolder}/.env",
-            "debugOptions": [
-                "RedirectOutput",
-                "DjangoDebugging"
-            ]
         },
         {
             "name": "Python: Flask (0.11.x or later)",

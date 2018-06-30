@@ -41,12 +41,13 @@ def main():
 
     # Export External Data
     print "\n\nExporter - Export External Data\n\n"
-    status_export = export_odbc(importer_directory, salesforce_type)
+    status_export = ""
+    #status_export = export_odbc(importer_directory, salesforce_type)
 
     # Insert Data
     status_import = ""
     if "Invalid Return Code" not in status_export:
-        for insert_run in range(1, insert_attempts):
+        for insert_run in range(0, insert_attempts):
 
             print "\n\nImporter - Insert Data Process (run: %d)\n\n" % (insert_run)
 
