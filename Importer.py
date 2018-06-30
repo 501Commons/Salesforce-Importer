@@ -24,7 +24,7 @@ def main():
     # Optional Parameters
     #
 
-    wait_time = 60
+    wait_time = 300
     if '-wait' in sys.argv:
         wait_time = int(sys.argv[sys.argv.index('-wait') + 1])
 

@@ -48,12 +48,12 @@ pip install pypiwin32
 REM SANDBOX
 REM xcopy "%IMPORT_DIRECTORY%" "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" /s /y /i
 REM copy /Y "%IMPORTER_PRIVATE_DIR%\DataLoader\key.txt" "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\DataLoader\key.txt"
-REM python "%IMPORTER_DIRECTORY%\..\importer.py" Sandbox %CLIENT_TYPE% %1 %EMAIL_LIST%
+REM python "%IMPORTER_DIRECTORY%\..\importer.py" Sandbox %CLIENT_TYPE% %1 %EMAIL_LIST% -waittime 10 -noupdate -noexportodbc -noexportsf
 
 REM PRODUCTION
 xcopy "%IMPORT_DIRECTORY%" "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" /s /y /i
 copy /Y "%IMPORTER_PRIVATE_DIR%\DataLoader\key.txt" "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\DataLoader\key.txt"
-python "%IMPORTER_DIRECTORY%\..\importer.py" Prod %CLIENT_TYPE% %1 %EMAIL_LIST% 10 1
+python "%IMPORTER_DIRECTORY%\..\importer.py" Prod %CLIENT_TYPE% %1 %EMAIL_LIST% -waittime 10 -noupdate -noexportodbc -noexportsf
 
 cd %IMPORTER_PRIVATE_DIR%
 
