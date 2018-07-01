@@ -46,7 +46,7 @@ REM python "%IMPORTER_DIRECTORY%\..\importer.py" Sandbox %CLIENT_TYPE% %1 %EMAIL
 REM PRODUCTION
 xcopy "%IMPORT_DIRECTORY%" "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" /s /y /i
 copy /Y "%IMPORTER_PRIVATE_DIR%\DataLoader\key.txt" "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\DataLoader\key.txt"
-python "%IMPORTER_DIRECTORY%\..\importer.py" Prod %CLIENT_TYPE% Import %EMAIL_LIST% -waittime 10 -insertattempts 1 -noupdate -noexportodbc -noexportsf
+python "%IMPORTER_DIRECTORY%\..\importer.py" Prod %CLIENT_TYPE% Import %EMAIL_LIST% -waittime 30 -insertattempts 1 -noupdate -noexportodbc -noexportsf
 
 cd %IMPORTER_PRIVATE_DIR%
 
