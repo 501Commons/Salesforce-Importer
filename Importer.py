@@ -102,6 +102,7 @@ def process_data(importer_directory, salesforce_type, client_type,
     body = "Process Data (" + data_mode + ")\n\n"
 
     # Export data from Salesforce
+    status_export = ""
     try:
         if not noexportsf and "Error" not in subject:
             status_export = export_dataloader(importer_directory, salesforce_type)
