@@ -9,4 +9,4 @@ set IMPORT_NOEXPORTODBC=
 set IMPORT_NOEXPORTSF=
 set IMPORT_INSERTATTEMPTS=
 
-call "..\..\importer.bat" 
+call "%IMPORTER_DIRECTORY%\..\importer.bat" 
