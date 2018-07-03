@@ -32,6 +32,8 @@ IF NOT EXIST "%IMPORT_DIRECTORY%" (
     goto scriptexit
 )
 
+xcopy "%IMPORT_DIRECTORY%" "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" /s /y /i
+
 :skip_import_directory_check
 
 set PATH=%PATH%;%JAVA_HOME%;%PYTHON_HOME%;%PYTHON_HOME%\Scripts
@@ -39,7 +41,6 @@ set PATH=%PATH%;%JAVA_HOME%;%PYTHON_HOME%;%PYTHON_HOME%\Scripts
 cd "%PYTHON_HOME%"\Scripts
 pip install pypiwin32
 
-xcopy "%IMPORT_DIRECTORY%" "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" /s /y /i
 copy /Y "%IMPORTER_PRIVATE_DIR%\DataLoader\key.txt" "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\DataLoader\key.txt"
 
 echo ***************
