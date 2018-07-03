@@ -15,7 +15,7 @@ REM Attempt to find Java Version
 call java.exe -version >temp.txt 2>&1
 set /p JAVA_TEST=<temp.txt
 FOR /F delims^=^"^ tokens^=2 %%G IN ("%JAVA_TEST%") DO set JAVA_VERSION=%%G
-set JAVA_HOME_CHECK=C:\Program Files (x86)\Java\jre%JAVA_VERSION%
+set JAVA_HOME_CHECK="C:\Program Files (x86)\Java\jre%JAVA_VERSION%"
 IF EXIST "%JAVA_HOME_CHECK%" (
     set JAVA_HOME=%JAVA_HOME_CHECK%
     goto java_exists
