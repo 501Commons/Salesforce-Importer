@@ -1,34 +1,29 @@
 @echo off
 
-:checksystem
-
 set SF_DATALOADER=C:\Program Files (x86)\salesforce.com\Data Loader
 IF NOT EXIST "%SF_DATALOADER%" (
     ECHO Error: "%SF_DATALOADER%" does not exist
-    cscript importer.vbs "Salesforce Data Loader Required - a browser will open with the install info. After install press any key to continue."
+    cscript importer.vbs "Salesforce Data Loader Required - a browser will open with the install info."
     call explorer "https://help.salesforce.com/articleView?id=000239784&type=1"
-    pause
-    goto checksystem
+    goto scriptexit
 )
 
 REM Java should get installed as part of Data Loader
 IF NOT EXIST "%JAVA_HOME%" (
     ECHO Error: "%JAVA_HOME%" does not exist
-    cscript importer.vbs "Java not found which is installed via Salesforce Data Loader - Reinstall Data Loader and follow the instructions for Java setup.  A browser will open with the install info. After install press any key to continue."
+    cscript importer.vbs "Java not found which is installed via Salesforce Data Loader - Reinstall Data Loader and follow the instructions for Java setup.  A browser will open with the install info."
     call explorer "https://help.salesforce.com/articleView?id=000239784&type=1"
-    pause
-    goto checksystem
+    goto scriptexit
 )
 
 IF NOT EXIST "%PYTHON_HOME%" (
     ECHO Error Python 2.7.14 Required: "%PYTHON_HOME%" does not exist
-    cscript importer.vbs "Python 2.7.14 Required - a browser will open with the install info. After install press any key to continue."
+    cscript importer.vbs "Python 2.7.14 Required - a browser will open with the install info."
     call explorer "https://www.python.org/downloads/"
-    pause
-    goto checksystem
+    goto scriptexit
 )
 
-IF "%IMPORT_DIRECTORY%" = "" (
+IF "%IMPORT_DIRECTORY%" == "" (
     goto skip_import_directory_check
 )
 
