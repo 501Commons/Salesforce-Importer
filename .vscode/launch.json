@@ -21,7 +21,7 @@
                 ,"db.oppco@501commons.org"
                 ,"-wait"
                 ,"10"
-                ,"insertattempts"
+                ,"-insertattempts"
                 ,"1"
                 ,"-noupdate"
                 ,"-rootdir",

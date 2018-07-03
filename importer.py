@@ -15,9 +15,8 @@ def main():
     client_emaillist = str(sys.argv[4])
 
     if len(sys.argv) < 5:
-        print ("Calling error - missing inputs.  Expecting " +
-               "salesforce_type client_type client_subtype client_emaillist" +
-               " [wait_time] [importer_root]\n")
+        print ("Calling error - missing required inputs.  Expecting " +
+               "salesforce_type client_type client_subtype client_emaillist\n")
         return
 
     #
