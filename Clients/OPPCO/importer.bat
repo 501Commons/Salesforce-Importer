@@ -1,0 +1,12 @@
+@echo off
+
+REM IMPORT_ENVIRONMENT can be Prod or Sandbox
+set IMPORT_ENVIRONMENT=Prod
+
+set IMPORT_WAITTIME=-waittime 300
+set IMPORT_NOUPDATE=
+set IMPORT_NOEXPORTODBC=
+set IMPORT_NOEXPORTSF=
+set IMPORT_INSERTATTEMPTS=
+
+call "..\..\importer.bat" 

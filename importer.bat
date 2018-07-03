@@ -28,25 +28,34 @@ IF NOT EXIST "%PYTHON_HOME%" (
     goto checksystem
 )
 
-REM IF NOT EXIST "IMPORT_DIRECTORY" (
-REM    cscript importer.vbs "Error Import Directory does not exist: %IMPORT_DIRECTORY%"
-REM     goto scriptexit
-REM )
+IF "%IMPORT_DIRECTORY%" = "" (
+    goto skip_import_directory_check
+)
+
+IF NOT EXIST "%IMPORT_DIRECTORY%" (
+    cscript importer.vbs "Error Import Directory does not exist: %IMPORT_DIRECTORY%"
+    goto scriptexit
+)
+
+:skip_import_directory_check
 
 set PATH=%PATH%;%JAVA_HOME%;%PYTHON_HOME%;%PYTHON_HOME%\Scripts
 
 cd "%PYTHON_HOME%"\Scripts
 pip install pypiwin32
 
-REM SANDBOX
-REM xcopy "%IMPORT_DIRECTORY%" "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" /s /y /i
-REM copy /Y "%IMPORTER_PRIVATE_DIR%\DataLoader\key.txt" "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\DataLoader\key.txt"
-REM python "%IMPORTER_DIRECTORY%\..\importer.py" Sandbox %CLIENT_TYPE% %1 %EMAIL_LIST% -waittime 10 -insertattempts 1 -noupdate -noexportodbc -noexportsf
-
-REM PRODUCTION
 xcopy "%IMPORT_DIRECTORY%" "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" /s /y /i
 copy /Y "%IMPORTER_PRIVATE_DIR%\DataLoader\key.txt" "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\DataLoader\key.txt"
-python "%IMPORTER_DIRECTORY%\..\importer.py" Prod %CLIENT_TYPE% Import %EMAIL_LIST% -waittime 30 -insertattempts 1 -noupdate -noexportodbc -noexportsf
+
+echo ***************
+IF "%IMPORT_ENVIRONMENT%" == "Sandbox" (
+    echo *****Sandbox Data Import Automation
+    python "%IMPORTER_DIRECTORY%\..\importer_sandbox.py" %IMPORT_ENVIRONMENT% %CLIENT_TYPE% %IMPORT_MODE% %EMAIL_LIST% %IMPORT_WAITTIME% %IMPORT_NOUPDATE% %IMPORT_NOEXPORTODBC% %IMPORT_NOEXPORTSF% %IMPORT_INSERTATTEMPTS%
+) else (
+    echo *****Production Data Import Automation
+    python "%IMPORTER_DIRECTORY%\..\importer.py" %IMPORT_ENVIRONMENT% %CLIENT_TYPE% %IMPORT_MODE% %EMAIL_LIST% %IMPORT_WAITTIME% %IMPORT_NOUPDATE% %IMPORT_NOEXPORTODBC% %IMPORT_NOEXPORTSF% %IMPORT_INSERTATTEMPTS%
+)
+echo ***************
 
 cd %IMPORTER_PRIVATE_DIR%
 
