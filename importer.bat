@@ -38,6 +38,7 @@ goto scriptexit
 
 :python_exists
 
+REM Using ! instead of % in case using special chars like parenthesis in path
 IF "!IMPORT_DIRECTORY!" == "" (
     goto skip_import_directory_check
 )
@@ -48,8 +49,10 @@ IF NOT EXIST "!IMPORT_DIRECTORY!" (
 )
 
 REM Backward Compatibility: Try with and wihout quotes in case they are already included
-xcopy %IMPORT_DIRECTORY% "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" /s /y /i
 xcopy "%IMPORT_DIRECTORY%" "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" /s /y /i
+if NOT EXIST "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" (
+    xcopy %IMPORT_DIRECTORY% "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" /s /y /i
+)
 
 :skip_import_directory_check
 
@@ -73,3 +76,5 @@ echo ***************
 cd %IMPORTER_PRIVATE_DIR%
 
 :scriptexit
+
+ENDLOCAL
