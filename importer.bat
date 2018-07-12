@@ -38,7 +38,7 @@ goto scriptexit
 
 :python_exists
 
-IF "%IMPORT_DIRECTORY%" == "" (
+IF "!IMPORT_DIRECTORY!" == "" (
     goto skip_import_directory_check
 )
 
