@@ -47,7 +47,7 @@ IF NOT EXIST "!IMPORT_DIRECTORY!" (
     goto scriptexit
 )
 
-REM Try with and wihout quotes in case they are already included
+REM Backward Compatibility: Try with and wihout quotes in case they are already included
 xcopy %IMPORT_DIRECTORY% "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" /s /y /i
 xcopy "%IMPORT_DIRECTORY%" "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" /s /y /i
 
