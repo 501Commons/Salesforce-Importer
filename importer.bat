@@ -1,4 +1,5 @@
 @echo off
+SETLOCAL ENABLEDELAYEDEXPANSION
 
 set SF_DATALOADER=C:\Program Files (x86)\salesforce.com\Data Loader
 IF NOT EXIST "%SF_DATALOADER%" (
@@ -41,12 +42,12 @@ IF "%IMPORT_DIRECTORY%" == "" (
     goto skip_import_directory_check
 )
 
-IF NOT EXIST "%IMPORT_DIRECTORY%" (
-    cscript importer.vbs "Error Import Directory does not exist: %IMPORT_DIRECTORY%"
+IF NOT EXIST "!IMPORT_DIRECTORY!" (
+    cscript importer.vbs "Error Import Directory does not exist: !IMPORT_DIRECTORY!"
     goto scriptexit
 )
 
-xcopy "%IMPORT_DIRECTORY%" "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" /s /y /i
+xcopy "!IMPORT_DIRECTORY!" "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" /s /y /i
 
 :skip_import_directory_check
 
