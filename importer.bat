@@ -48,7 +48,8 @@ IF NOT EXIST "!IMPORT_DIRECTORY!" (
 )
 
 echo xcopy "!IMPORT_DIRECTORY!" "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" /s /y /i
-xcopy "!IMPORT_DIRECTORY!" "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" /s /y /i
+echo xcopy "%IMPORT_DIRECTORY%" "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" /s /y /i
+xcopy "%IMPORT_DIRECTORY%" "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" /s /y /i
 
 :skip_import_directory_check
 
