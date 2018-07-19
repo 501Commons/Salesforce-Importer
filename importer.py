@@ -39,6 +39,10 @@ def main():
     if '-noexportsf' in sys.argv:
         noexportsf = True
 
+    emailattachments = False
+    if '-emailattachments' in sys.argv:
+        emailattachments = True
+
     insert_attempts = 10
     if '-insertattempts' in sys.argv:
         insert_attempts = int(sys.argv[sys.argv.index('-insertattempts') + 1])
@@ -68,7 +72,8 @@ def main():
             print "\n\nImporter - Insert Data Process (run: %d)\n\n" % (insert_run)
 
             status_import = process_data(importer_directory, salesforce_type, client_type,
-                                         client_subtype, False, wait_time, client_emaillist, noexportsf)
+                                         client_subtype, False, wait_time,
+                                         client_emaillist, noexportsf, emailattachments)
 
             # Insert files are empty so continue to update process
             if "import_dataloader (returncode)" not in status_import:
@@ -78,12 +83,14 @@ def main():
     if not noupdate and "Unexpected export error" not in status_import:
         print "\n\nImporter - Update Data Process\n\n"
         process_data(importer_directory, salesforce_type, client_type,
-                     client_subtype, True, wait_time, client_emaillist, noexportsf)
+                     client_subtype, True, wait_time,
+                     client_emaillist, noexportsf, emailattachments)
 
     print "\nImporter process completed\n"
 
 def process_data(importer_directory, salesforce_type, client_type,
-                 client_subtype, update_mode, wait_time, client_emaillist, noexportsf):
+                 client_subtype, update_mode, wait_time, client_emaillist,
+                 noexportsf, emailattachments):
     """Process Data based on data_mode"""
 
     from os import makedirs
@@ -93,7 +100,7 @@ def process_data(importer_directory, salesforce_type, client_type,
     if update_mode:
         data_mode = "Update"
 
-    subject = "Process Data (" + data_mode + ") Results -"
+    subject = "{}-{} Process Data ({}) Results -".format(client_type, client_subtype, data_mode)
     file_path = importer_directory + "\\Status"
     if not exists(file_path):
         makedirs(file_path)
@@ -145,7 +152,7 @@ def process_data(importer_directory, salesforce_type, client_type,
         subject += " Successful"
 
     # Send email results
-    send_email(client_emaillist, subject, body, file_path)
+    send_email(client_emaillist, subject, body, file_path, emailattachments)
 
     return status_import
 
@@ -265,6 +272,18 @@ def contains_data(file_name):
             line_index += 1
 
     return False
+
+def file_linecount(file_name):
+    """Count how many lines after the header"""
+
+    # set index to -1 so the header is not counted
+    line_index = -1
+    with open(file_name) as file_open:
+        for line in file_open:
+            if line:
+                line_index += 1
+
+    return line_index
 
 def import_dataloader(importer_directory, client_type, salesforce_type, data_mode):
     """Import into Salesforce using DataLoader"""
@@ -397,7 +416,7 @@ def export_odbc(importer_directory, salesforce_type):
 
     return return_code + return_stdout + return_stderr
 
-def send_email(client_emaillist, subject, text, file_path):
+def send_email(client_emaillist, subject, text, file_path, emailattachments):
     """Send email via O365"""
 
     message = "\n\nPreparing email results\n"
@@ -424,12 +443,19 @@ def send_email(client_emaillist, subject, text, file_path):
     msg['Date'] = formatdate(localtime=True)
     msg['Subject'] = subject
 
-    msg.attach(MIMEText(text))
-
     from os import listdir
     from os.path import isfile, join, exists
+
+    #Create log file for import results
+    with open(join(file_path, "importlog.txt"), "w") as text_file:
+        text_file.write(text)
+
     onlyfiles = [join(file_path, f) for f in listdir(file_path)
                  if isfile(join(file_path, f))]
+
+    msgbody = subject + "\n\n"
+    if not emailattachments:
+        msgbody += "Attachments disabled for import results.  Result files can be accessed on the import server.\n\n"
 
     for file_name in onlyfiles:
         if contains_data(file_name) and ".sent" not in file_name:
@@ -437,22 +463,28 @@ def send_email(client_emaillist, subject, text, file_path):
             message = "Email attaching file: " + file_name + "\n"
             print message
 
-            with open(file_name, "rb") as file_name_open:
-                part = MIMEApplication(
-                    file_name_open.read(),
-                    Name=basename(file_name)
-                    )
+            if "importlog.txt" not in file_name:
+                msgbody += "\t{}, with {} rows\n".format(file_name, file_linecount(file_name))
 
-            # After the file is closed
-            part['Content-Disposition'] = 'attachment; filename="%s"' % basename(file_name)
-            msg.attach(part)
+            if emailattachments or "importlog.txt" in file_name:
+                with open(file_name, "rb") as file_name_open:
+                    part = MIMEApplication(
+                        file_name_open.read(),
+                        Name=basename(file_name)
+                        )
 
-            # Rename file so do not attached again
-            sent_file = file_path + '.sent'
-            if exists(sent_file):
-                os.remove(sent_file)
+                # After the file is closed
+                part['Content-Disposition'] = 'attachment; filename="%s"' % basename(file_name)
+                msg.attach(part)
 
-            os.rename(file_name, sent_file)
+                # Rename file so do not attached again
+                sent_file = join(file_path, file_name) + '.sent'
+                if exists(sent_file):
+                    os.remove(sent_file)
+
+                os.rename(file_name, sent_file)
+
+    msg.attach(MIMEText(msgbody))
 
     server = smtplib.SMTP(server, 587)
     server.starttls()
