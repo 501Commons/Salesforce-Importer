@@ -446,7 +446,7 @@ def send_email(client_emaillist, subject, text, file_path, emailattachments):
     from os import listdir
     from os.path import isfile, join, exists
 
-    #Create log file for import results
+    #Create log file for import status
     with open(join(file_path, "importlog.txt"), "w") as text_file:
         text_file.write(text)
 
@@ -463,10 +463,9 @@ def send_email(client_emaillist, subject, text, file_path, emailattachments):
             message = "Email attaching file: " + file_name + "\n"
             print message
 
-            if "importlog.txt" not in file_name:
-                msgbody += "\t{}, with {} rows\n".format(file_name, file_linecount(file_name))
+            msgbody += "\t{}, with {} rows\n".format(file_name, file_linecount(file_name))
 
-            if emailattachments or "importlog.txt" in file_name:
+            if emailattachments:
                 with open(file_name, "rb") as file_name_open:
                     part = MIMEApplication(
                         file_name_open.read(),
@@ -477,12 +476,12 @@ def send_email(client_emaillist, subject, text, file_path, emailattachments):
                 part['Content-Disposition'] = 'attachment; filename="%s"' % basename(file_name)
                 msg.attach(part)
 
-                # Rename file so do not attached again
-                sent_file = join(file_path, file_name) + '.sent'
-                if exists(sent_file):
-                    os.remove(sent_file)
+            # Rename file so do not attached again
+            sent_file = join(file_path, file_name) + '.sent'
+            if exists(sent_file):
+                os.remove(sent_file)
 
-                os.rename(file_name, sent_file)
+            os.rename(file_name, sent_file)
 
     msg.attach(MIMEText(msgbody))
 
