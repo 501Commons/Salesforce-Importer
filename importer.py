@@ -72,87 +72,88 @@ def main():
             print "\n\nImporter - Insert Data Process (run: %d)\n\n" % (insert_run)
 
             status_import = process_data(importer_directory, salesforce_type, client_type,
-                                         client_subtype, False, wait_time,
-                                         client_emaillist, noexportsf, emailattachments)
+                                         client_subtype, False, wait_time, noexportsf)
 
             # Insert files are empty so continue to update process
             if "import_dataloader (returncode)" not in status_import:
                 break
 
     # Update Data
-    if not noupdate and "Unexpected export error" not in status_import:
+    if not noupdate and "error" not in status_import.lower():
         print "\n\nImporter - Update Data Process\n\n"
-        process_data(importer_directory, salesforce_type, client_type,
-                     client_subtype, True, wait_time,
-                     client_emaillist, noexportsf, emailattachments)
+        status_import = process_data(importer_directory, salesforce_type, client_type,
+                                     client_subtype, True, wait_time, noexportsf)
+
+    # Send email results
+    results = "Success"
+    if "error" in status_import.lower():
+        results = "Error"
+    subject = "{}-{} Salesforce Importer Results - {}".format(client_type, client_subtype, results)
+    file_path = importer_directory + "\\Status"
+    send_email(client_emaillist, subject, file_path, emailattachments)
 
     print "\nImporter process completed\n"
 
 def process_data(importer_directory, salesforce_type, client_type,
-                 client_subtype, update_mode, wait_time, client_emaillist,
-                 noexportsf, emailattachments):
+                 client_subtype, update_mode, wait_time,
+                 noexportsf):
     """Process Data based on data_mode"""
-
-    from os import makedirs
-    from os.path import exists
 
     data_mode = "Insert"
     if update_mode:
         data_mode = "Update"
 
-    subject = "{}-{} Process Data ({}) Results -".format(client_type, client_subtype, data_mode)
-    file_path = importer_directory + "\\Status"
-    if not exists(file_path):
-        makedirs(file_path)
-
-    body = "Process Data (" + data_mode + ")\n\n"
+    output_log = "Process Data (" + data_mode + ")\n\n"
 
     # Export data from Salesforce
     status_export = ""
     try:
-        if not noexportsf and "Error" not in subject:
+        if not noexportsf:
             status_export = export_dataloader(importer_directory, salesforce_type)
         else:
             status_export = "Skipping export from Salesforce"
     except Exception as ex:
-        subject += " Error Export"
-        body += "\n\nUnexpected export error:" + str(ex)
+        output_log += "\n\nUnexpected export error:" + str(ex)
     else:
-        body += "\n\nExport\n" + status_export
+        output_log += "\n\nExport\n" + status_export
 
     # Export data from Excel
     try:
-        if "Error" not in subject:
+        if "error" not in output_log:
             status_export = refresh_and_export(importer_directory, salesforce_type, client_type,
                                                client_subtype, update_mode, wait_time)
         else:
             status_export = "Skipping export from Excel"
     except Exception as ex:
-        subject += " Error Export"
-        body += "\n\nUnexpected export error:" + str(ex)
+        output_log += "\n\nUnexpected export error:" + str(ex)
     else:
-        body += "\n\nExport\n" + status_export
+        output_log += "\n\nExport\n" + status_export
 
     # Import data into Salesforce
     status_import = ""
 
     try:
-        if "Error" not in subject:
+        if "error" not in output_log:
             status_import = import_dataloader(importer_directory,
                                               client_type, salesforce_type, data_mode)
         else:
             status_import = "Error detected so skipped"
     except Exception as ex:
-        subject += " Error Import"
-        body += "\n\nUnexpected import error:" + str(ex)
+        output_log += "\n\nUnexpected import error:" + str(ex)
     else:
-        body += "\n\nImport\n" + status_import
+        output_log += "\n\nImport\n" + status_import
 
-    if "Error" not in subject:
-        subject += " Successful"
+    #Create log file for import status
+    import datetime
+    from os import makedirs
+    from os.path import exists, join
+    file_path = importer_directory + "\\Status"
+    if not exists(file_path):
+        makedirs(file_path)
 
-    # Send email results
-    send_email(client_emaillist, subject, body, file_path, emailattachments)
+    date_tag = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    with open(join(file_path, "importlog{}-{}.txt".format(data_mode, date_tag)), "w") as text_file:
+        text_file.write(output_log)
 
     return status_import
 
@@ -160,7 +161,6 @@ def refresh_and_export(importer_directory, salesforce_type,
                        client_type, client_subtype, update_mode, wait_time):
     """Refresh Excel connections"""
 
-    #import datetime
     import os
     import os.path
     import time
@@ -208,8 +208,6 @@ def refresh_and_export(importer_directory, salesforce_type,
 
         if not os.path.exists(excel_file_path + "Import\\"):
             os.makedirs(excel_file_path + "Import\\")
-
-        #date_tag = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
         for sheet in workbook.Sheets:
             # Only export update, insert, or report sheets
@@ -416,7 +414,7 @@ def export_odbc(importer_directory, salesforce_type):
 
     return return_code + return_stdout + return_stderr
 
-def send_email(client_emaillist, subject, text, file_path, emailattachments):
+def send_email(client_emaillist, subject, file_path, emailattachments):
     """Send email via O365"""
 
     message = "\n\nPreparing email results\n"
@@ -446,16 +444,12 @@ def send_email(client_emaillist, subject, text, file_path, emailattachments):
     from os import listdir
     from os.path import isfile, join, exists
 
-    #Create log file for import status
-    with open(join(file_path, "importlog.txt"), "w") as text_file:
-        text_file.write(text)
-
     onlyfiles = [join(file_path, f) for f in listdir(file_path)
                  if isfile(join(file_path, f))]
 
     msgbody = subject + "\n\n"
     if not emailattachments:
-        msgbody += "Attachments disabled for import results.  Result files can be accessed on the import server.\n\n"
+        msgbody += "Attachments disabled: Result files can be accessed on the import client.\n\n"
 
     for file_name in onlyfiles:
         if contains_data(file_name) and ".sent" not in file_name:
