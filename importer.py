@@ -144,15 +144,16 @@ def process_data(importer_directory, salesforce_type, client_type,
         output_log += "\n\nImport\n" + status_import
 
     #Create log file for import status
-    import datetime
     from os import makedirs
     from os.path import exists, join
     file_path = importer_directory + "\\Status"
     if not exists(file_path):
         makedirs(file_path)
 
+    import datetime
     date_tag = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    with open(join(file_path, "Salesforce-Importer-Log-{}-{}.txt".format(data_mode, date_tag)), "w") as text_file:
+    with open(join(file_path, "Salesforce-Importer-Log-{}-{}.txt".format(data_mode, date_tag)),
+              "w") as text_file:
         text_file.write(output_log)
 
     return status_import
