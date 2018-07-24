@@ -99,6 +99,13 @@ def process_data(importer_directory, salesforce_type, client_type,
                  noexportsf):
     """Process Data based on data_mode"""
 
+    #Create log file for import status and reports
+    from os import makedirs
+    from os.path import exists, join
+    file_path = importer_directory + "\\Status"
+    if not exists(file_path):
+        makedirs(file_path)
+
     data_mode = "Insert"
     if update_mode:
         data_mode = "Update"
@@ -142,13 +149,6 @@ def process_data(importer_directory, salesforce_type, client_type,
         output_log += "\n\nUnexpected import error:" + str(ex)
     else:
         output_log += "\n\nImport\n" + status_import
-
-    #Create log file for import status
-    from os import makedirs
-    from os.path import exists, join
-    file_path = importer_directory + "\\Status"
-    if not exists(file_path):
-        makedirs(file_path)
 
     import datetime
     date_tag = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
