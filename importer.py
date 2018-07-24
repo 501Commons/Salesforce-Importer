@@ -152,7 +152,7 @@ def process_data(importer_directory, salesforce_type, client_type,
         makedirs(file_path)
 
     date_tag = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    with open(join(file_path, "importlog{}-{}.txt".format(data_mode, date_tag)), "w") as text_file:
+    with open(join(file_path, "Salesforce-Importer-Log-{}-{}.txt".format(data_mode, date_tag)), "w") as text_file:
         text_file.write(output_log)
 
     return status_import
