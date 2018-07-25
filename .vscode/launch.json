@@ -23,11 +23,11 @@
                 ,"10"
                 ,"-insertattempts"
                 ,"1"
-                ,"-noupdate"
+//                ,"-noupdate"
                 ,"-rootdir",
                 "C:\\repo\\Salesforce-Importer-Private",
                 "-noexportodbc",
-                "-noexportsf"
+//                "-noexportsf"
             ],
             "debugOptions": [
                 "RedirectOutput"
