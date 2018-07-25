@@ -61,12 +61,10 @@ def main():
     print "Setting Importer Directory: " + importer_directory
 
     # Export External Data
-    output_log = ""
     status_export = ""
     if not noexportodbc:
         print "\n\nExporter - Export External Data\n\n"
         status_export = export_odbc(importer_directory, salesforce_type)
-        output_log += status_export
 
     # Insert Data
     status_import = ""
@@ -77,7 +75,6 @@ def main():
 
             status_import = process_data(importer_directory, salesforce_type, client_type,
                                          client_subtype, False, wait_time, noexportsf)
-            output_log += status_import
 
             # Insert files are empty so continue to update process
             if "import_dataloader (returncode)" not in status_import:
@@ -88,13 +85,13 @@ def main():
         print "\n\nImporter - Update Data Process\n\n"
         status_import = process_data(importer_directory, salesforce_type, client_type,
                                      client_subtype, True, wait_time, noexportsf)
-        output_log += status_import
 
     # Restore stdout
     sys.stdout = sys_stdout_previous_state
 
+    output_log = ""
     with open(join(importer_root, "..\\importer.log"), 'r') as exportlog:
-        output_log += exportlog.read()
+        output_log = exportlog.read()
 
     file_path = importer_directory + "\\Status"
     import datetime
