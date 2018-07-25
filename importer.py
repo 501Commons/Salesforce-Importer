@@ -81,7 +81,7 @@ def main():
                 break
 
     # Update Data
-    if not noupdate and "error" not in status_import.lower():
+    if not noupdate and not contains_error(status_import):
         print "\n\nImporter - Update Data Process\n\n"
         status_import = process_data(importer_directory, salesforce_type, client_type,
                                      client_subtype, True, wait_time, noexportsf)
@@ -105,7 +105,7 @@ def main():
 
     # Send email results
     results = "Success"
-    if "error" in status_import.lower() or "error" in status_export.lower():
+    if contains_error(status_import) or contains_error(status_export):
         results = "Error"
     subject = "{}-{} Salesforce Importer Results - {}".format(client_type, client_subtype, results)
     send_email(client_emaillist, subject, file_path, emailattachments)
@@ -144,7 +144,7 @@ def process_data(importer_directory, salesforce_type, client_type,
 
     # Export data from Excel
     try:
-        if "error" not in output_log.lower():
+        if not contains_error(output_log.lower()):
             status_export = refresh_and_export(importer_directory, salesforce_type, client_type,
                                                client_subtype, update_mode, wait_time)
         else:
@@ -158,7 +158,7 @@ def process_data(importer_directory, salesforce_type, client_type,
     status_import = ""
 
     try:
-        if "error" not in output_log.lower():
+        if not contains_error(output_log):
             status_import = import_dataloader(importer_directory,
                                               client_type, salesforce_type, data_mode)
         else:
@@ -342,7 +342,7 @@ def import_dataloader(importer_directory, client_type, salesforce_type, data_mod
         return_stderr += "\n\nimport_dataloader (stderr):\n" + stderr
 
         if (import_process.returncode != 0
-                or "Error" in return_stdout
+                or contains_error(return_stdout)
                 or "We couldn't find the Java Runtime Environment (JRE)" in return_stdout):
             raise Exception("Invalid Return Code", return_code + return_stdout + return_stderr)
 
@@ -350,7 +350,7 @@ def import_dataloader(importer_directory, client_type, salesforce_type, data_mod
 
         for file_name_status in listdir(status_path):
             file_name_status_full = join(status_path, file_name_status)
-            if "error" in file_name_status_full and contains_data(file_name_status_full):
+            if contains_error(file_name_status_full) and contains_data(file_name_status_full):
                 raise Exception("error file contains data: " + file_name_status_full, (
                     return_code + return_stdout + return_stderr))
 
@@ -390,7 +390,7 @@ def export_dataloader(importer_directory, salesforce_type):
         return_stderr += "\n\nexport_dataloader (stderr):\n" + stderr
 
         if (export_process.returncode != 0
-                or "Error" in return_stdout
+                or contains_error(return_stdout)
                 or "We couldn't find the Java Runtime Environment (JRE)" in return_stdout):
             raise Exception("Invalid Return Code", return_code + return_stdout + return_stderr)
 
@@ -427,11 +427,20 @@ def export_odbc(importer_directory, salesforce_type):
         return_stderr += "\n\nexport_odbc (stderr):\n" + stderr
 
         if (export_process.returncode != 0
-                or "Error" in return_stdout
+                or contains_error(return_stdout)
                 or "We couldn't find the Java Runtime Environment (JRE)" in return_stdout):
             raise Exception("Invalid Return Code", return_code + return_stdout + return_stderr)
 
     return return_code + return_stdout + return_stderr
+
+def contains_error(text):
+    """ Check for errors in text string """
+
+    modified_text = text.lower().replace("0 errors", "success")
+    if "error" in modified_text.lower():
+        return True
+
+    return False
 
 def send_email(client_emaillist, subject, file_path, emailattachments):
     """Send email via O365"""
@@ -478,7 +487,7 @@ def send_email(client_emaillist, subject, file_path, emailattachments):
 
             msgbody += "\t{}, with {} rows\n".format(file_name, file_linecount(file_name))
 
-            if emailattachments or ("error" in subject.lower() and "log" in file_name.lower()):
+            if emailattachments or (contains_error(subject) and "log" in file_name.lower()):
                 with open(file_name, "rb") as file_name_open:
                     part = MIMEApplication(
                         file_name_open.read(),
