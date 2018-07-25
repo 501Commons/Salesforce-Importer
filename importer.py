@@ -86,7 +86,7 @@ def main():
 
     # Send email results
     results = "Success"
-    if "error" in status_import.lower():
+    if "error" in status_import.lower() or "error" in status_export.lower():
         results = "Error"
     subject = "{}-{} Salesforce Importer Results - {}".format(client_type, client_subtype, results)
     file_path = importer_directory + "\\Status"
@@ -126,7 +126,7 @@ def process_data(importer_directory, salesforce_type, client_type,
 
     # Export data from Excel
     try:
-        if "error" not in output_log:
+        if "error" not in output_log.lower():
             status_export = refresh_and_export(importer_directory, salesforce_type, client_type,
                                                client_subtype, update_mode, wait_time)
         else:
@@ -140,7 +140,7 @@ def process_data(importer_directory, salesforce_type, client_type,
     status_import = ""
 
     try:
-        if "error" not in output_log:
+        if "error" not in output_log.lower():
             status_import = import_dataloader(importer_directory,
                                               client_type, salesforce_type, data_mode)
         else:
