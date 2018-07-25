@@ -460,7 +460,7 @@ def send_email(client_emaillist, subject, file_path, emailattachments):
 
             msgbody += "\t{}, with {} rows\n".format(file_name, file_linecount(file_name))
 
-            if emailattachments or ("error" in subject.lower() and "log" in file_name):
+            if emailattachments or ("error" in subject.lower() and "log" in file_name.lower()):
                 with open(file_name, "rb") as file_name_open:
                     part = MIMEApplication(
                         file_name_open.read(),
