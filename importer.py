@@ -52,6 +52,8 @@ def main():
     if '-rootdir' in sys.argv:
         importer_root = sys.argv[sys.argv.index('-rootdir') + 1]
 
+    # Setup Logging to File
+    sys_stdout_previous_state = sys.stdout
     sys.stdout = open(join(importer_root, '..\\importer.log'), 'w')
     print 'Importer Startup'
 
@@ -59,10 +61,12 @@ def main():
     print "Setting Importer Directory: " + importer_directory
 
     # Export External Data
+    output_log = ""
     status_export = ""
     if not noexportodbc:
         print "\n\nExporter - Export External Data\n\n"
         status_export = export_odbc(importer_directory, salesforce_type)
+        output_log += status_export
 
     # Insert Data
     status_import = ""
@@ -73,6 +77,7 @@ def main():
 
             status_import = process_data(importer_directory, salesforce_type, client_type,
                                          client_subtype, False, wait_time, noexportsf)
+            output_log += status_import
 
             # Insert files are empty so continue to update process
             if "import_dataloader (returncode)" not in status_import:
@@ -83,13 +88,29 @@ def main():
         print "\n\nImporter - Update Data Process\n\n"
         status_import = process_data(importer_directory, salesforce_type, client_type,
                                      client_subtype, True, wait_time, noexportsf)
+        output_log += status_import
+
+    # Restore stdout
+    sys.stdout = sys_stdout_previous_state
+
+    with open(join(importer_root, "..\\importer.log"), 'r') as exportlog:
+        output_log += exportlog.read()
+
+    file_path = importer_directory + "\\Status"
+    import datetime
+    date_tag = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    with open(join(file_path, "Salesforce-Importer-Log-{}.txt".format(date_tag)),
+              "w") as text_file:
+        text_file.write(output_log)
+
+    #Write log to stdout
+    print output_log
 
     # Send email results
     results = "Success"
     if "error" in status_import.lower() or "error" in status_export.lower():
         results = "Error"
     subject = "{}-{} Salesforce Importer Results - {}".format(client_type, client_subtype, results)
-    file_path = importer_directory + "\\Status"
     send_email(client_emaillist, subject, file_path, emailattachments)
 
     print "\nImporter process completed\n"
