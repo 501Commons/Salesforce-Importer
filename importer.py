@@ -244,12 +244,12 @@ def refresh_and_export(importer_directory, salesforce_type,
                     and "report" not in sheet_name_lower):
                 continue
 
-            message = "Exporting csv for sheet: " + sheet.Name
-            print message
-            refresh_status += message + "\n"
-
             excel_connection.Sheets(sheet.Name).Select()
             sheet_file = excel_file_path + "Import\\" + sheet.Name + ".csv"
+
+            message = "Exporting csv for sheet: " + sheet_file
+            print message
+            refresh_status += message + "\n"
 
             # Save report to Status to get attached to email
             if "report" in sheet.Name.lower():
