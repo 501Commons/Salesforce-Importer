@@ -43,6 +43,10 @@ def main():
     if '-emailattachments' in sys.argv:
         emailattachments = True
 
+    interactivemode = False
+    if '-interactivemode' in sys.argv:
+        interactivemode = True
+
     insert_attempts = 10
     if '-insertattempts' in sys.argv:
         insert_attempts = int(sys.argv[sys.argv.index('-insertattempts') + 1])
@@ -74,7 +78,7 @@ def main():
             print "\n\nImporter - Insert Data Process (run: %d)\n\n" % (insert_run)
 
             status_import = process_data(importer_directory, salesforce_type, client_type,
-                                         client_subtype, False, wait_time, noexportsf)
+                                         client_subtype, False, wait_time, noexportsf, interactivemode)
 
             # Insert files are empty so continue to update process
             if "import_dataloader (returncode)" not in status_import:
@@ -84,7 +88,7 @@ def main():
     if not noupdate and not contains_error(status_import):
         print "\n\nImporter - Update Data Process\n\n"
         status_import = process_data(importer_directory, salesforce_type, client_type,
-                                     client_subtype, True, wait_time, noexportsf)
+                                     client_subtype, True, wait_time, noexportsf, interactivemode)
 
     # Restore stdout
     sys.stdout = sys_stdout_previous_state
@@ -114,7 +118,7 @@ def main():
 
 def process_data(importer_directory, salesforce_type, client_type,
                  client_subtype, update_mode, wait_time,
-                 noexportsf):
+                 noexportsf, interactivemode):
     """Process Data based on data_mode"""
 
     #Create log file for import status and reports
@@ -146,7 +150,7 @@ def process_data(importer_directory, salesforce_type, client_type,
     try:
         if not contains_error(output_log.lower()):
             status_export = refresh_and_export(importer_directory, salesforce_type, client_type,
-                                               client_subtype, update_mode, wait_time)
+                                               client_subtype, update_mode, wait_time, interactivemode)
         else:
             status_export = "Skipping export from Excel"
     except Exception as ex:
@@ -177,7 +181,7 @@ def process_data(importer_directory, salesforce_type, client_type,
     return status_import
 
 def refresh_and_export(importer_directory, salesforce_type,
-                       client_type, client_subtype, update_mode, wait_time):
+                       client_type, client_subtype, update_mode, wait_time, interactivemode):
     """Refresh Excel connections"""
 
     import os
@@ -193,11 +197,8 @@ def refresh_and_export(importer_directory, salesforce_type,
         workbook = workbooks.Open((
             excel_file_path + client_type + "-" + client_subtype + "_" + salesforce_type + ".xlsx"))
 
-        # Uncomment if you want to see the Excel file opened
-        #excel_connection.Visible = True
-
-        # Comment if you want to see alerts
-        excel_connection.DisplayAlerts = False
+        excel_connection.Visible = interactivemode
+        excel_connection.DisplayAlerts = interactivemode
 
         #for connection in workbook.Connections:
             #print connection.name
