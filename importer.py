@@ -47,6 +47,10 @@ def main():
     if '-interactivemode' in sys.argv:
         interactivemode = True
 
+    skipexcelrefresh = False
+    if '-skipexcelrefresh' in sys.argv:
+        skipexcelrefresh = True
+
     insert_attempts = 10
     if '-insertattempts' in sys.argv:
         insert_attempts = int(sys.argv[sys.argv.index('-insertattempts') + 1])
@@ -78,7 +82,8 @@ def main():
             print "\n\nImporter - Insert Data Process (run: %d)\n\n" % (insert_run)
 
             status_import = process_data(importer_directory, salesforce_type, client_type,
-                                         client_subtype, False, wait_time, noexportsf, interactivemode)
+                                         client_subtype, False, wait_time,
+                                         noexportsf, interactivemode, skipexcelrefresh)
 
             # Insert files are empty so continue to update process
             if "import_dataloader (returncode)" not in status_import:
@@ -88,7 +93,8 @@ def main():
     if not noupdate and not contains_error(status_import):
         print "\n\nImporter - Update Data Process\n\n"
         status_import = process_data(importer_directory, salesforce_type, client_type,
-                                     client_subtype, True, wait_time, noexportsf, interactivemode)
+                                     client_subtype, True, wait_time,
+                                     noexportsf, interactivemode, skipexcelrefresh)
 
     # Restore stdout
     sys.stdout = sys_stdout_previous_state
@@ -118,7 +124,7 @@ def main():
 
 def process_data(importer_directory, salesforce_type, client_type,
                  client_subtype, update_mode, wait_time,
-                 noexportsf, interactivemode):
+                 noexportsf, interactivemode, skipexcelrefresh):
     """Process Data based on data_mode"""
 
     #Create log file for import status and reports
@@ -148,11 +154,12 @@ def process_data(importer_directory, salesforce_type, client_type,
 
     # Export data from Excel
     try:
-        if not contains_error(output_log.lower()):
+        if not skipexcelrefresh and not contains_error(output_log.lower()):
             status_export = refresh_and_export(importer_directory, salesforce_type, client_type,
-                                               client_subtype, update_mode, wait_time, interactivemode)
+                                               client_subtype, update_mode,
+                                               wait_time, interactivemode)
         else:
-            status_export = "Skipping export from Excel"
+            status_export = "Skipping refresh and export from Excel"
     except Exception as ex:
         output_log += "\n\nrefresh_and_export - Unexpected export error:" + str(ex)
     else:

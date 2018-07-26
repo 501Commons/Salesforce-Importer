@@ -15,19 +15,20 @@
             "env": {},
             "envFile": "${workspaceFolder}/.env",
             "args": [
-                "Sandbox"
-                ,"OPPCO"
-                ,"LIHEAP"
-                ,"db.oppco@501commons.org"
+                "Prod"
+                ,"II"
+                ,"SubPool"
+                ,"db.ii@501commons.org"
                 ,"-wait"
                 ,"10"
                 ,"-insertattempts"
                 ,"1"
 //                ,"-noupdate"
-                ,"-rootdir",
-                "C:\\repo\\Salesforce-Importer-Private",
-                "-noexportodbc",
-//                "-noexportsf"
+//                ,"-rootdir"
+//                ,"C:\\repo\\Salesforce-Importer-Private"
+                ,"-noexportodbc"
+                ,"-noexportsf"
+                ,"-skipexcelrefresh"
             ],
             "debugOptions": [
                 "RedirectOutput"
