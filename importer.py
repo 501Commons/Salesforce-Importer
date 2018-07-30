@@ -247,8 +247,8 @@ def refresh_and_export(importer_directory, salesforce_type,
 
             wait_time -= 30
 
-            message = ("\tTime remaining " + str(wait_time) +
-                       " seconds for Excel to complete data queries...")
+            message = ("\t" + str(wait_time) +
+                       " seconds remaining for Excel to complete data queries...")
             print message
             refresh_status += message + "\n"
 
