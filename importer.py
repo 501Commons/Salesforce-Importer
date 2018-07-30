@@ -62,7 +62,8 @@ def main():
 
     # Setup Logging to File
     sys_stdout_previous_state = sys.stdout
-    sys.stdout = open(join(importer_root, '..\\importer.log'), 'w')
+    if not interactivemode:
+        sys.stdout = open(join(importer_root, '..\\importer.log'), 'w')
     print 'Importer Startup'
 
     importer_directory = join(importer_root, "Clients\\" + client_type)
