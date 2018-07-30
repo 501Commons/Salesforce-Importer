@@ -251,6 +251,8 @@ def refresh_and_export(importer_directory, salesforce_type,
 
             else:
                 time.sleep(wait_time)
+                wait_time = 0
+                break
 
         message = "Refreshing all connections...Completed"
         print message
