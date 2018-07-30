@@ -189,7 +189,8 @@ def process_data(importer_directory, salesforce_type, client_type,
     return status_import
 
 def refresh_and_export(importer_directory, salesforce_type,
-                       client_type, client_subtype, update_mode, wait_time, interactivemode):
+                       client_type, client_subtype, update_mode,
+                       wait_time, interactivemode):
     """Refresh Excel connections"""
 
     import os
@@ -221,6 +222,16 @@ def refresh_and_export(importer_directory, salesforce_type,
         print message
         refresh_status += message + "\n"
 
+        # RefreshAll - if direct Salesforce connection then will prompt for username & password
+        #       under a couple of scenarios and will block until creds updates
+        #   Scenario 1: First time running automation on a particular machine.
+        #       User needs to select Remember me or this Scenario will repeat
+        #   Scenario 2: Salesforce Password changed
+        #   Scenario 3: Excel I think has a 3 month expiration for the user cred cookie
+        #
+        # Avoid adding connections to Excel that require username/password
+        #   (e.g., Salesforce, Database).
+        #   Instead use Exporter to pull the data external to Excel.
         workbook.RefreshAll()
 
         # Wait for excel to finish refresh
@@ -228,7 +239,18 @@ def refresh_and_export(importer_directory, salesforce_type,
                    " seconds to give Excel time to complete data queries...")
         print message
         refresh_status += message + "\n"
-        time.sleep(wait_time)
+        while wait_time > 0:
+            if wait_time > 30:
+                time.sleep(30)
+            else:
+                time.sleep(wait_time)
+
+            wait_time -= 30
+
+            message = ("\tTime remaining " + str(wait_time) +
+                       " seconds for Excel to complete data queries...")
+            print message
+            refresh_status += message + "\n"
 
         message = "Refreshing all connections...Completed"
         print message
