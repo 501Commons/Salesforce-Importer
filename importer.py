@@ -242,15 +242,15 @@ def refresh_and_export(importer_directory, salesforce_type,
         while wait_time > 0:
             if wait_time > 30:
                 time.sleep(30)
+
+                wait_time -= 30
+                message = ("\t" + str(wait_time) +
+                           " seconds remaining for Excel to complete data queries...")
+                print message
+                refresh_status += message + "\n"
+
             else:
                 time.sleep(wait_time)
-
-            wait_time -= 30
-
-            message = ("\t" + str(wait_time) +
-                       " seconds remaining for Excel to complete data queries...")
-            print message
-            refresh_status += message + "\n"
 
         message = "Refreshing all connections...Completed"
         print message
