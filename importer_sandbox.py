@@ -77,7 +77,7 @@ def main():
     status_export = ""
     if not noexportodbc:
         print "\n\nExporter - Export External Data\n\n"
-        status_export = export_odbc(importer_directory, salesforce_type)
+        status_export = export_odbc(importer_directory, salesforce_type, interactivemode)
 
     # Insert Data
     status_import = ""
@@ -149,7 +149,7 @@ def process_data(importer_directory, salesforce_type, client_type,
     status_export = ""
     try:
         if not noexportsf:
-            status_export = export_dataloader(importer_directory, salesforce_type)
+            status_export = export_dataloader(importer_directory, salesforce_type, interactivemode)
         else:
             status_export = "Skipping export from Salesforce"
     except Exception as ex:
@@ -396,7 +396,7 @@ def import_dataloader(importer_directory, client_type, salesforce_type, data_mod
 
     return return_code + return_stdout + return_stderr
 
-def export_dataloader(importer_directory, salesforce_type):
+def export_dataloader(importer_directory, salesforce_type, interactivemode):
     """Export out of Salesforce using DataLoader"""
 
     from os.path import exists
@@ -406,7 +406,7 @@ def export_dataloader(importer_directory, salesforce_type):
     if "\\Salesforce-Exporter\\" in exporter_directory:
         exporter_directory += "\\..\\..\\.."
 
-    bat_file = exporter_directory + "\\exporter.bat " + salesforce_type
+    bat_file = exporter_directory + "\\exporter.bat {} {}".format(salesforce_type, interactivemode)
 
     return_code = ""
     return_stdout = ""
@@ -433,7 +433,7 @@ def export_dataloader(importer_directory, salesforce_type):
 
     return return_code + return_stdout + return_stderr
 
-def export_odbc(importer_directory, salesforce_type):
+def export_odbc(importer_directory, salesforce_type, interactivemode):
     """Export out of Salesforce using DataLoader"""
 
     from os.path import exists
@@ -443,7 +443,7 @@ def export_odbc(importer_directory, salesforce_type):
     if "\\ODBC-Exporter\\" in exporter_directory:
         exporter_directory += "\\..\\..\\.."
 
-    bat_file = exporter_directory + "\\exporter.bat " + salesforce_type
+    bat_file = exporter_directory + "\\exporter.bat {} {}".format(salesforce_type, interactivemode)
 
     return_code = ""
     return_stdout = ""
