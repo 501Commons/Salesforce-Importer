@@ -19,6 +19,10 @@ def main():
                "salesforce_type client_type client_subtype client_emaillist\n")
         return
 
+    print ("Incoming required paramters: " +
+           "salesforce_type: {} client_type: {} client_subtype: {} client_emaillist: {}\n"
+           .format(salesforce_type, client_type, client_subtype, client_emaillist))
+
     #
     # Optional Parameters
     #
@@ -55,7 +59,7 @@ def main():
     if '-insertattempts' in sys.argv:
         insert_attempts = int(sys.argv[sys.argv.index('-insertattempts') + 1])
 
-    importer_root = ("C:\\repo\\Salesforce-Importer-Private\\Clients\\" + sys.argv[2] +
+    importer_root = ("C:\\repo\\Salesforce-Importer-Private\\Clients\\" + client_type +
                      "\\Salesforce-Importer")
     if '-rootdir' in sys.argv:
         importer_root = sys.argv[sys.argv.index('-rootdir') + 1]
