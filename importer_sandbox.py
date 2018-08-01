@@ -536,7 +536,10 @@ def send_email(client_emaillist, subject, file_path, emailattachments):
                 msg.attach(part)
 
             # Rename file so do not attached again
-            sent_file = join(file_path, file_name) + '.sent'
+            sent_file = join(file_path, file_name)
+            filename, file_extension = os.path.splitext(sent_file)
+            sent_file = "{}.sent.{}".format(filename, file_extension)
+
             if exists(sent_file):
                 os.remove(sent_file)
 
