@@ -406,7 +406,10 @@ def export_dataloader(importer_directory, salesforce_type, interactivemode):
     if "\\Salesforce-Exporter\\" in exporter_directory:
         exporter_directory += "\\..\\..\\.."
 
-    bat_file = exporter_directory + "\\exporter.bat {} {}".format(salesforce_type, interactivemode)
+    interactive_flag = ""
+    if interactivemode:
+        interactive_flag = "-interactivemode"
+    bat_file = exporter_directory + "\\exporter.bat {} {}".format(salesforce_type, interactive_flag)
 
     return_code = ""
     return_stdout = ""
@@ -443,7 +446,10 @@ def export_odbc(importer_directory, salesforce_type, interactivemode):
     if "\\ODBC-Exporter\\" in exporter_directory:
         exporter_directory += "\\..\\..\\.."
 
-    bat_file = exporter_directory + "\\exporter.bat {} {}".format(salesforce_type, interactivemode)
+    interactive_flag = ""
+    if interactivemode:
+        interactive_flag = "-interactivemode"
+    bat_file = exporter_directory + "\\exporter.bat {} {}".format(salesforce_type, interactive_flag)
 
     return_code = ""
     return_stdout = ""
