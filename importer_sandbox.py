@@ -480,7 +480,11 @@ def contains_error(text):
     """ Check for errors in text string """
 
     modified_text = text.lower().replace("0 errors", "success")
+    
     if "error" in modified_text.lower():
+        return True
+
+    if "exception" in modified_text.lower():
         return True
 
     return False
