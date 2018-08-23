@@ -77,7 +77,7 @@ def main():
     status_export = ""
     if not noexportodbc:
         print "\n\nExporter - Export External Data\n\n"
-        status_export = export_odbc(importer_directory, salesforce_type)
+        status_export = export_odbc(importer_directory, salesforce_type, interactivemode)
 
     # Insert Data
     status_import = ""
@@ -144,45 +144,53 @@ def process_data(importer_directory, salesforce_type, client_type,
         data_mode = "Update"
 
     output_log = "Process Data (" + data_mode + ")\n\n"
+    status_process_data = ""
 
     # Export data from Salesforce
-    status_export = ""
+
     try:
         if not noexportsf:
-            status_export = export_dataloader(importer_directory, salesforce_type)
+            status_process_data = export_dataloader(importer_directory,
+                                                    salesforce_type, interactivemode)
         else:
-            status_export = "Skipping export from Salesforce"
+            status_process_data = "Skipping export from Salesforce"
     except Exception as ex:
         output_log += "\n\nexport_dataloader - Unexpected export error:" + str(ex)
+        status_process_data = "Error detected - Exception"
     else:
-        output_log += "\n\nExport\n" + status_export
+        output_log += "\n\nExport\n" + status_process_data
 
     # Export data from Excel
+
     try:
-        if not skipexcelrefresh and not contains_error(output_log.lower()):
-            status_export = refresh_and_export(importer_directory, salesforce_type, client_type,
-                                               client_subtype, update_mode,
-                                               wait_time, interactivemode)
+        if (not skipexcelrefresh and not contains_error(status_process_data)
+                and not contains_error(output_log.lower())):
+            status_process_data = refresh_and_export(importer_directory,
+                                                     salesforce_type, client_type,
+                                                     client_subtype, update_mode,
+                                                     wait_time, interactivemode)
         else:
-            status_export = "Skipping refresh and export from Excel"
+            status_process_data = "Skipping refresh and export from Excel"
     except Exception as ex:
         output_log += "\n\nrefresh_and_export - Unexpected export error:" + str(ex)
+        status_process_data = "Error detected - Exception"
     else:
-        output_log += "\n\nExport\n" + status_export
+        output_log += "\n\nExport\n" + status_process_data
 
-    # Import data into Salesforce
-    status_import = ""
+    # Import Data into Salesforce
 
     try:
-        if not contains_error(output_log):
-            status_import = import_dataloader(importer_directory,
-                                              client_type, salesforce_type, data_mode)
+        if not contains_error(status_process_data) and not contains_error(output_log):
+            status_process_data = import_dataloader(importer_directory,
+                                                    client_type, salesforce_type,
+                                                    data_mode)
         else:
-            status_import = "Error detected so skipped"
+            status_process_data = "Error detected so skipped"
     except Exception as ex:
         output_log += "\n\nUnexpected import error:" + str(ex)
+        status_process_data = "Error detected - Exception"
     else:
-        output_log += "\n\nImport\n" + status_import
+        output_log += "\n\nImport\n" + status_process_data
 
     import datetime
     date_tag = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
@@ -190,7 +198,7 @@ def process_data(importer_directory, salesforce_type, client_type,
               "w") as text_file:
         text_file.write(output_log)
 
-    return status_import
+    return status_process_data
 
 def refresh_and_export(importer_directory, salesforce_type,
                        client_type, client_subtype, update_mode,
@@ -396,7 +404,7 @@ def import_dataloader(importer_directory, client_type, salesforce_type, data_mod
 
     return return_code + return_stdout + return_stderr
 
-def export_dataloader(importer_directory, salesforce_type):
+def export_dataloader(importer_directory, salesforce_type, interactivemode):
     """Export out of Salesforce using DataLoader"""
 
     from os.path import exists
@@ -406,7 +414,10 @@ def export_dataloader(importer_directory, salesforce_type):
     if "\\Salesforce-Exporter\\" in exporter_directory:
         exporter_directory += "\\..\\..\\.."
 
-    bat_file = exporter_directory + "\\exporter.bat " + salesforce_type
+    interactive_flag = ""
+    if interactivemode:
+        interactive_flag = "-interactivemode"
+    bat_file = exporter_directory + "\\exporter.bat {} {}".format(salesforce_type, interactive_flag)
 
     return_code = ""
     return_stdout = ""
@@ -433,7 +444,7 @@ def export_dataloader(importer_directory, salesforce_type):
 
     return return_code + return_stdout + return_stderr
 
-def export_odbc(importer_directory, salesforce_type):
+def export_odbc(importer_directory, salesforce_type, interactivemode):
     """Export out of Salesforce using DataLoader"""
 
     from os.path import exists
@@ -443,7 +454,10 @@ def export_odbc(importer_directory, salesforce_type):
     if "\\ODBC-Exporter\\" in exporter_directory:
         exporter_directory += "\\..\\..\\.."
 
-    bat_file = exporter_directory + "\\exporter.bat " + salesforce_type
+    interactive_flag = ""
+    if interactivemode:
+        interactive_flag = "-interactivemode"
+    bat_file = exporter_directory + "\\exporter.bat {} {}".format(salesforce_type, interactive_flag)
 
     return_code = ""
     return_stdout = ""
@@ -474,7 +488,11 @@ def contains_error(text):
     """ Check for errors in text string """
 
     modified_text = text.lower().replace("0 errors", "success")
+
     if "error" in modified_text.lower():
+        return True
+
+    if "exception" in modified_text.lower():
         return True
 
     return False
@@ -536,7 +554,10 @@ def send_email(client_emaillist, subject, file_path, emailattachments):
                 msg.attach(part)
 
             # Rename file so do not attached again
-            sent_file = join(file_path, file_name) + '.sent'
+            sent_file = join(file_path, file_name)
+            filename, file_extension = os.path.splitext(sent_file)
+            sent_file = "{}.sent.{}".format(filename, file_extension)
+
             if exists(sent_file):
                 os.remove(sent_file)
 
