@@ -20,4 +20,4 @@ First\ Name=npsp__Contact1_Firstname__c
 Gross=npsp__Donation_Amount__c
 Address\ Line\ 1=npsp__Home_Street__c
 Regions\ Vested=Donation_Regions_Vested__c
-Designated\ Program\ or\ Need=Donation_Designated_Need_c__c
+Designated\ Program\ or\ Need=Program_Restriction__c
