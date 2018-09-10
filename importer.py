@@ -77,7 +77,7 @@ def main():
     status_export = ""
     if not noexportodbc:
         print "\n\nExporter - Export External Data\n\n"
-        status_export = export_odbc(importer_directory, salesforce_type, interactivemode)
+        status_export = export_odbc(importer_directory, salesforce_type, client_subtype, interactivemode)
 
     # Insert Data
     status_import = ""
@@ -444,7 +444,7 @@ def export_dataloader(importer_directory, salesforce_type, interactivemode):
 
     return return_code + return_stdout + return_stderr
 
-def export_odbc(importer_directory, salesforce_type, interactivemode):
+def export_odbc(importer_directory, salesforce_type, client_subtype, interactivemode):
     """Export out of Salesforce using DataLoader"""
 
     from os.path import exists
@@ -457,7 +457,7 @@ def export_odbc(importer_directory, salesforce_type, interactivemode):
     interactive_flag = ""
     if interactivemode:
         interactive_flag = "-interactivemode"
-    bat_file = exporter_directory + "\\exporter.bat {} {}".format(salesforce_type, interactive_flag)
+    bat_file = exporter_directory + "\\exporter.bat {} {} {}".format(salesforce_type, client_subtype, interactive_flag)
 
     return_code = ""
     return_stdout = ""
