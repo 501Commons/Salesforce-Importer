@@ -31,6 +31,10 @@ def main():
     if '-waittime' in sys.argv:
         wait_time = int(sys.argv[sys.argv.index('-waittime') + 1])
 
+    norefresh = False
+    if '-norefresh' in sys.argv:
+        norefresh = True
+
     noupdate = False
     if '-noupdate' in sys.argv:
         noupdate = True
@@ -81,7 +85,7 @@ def main():
 
     # Insert Data
     status_import = ""
-    if "Invalid Return Code" not in status_export:
+    if not norefresh and "Invalid Return Code" not in status_export:
         for insert_run in range(0, insert_attempts):
 
             print "\n\nImporter - Insert Data Process (run: %d)\n\n" % (insert_run)
