@@ -54,7 +54,6 @@ if NOT EXIST "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" (
     xcopy %IMPORT_DIRECTORY% "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" /s /y /i
 )
 
-goto scriptexit
 :skip_import_directory_check
 
 set PATH=%PATH%;%JAVA_HOME%;%PYTHON_HOME%;%PYTHON_HOME%\Scripts
