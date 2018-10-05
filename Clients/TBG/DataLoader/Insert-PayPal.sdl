@@ -1,5 +1,5 @@
 #Mapping values
-#Fri Jun 29 18:03:32 PDT 2018
+#Thu Oct 04 19:52:46 PDT 2018
 Recurring=C501_Donation_Recurring__c
 Stage=npsp__Donation_Stage__c
 Net=C501_Donation_Net_Amount__c
@@ -7,17 +7,18 @@ Date=npsp__Donation_Date__c
 From\ Email\ Address=npsp__Contact1_Work_Email__c
 Contact\ Phone\ Number=npsp__Contact1_Work_Phone__c
 Country=npsp__Home_Country__c
+Donation\ Last\ Import\ Date=C501_Donation_Last_Import_Date__c
 Last\ Name=npsp__Contact1_Lastname__c
+Contact1\ Last\ Import\ Date=Contact1_Last_Import_Date__c
+Donation\ Online\ Donation=C501_Donation_Online_Donation__c
 Note=npsp__Donation_Description__c
-Record\ Type=npsp__Donation_Record_Type_Name__c
 State/Province/Region/County/Territory/Prefecture/Republic=npsp__Home_State_Province__c
 Zip/Postal\ Code=npsp__Home_Zip_Postal_Code__c
+Donation\ Budget\ Constituency=C501_Donation_Budget_Constituency__c
 Town/City=npsp__Home_City__c
 Pass\ through\ ID=C501_Donation_Pass_Through_Organization__c
-Budget\ Constituency=Donation_Budget_Constituency__c
-Online\ Donation=C501_Donation_Online_Donation__c
+Donation\ Regions\ Vested=C501_Donation_Regions_Vested__c
 First\ Name=npsp__Contact1_Firstname__c
 Gross=npsp__Donation_Amount__c
 Address\ Line\ 1=npsp__Home_Street__c
-Regions\ Vested=Donation_Regions_Vested__c
-Designated\ Program\ or\ Need=Program_Restriction__c
+Donation\ Record\ Type\ Name=npsp__Donation_Record_Type_Name__c

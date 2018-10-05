@@ -1,0 +1,27 @@
+#Mapping values
+#Thu Oct 04 19:50:35 PDT 2018
+Contact1\ Imported=npsp__Contact1Imported__c
+Date\ of\ Donation=npsp__Donation_Date__c
+Matching\ Gift\ Status=C501_Donation_Matching_Gift_Status__c
+Donation\ Primary\ Contact=C501_Donation_Primary_Contact__c
+Donation\ Pass-Through\ Organization=C501_Donation_Pass_Through_Organization__c
+Donation\ Recurring=C501_Donation_Recurring__c
+Donor\ First\ Name=npsp__Contact1_Firstname__c
+Account1\ Imported=npsp__Account1Imported__c
+Donation\ Last\ Import\ Date=C501_Donation_Last_Import_Date__c
+Contact1\ Last\ Import\ Date=Contact1_Last_Import_Date__c
+Donation\ Online\ Donation=C501_Donation_Online_Donation__c
+Matching\ Gift\ Account=C501_Donation_Matching_Gift_Account__c
+Donation\ Budget\ Constituency=C501_Donation_Budget_Constituency__c
+Donor\ Last\ Name=npsp__Contact1_Lastname__c
+Donation\ Amount\ Actual=npsp__Donation_Amount__c
+State/Province=npsp__Home_State_Province__c
+Donation\ Regions\ Vested=C501_Donation_Regions_Vested__c
+Participating\ Corporation=npsp__Account1_Name__c
+Address=npsp__Home_Street__c
+Postal\ Code=npsp__Home_Zip_Postal_Code__c
+Donation\ Description=npsp__Donation_Description__c
+Email=npsp__Contact1_Work_Email__c
+Donation\ Record\ Type\ Name=npsp__Donation_Record_Type_Name__c
+City=npsp__Home_City__c
+Donation\ Donor=npsp__Donation_Donor__c
