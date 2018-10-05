@@ -109,8 +109,9 @@ def main():
     sys.stdout = sys_stdout_previous_state
 
     output_log = ""
-    with open(join(importer_root, "..\\importer.log"), 'r') as exportlog:
-        output_log = exportlog.read()
+    if not interactivemode:
+        with open(join(importer_root, "..\\importer.log"), 'r') as exportlog:
+            output_log = exportlog.read()
 
     file_path = importer_directory + "\\Status"
     import datetime
