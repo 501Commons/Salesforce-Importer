@@ -55,6 +55,10 @@ def main():
     if '-interactivemode' in sys.argv:
         interactivemode = True
 
+    displayalerts = False
+    if '-displayalerts' in sys.argv:
+        displayalerts = True
+
     skipexcelrefresh = False
     if '-skipexcelrefresh' in sys.argv:
         skipexcelrefresh = True
@@ -81,7 +85,7 @@ def main():
     status_export = ""
     if not noexportodbc:
         print "\n\nExporter - Export External Data\n\n"
-        status_export = export_odbc(importer_directory, salesforce_type, client_subtype, interactivemode)
+        status_export = export_odbc(importer_directory, salesforce_type, client_subtype, interactivemode, displayalerts)
 
     # Insert Data
     status_import = ""
@@ -92,7 +96,7 @@ def main():
 
             status_import = process_data(importer_directory, salesforce_type, client_type,
                                          client_subtype, False, wait_time,
-                                         noexportsf, interactivemode, skipexcelrefresh)
+                                         noexportsf, interactivemode, displayalerts, skipexcelrefresh)
 
             # Insert files are empty so continue to update process
             if "import_dataloader (returncode)" not in status_import:
@@ -103,7 +107,7 @@ def main():
         print "\n\nImporter - Update Data Process\n\n"
         status_import = process_data(importer_directory, salesforce_type, client_type,
                                      client_subtype, True, wait_time,
-                                     noexportsf, interactivemode, skipexcelrefresh)
+                                     noexportsf, interactivemode, displayalerts, skipexcelrefresh)
 
     # Restore stdout
     sys.stdout = sys_stdout_previous_state
@@ -134,7 +138,7 @@ def main():
 
 def process_data(importer_directory, salesforce_type, client_type,
                  client_subtype, update_mode, wait_time,
-                 noexportsf, interactivemode, skipexcelrefresh):
+                 noexportsf, interactivemode, displayalerts, skipexcelrefresh):
     """Process Data based on data_mode"""
 
     #Create log file for import status and reports
@@ -156,7 +160,7 @@ def process_data(importer_directory, salesforce_type, client_type,
     try:
         if not noexportsf:
             status_process_data = export_dataloader(importer_directory,
-                                                    salesforce_type, interactivemode)
+                                                    salesforce_type, interactivemode, displayalerts)
         else:
             status_process_data = "Skipping export from Salesforce"
     except Exception as ex:
@@ -173,7 +177,7 @@ def process_data(importer_directory, salesforce_type, client_type,
             status_process_data = refresh_and_export(importer_directory,
                                                      salesforce_type, client_type,
                                                      client_subtype, update_mode,
-                                                     wait_time, interactivemode)
+                                                     wait_time, interactivemode, displayalerts)
         else:
             status_process_data = "Skipping refresh and export from Excel"
     except Exception as ex:
@@ -207,7 +211,7 @@ def process_data(importer_directory, salesforce_type, client_type,
 
 def refresh_and_export(importer_directory, salesforce_type,
                        client_type, client_subtype, update_mode,
-                       wait_time, interactivemode):
+                       wait_time, interactivemode, displayalerts):
     """Refresh Excel connections"""
 
     import os
@@ -224,7 +228,7 @@ def refresh_and_export(importer_directory, salesforce_type,
             excel_file_path + client_type + "-" + client_subtype + "_" + salesforce_type + ".xlsx"))
 
         excel_connection.Visible = interactivemode
-        excel_connection.DisplayAlerts = interactivemode
+        excel_connection.DisplayAlerts = displayalerts
 
         #for connection in workbook.Connections:
             #print connection.name
@@ -409,7 +413,7 @@ def import_dataloader(importer_directory, client_type, salesforce_type, data_mod
 
     return return_code + return_stdout + return_stderr
 
-def export_dataloader(importer_directory, salesforce_type, interactivemode):
+def export_dataloader(importer_directory, salesforce_type, interactivemode, displayalerts):
     """Export out of Salesforce using DataLoader"""
 
     from os.path import exists
