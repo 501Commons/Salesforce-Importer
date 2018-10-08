@@ -453,7 +453,7 @@ def export_dataloader(importer_directory, salesforce_type, interactivemode, disp
 
     return return_code + return_stdout + return_stderr
 
-def export_odbc(importer_directory, salesforce_type, client_subtype, interactivemode):
+def export_odbc(importer_directory, salesforce_type, client_subtype, interactivemode, displayalerts):
     """Export out of Salesforce using DataLoader"""
 
     from os.path import exists
