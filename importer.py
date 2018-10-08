@@ -85,7 +85,11 @@ def main():
     status_export = ""
     if not noexportodbc:
         print "\n\nExporter - Export External Data\n\n"
-        status_export = export_odbc(importer_directory, salesforce_type, client_subtype, interactivemode, displayalerts)
+        status_export = export_odbc(importer_directory,
+                                    salesforce_type,
+                                    client_subtype,
+                                    interactivemode,
+                                    displayalerts)
 
     # Insert Data
     status_import = ""
@@ -96,7 +100,10 @@ def main():
 
             status_import = process_data(importer_directory, salesforce_type, client_type,
                                          client_subtype, False, wait_time,
-                                         noexportsf, interactivemode, displayalerts, skipexcelrefresh)
+                                         noexportsf,
+                                         interactivemode,
+                                         displayalerts,
+                                         skipexcelrefresh)
 
             # Insert files are empty so continue to update process
             if "import_dataloader (returncode)" not in status_import:
@@ -464,9 +471,11 @@ def export_odbc(importer_directory, salesforce_type, client_subtype, interactive
         exporter_directory += "\\..\\..\\.."
 
     interactive_flag = ""
-    if interactivemode:
+    if (interactivemode or displayalerts):
         interactive_flag = "-interactivemode"
-    bat_file = exporter_directory + "\\exporter.bat {} {} {}".format(salesforce_type, client_subtype, interactive_flag)
+    bat_file = exporter_directory + "\\exporter.bat {} {} {}".format(salesforce_type,
+                                                                     client_subtype,
+                                                                     interactive_flag)
 
     return_code = ""
     return_stdout = ""
