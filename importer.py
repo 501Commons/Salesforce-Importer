@@ -3,7 +3,9 @@ def main():
     """Main entry point"""
 
     import sys
-    from os.path import join
+    import os
+    from os import listdir, makedirs
+    from os.path import exists, join
 
     #
     # Required Parameters
@@ -81,6 +83,20 @@ def main():
     importer_directory = join(importer_root, "Clients\\" + client_type)
     print "Setting Importer Directory: " + importer_directory
 
+    #Clear out log directory
+    importer_log_directory = join(importer_root, "Status")
+    if not exists(importer_log_directory):
+        makedirs(importer_log_directory)
+
+    importer_log_directory = join(importer_log_directory, client_subtype)
+    if not exists(importer_log_directory):
+        makedirs(importer_log_directory)
+
+    print "Clearing out the Importer Log Directory: " + importer_log_directory
+    for file_name in listdir(importer_log_directory):
+        if os.path.isfile(file_name):
+            os.remove(file_name)
+
     # Export External Data
     status_export = ""
     if not noexportodbc:
@@ -139,7 +155,7 @@ def main():
     if contains_error(status_import) or contains_error(status_export):
         results = "Error"
     subject = "{}-{} Salesforce Importer Results - {}".format(client_type, client_subtype, results)
-    send_email(client_emaillist, subject, file_path, emailattachments)
+    send_email(client_emaillist, subject, file_path, emailattachments, importer_log_directory)
 
     print "\nImporter process completed\n"
 
@@ -515,7 +531,7 @@ def contains_error(text):
 
     return False
 
-def send_email(client_emaillist, subject, file_path, emailattachments):
+def send_email(client_emaillist, subject, file_path, emailattachments, log_path):
     """Send email via O365"""
 
     message = "\n\nPreparing email results\n"
@@ -527,13 +543,14 @@ def send_email(client_emaillist, subject, file_path, emailattachments):
 
     #https://stackoverflow.com/questions/3362600/how-to-send-email-attachments
     import base64
-    import os
-    import smtplib
-    from os.path import basename
     from email.mime.application import MIMEApplication
     from email.mime.multipart import MIMEMultipart
     from email.mime.text import MIMEText
     from email.utils import COMMASPACE, formatdate
+    import os
+    from os.path import basename
+    from shutil import copy
+    import smtplib
 
     msg = MIMEMultipart()
 
@@ -553,12 +570,12 @@ def send_email(client_emaillist, subject, file_path, emailattachments):
         msgbody += "Attachments disabled: Result files can be accessed on the import client.\n\n"
 
     for file_name in onlyfiles:
+
+        msgbody += "Log Directory: {}\n\n".format(log_path)
+
         if contains_data(file_name) and ".sent" not in file_name:
 
-            message = "Email attaching file: " + file_name + "\n"
-            print message
-
-            msgbody += "\t{}, with {} rows\n".format(file_name, file_linecount(file_name))
+            msgbody += "\t{}, with {} rows\n".format(basename(file_name), file_linecount(file_name))
 
             if emailattachments or (contains_error(subject) and "log" in file_name.lower()):
                 with open(file_name, "rb") as file_name_open:
@@ -574,13 +591,17 @@ def send_email(client_emaillist, subject, file_path, emailattachments):
             # Rename file so do not attached again
             sent_file = join(file_path, file_name)
             filename, file_extension = os.path.splitext(sent_file)
-            sent_file = "{}.sent.{}".format(filename, file_extension)
+            sent_file = "{}.sent{}".format(filename, file_extension)
 
             if exists(sent_file):
                 os.remove(sent_file)
 
             os.rename(file_name, sent_file)
 
+            #Save copy to log directory
+            copy(sent_file, log_path)
+
+    print msgbody
     msg.attach(MIMEText(msgbody))
 
     server = smtplib.SMTP(server, 587)
