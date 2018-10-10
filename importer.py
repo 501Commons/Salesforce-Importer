@@ -96,6 +96,7 @@ def main():
     for file_name_only in listdir(importer_log_directory):
         file_name_full = join(importer_log_directory, file_name_only)
         if os.path.isfile(file_name_full):
+            print "\nRemoving file: " + file_name_full
             os.remove(file_name_full)
 
     # Export External Data
