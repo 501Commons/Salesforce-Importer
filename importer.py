@@ -85,21 +85,18 @@ def main():
 
     #Clear out log directory
     importer_log_directory = join(importer_root, "..\\Status\\")
-    print "Setting Importer Log Directory: " + importer_log_directory
     if not exists(importer_log_directory):
         makedirs(importer_log_directory)
 
     importer_log_directory = join(importer_log_directory, client_subtype)
-    print "Setting Importer Log Directory: " + importer_log_directory
     if not exists(importer_log_directory):
         makedirs(importer_log_directory)
 
     print "Clearing out the Importer Log Directory: " + importer_log_directory
-    for file_name in listdir(importer_log_directory):
-        print "Checking File: " + file_name
-        if os.path.isfile(file_name):
-            print "Remove File: " + file_name
-            os.remove(file_name)
+    for file_name_only in listdir(importer_log_directory):
+        file_name_full = join(importer_log_directory, file_name_only)
+        if os.path.isfile(file_name_full):
+            os.remove(file_name_full)
 
     # Export External Data
     status_export = ""
