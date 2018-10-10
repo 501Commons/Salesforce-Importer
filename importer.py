@@ -84,7 +84,7 @@ def main():
     print "Setting Importer Directory: " + importer_directory
 
     #Clear out log directory
-    importer_log_directory = join(importer_root, "Status")
+    importer_log_directory = join(importer_root, "..\\Status")
     if not exists(importer_log_directory):
         makedirs(importer_log_directory)
 
