@@ -571,9 +571,9 @@ def send_email(client_emaillist, subject, file_path, emailattachments, log_path)
     if not emailattachments:
         msgbody += "Attachments disabled: Result files can be accessed on the import client.\n\n"
 
-    for file_name in onlyfiles:
+    msgbody += "Log Directory: {}\n\n".format(log_path)
 
-        msgbody += "Log Directory: {}\n\n".format(log_path)
+    for file_name in onlyfiles:
 
         if contains_data(file_name) and ".sent" not in file_name:
 
