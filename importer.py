@@ -96,7 +96,9 @@ def main():
 
     print "Clearing out the Importer Log Directory: " + importer_log_directory
     for file_name in listdir(importer_log_directory):
+        print "Checking File: " + file_name
         if os.path.isfile(file_name):
+            print "Remove File: " + file_name
             os.remove(file_name)
 
     # Export External Data
