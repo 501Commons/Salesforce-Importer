@@ -354,7 +354,7 @@ def refresh_and_export(importer_directory, salesforce_type,
 
         # Wait for excel to finish refresh
         message = ("Pausing " + str(wait_time) +
-                   " seconds to give Excel time to complete data queries...")
+                   " seconds to give Excel time to complete data queries (if Excel Refresh Complete then hit Enter to exit wait cycle)...")
         print message
         refresh_status += message + "\n"
 
@@ -365,7 +365,7 @@ def refresh_and_export(importer_directory, salesforce_type,
 
                     wait_time -= 30
                     message = ("\t" + str(wait_time) +
-                               " seconds remaining for Excel to complete data queries...")
+                               " seconds remaining for Excel to complete data queries (if Excel Refresh Complete then hit Enter to exit wait cycle)...")
                     print message
                     refresh_status += message + "\n"
 
@@ -376,9 +376,7 @@ def refresh_and_export(importer_directory, salesforce_type,
 
                 keyboard_input = keyboard_hook.poll()
                 if not keyboard_input is None:
-                    if keyboard_input == "c":
-                        break
-                    print keyboard_input
+                    break
 
         message = "Refreshing all connections...Completed"
         print message
