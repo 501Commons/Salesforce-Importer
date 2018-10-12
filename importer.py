@@ -24,8 +24,11 @@ class KeyboardHook():
     def poll(self):
         """poll method to check for keyboard input"""
 
+        import time
+
         events_peek = self.readHandle.PeekConsoleInput(10000)
         if not len(events_peek) == self.input_lenth:
+            time.sleep(1000)
             self.input_lenth = len(events_peek)
             print 'events_peek length: ' + str(self.input_lenth)
             return True
