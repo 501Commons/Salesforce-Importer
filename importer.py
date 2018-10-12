@@ -41,22 +41,6 @@ def main():
     from os import listdir, makedirs
     from os.path import exists, join
 
-    print 'Wait Loop1'
-    with KeyboardHook() as keyboard_hook:
-        while True:
-            keyboard_input = keyboard_hook.poll()
-            if keyboard_input:
-                print "\nUser interrupted wait cycle\n"
-                break
-
-    print 'Wait Loop2'
-    with KeyboardHook() as keyboard_hook2:
-        while True:
-            keyboard_input = keyboard_hook2.poll()
-            if keyboard_input:
-                print "\nUser interrupted wait cycle\n"
-                break
-
     #
     # Required Parameters
     #
