@@ -45,14 +45,12 @@ class KeyboardHook():
         """poll method to check for keyboard input"""
         if IS_WINDOWS:
             if not len(self.capturedChars) == 0:
-                captured_char = self.capturedChars.pop(0)
-                del self.capturedChars[:]
-                return captured_char
+                return True
 
             events_peek = self.readHandle.PeekConsoleInput(10000)
 
             if len(events_peek) == 0:
-                return None
+                return False
 
             if not len(events_peek) == self.curEventLength:
                 for current_event in events_peek[self.curEventLength:]:
@@ -65,15 +63,13 @@ class KeyboardHook():
                 self.curEventLength = len(events_peek)
 
             if not len(self.capturedChars) == 0:
-                captured_char = self.capturedChars.pop(0)
-                del self.capturedChars[:]
-                return captured_char
+                return True
             else:
-                return None
+                return False
         else:
             data_read, data_write, data_error = select.select([sys.stdin], [], [], 0)
             if not data_read == []:
-                return sys.stdin.read(1)
+                return True
             return None
 
 def main():
