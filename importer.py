@@ -21,6 +21,11 @@ class KeyboardHook():
     def __exit__(self, type, value, traceback):
         pass
 
+    def reset(self):
+        self.input_lenth = len(self.readHandle.PeekConsoleInput(10000))
+
+        return True
+
     def key_pressed(self):
         """poll method to check for keyboard input"""
 
@@ -321,6 +326,10 @@ def refresh_and_export(importer_directory, salesforce_type,
         refresh_status += message + "\n"
 
         with KeyboardHook() as keyboard_hook:
+
+            #Clear the input buffer
+            keyboard_hook.reset()
+
             while wait_time > 0:
                 if wait_time > 30:
                     time.sleep(30)
