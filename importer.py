@@ -29,6 +29,7 @@ class KeyboardHook():
         #Events come in pairs of KEY_DOWN, KEY_UP so wait for at least 2 events
         if len(events_peek) >= (self.input_lenth + 2):
             self.input_lenth = len(events_peek)
+            print 'events_peek length: ' + str(self.input_lenth)
             return True
 
         return False
@@ -316,7 +317,7 @@ def refresh_and_export(importer_directory, salesforce_type,
         # Wait for excel to finish refresh
         message = ("Pausing " + str(wait_time) +
                    " seconds to give Excel time to complete data queries..." +
-                   "\n\t\t***if Excel Refresh complete then press any key to exit wait cycle")
+                   "\n\t\t***if Excel data queries complete then press any key to exit wait cycle")
         print message
         refresh_status += message + "\n"
 
