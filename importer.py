@@ -1,65 +1,38 @@
-"""import Module for Excel to Salesforce"""
-global IS_WINDOWS
 
-IS_WINDOWS = False
+"""import Module for Excel to Salesforce"""
+
 try:
     from win32api import STD_INPUT_HANDLE
-    from win32console import GetStdHandle, KEY_EVENT, ENABLE_ECHO_INPUT, ENABLE_LINE_INPUT, ENABLE_PROCESSED_INPUT
-    IS_WINDOWS = True
-except ImportError as e:
-    import sys
-    import select
-    import termios
+    from win32console import GetStdHandle, ENABLE_PROCESSED_INPUT
+except ImportError as ex:
+    print str(ex)
 
 class KeyboardHook():
     """Keyboard Hook Class"""
+
     def __enter__(self):
-        global IS_WINDOWS
-        if IS_WINDOWS:
-            self.readHandle = GetStdHandle(STD_INPUT_HANDLE)
-            self.readHandle.SetConsoleMode(ENABLE_LINE_INPUT|ENABLE_ECHO_INPUT|ENABLE_PROCESSED_INPUT)
+        self.readHandle = GetStdHandle(STD_INPUT_HANDLE)
+        self.readHandle.SetConsoleMode(ENABLE_PROCESSED_INPUT)
 
-            self.curEventLength = 0
-            self.curKeysLength = 0
-
-            self.capturedChars = []
-        else:
-            # Save the terminal settings
-            self.fd = sys.stdin.fileno()
-            self.new_term = termios.tcgetattr(self.fd)
-            self.old_term = termios.tcgetattr(self.fd)
-
-            # New terminal setting unbuffered
-            self.new_term[3] = (self.new_term[3] & ~termios.ICANON & ~termios.ECHO)
-            termios.tcsetattr(self.fd, termios.TCSAFLUSH, self.new_term)
+        #Clear input buffer
+        events_peek = self.readHandle.PeekConsoleInput(10000)
+        if len(events_peek) > 0:
+            self.readHandle.ReadConsoleInput(len(events_peek))
 
         return self
 
     def __exit__(self, type, value, traceback):
-        if IS_WINDOWS:
-            pass
-        else:
-            termios.tcsetattr(self.fd, termios.TCSAFLUSH, self.old_term)
+        pass
 
     def poll(self):
         """poll method to check for keyboard input"""
-        if IS_WINDOWS:
-            events_peek = self.readHandle.PeekConsoleInput(10000)
 
-            if len(events_peek) == 0:
-                return False
-
-            if not len(events_peek) == self.curEventLength:
-                self.curEventLength = len(events_peek)
-                return True
-
+        events_peek = self.readHandle.PeekConsoleInput(10000)
+        if len(events_peek) == 0:
             return False
-        else:
-            data_read, data_write, data_error = select.select([sys.stdin], [], [], 0)
-            if not data_read == []:
-                return True
-                
-            return False
+
+        self.readHandle.ReadConsoleInput(len(events_peek))
+        return True
 
 def main():
     """Main entry point"""
@@ -73,7 +46,7 @@ def main():
     with KeyboardHook() as keyboard_hook:
         while True:
             keyboard_input = keyboard_hook.poll()
-            if not keyboard_input is None:
+            if keyboard_input:
                 print "\nUser interrupted wait cycle\n"
                 break
 
@@ -81,7 +54,7 @@ def main():
     with KeyboardHook() as keyboard_hook:
         while True:
             keyboard_input = keyboard_hook.poll()
-            if not keyboard_input is None:
+            if keyboard_input:
                 print "\nUser interrupted wait cycle\n"
                 break
 
