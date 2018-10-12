@@ -27,6 +27,7 @@ class KeyboardHook():
         events_peek = self.readHandle.PeekConsoleInput(10000)
         if not len(events_peek) == self.input_lenth:
             self.input_lenth = len(events_peek)
+            print 'events_peek length: ' + str(self.input_lenth)
             return True
 
         return False
@@ -48,9 +49,9 @@ def main():
                 break
 
     print 'Wait Loop2'
-    with KeyboardHook() as keyboard_hook:
+    with KeyboardHook() as keyboard_hook2:
         while True:
-            keyboard_input = keyboard_hook.poll()
+            keyboard_input = keyboard_hook2.poll()
             if keyboard_input:
                 print "\nUser interrupted wait cycle\n"
                 break
