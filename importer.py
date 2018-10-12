@@ -28,7 +28,9 @@ class KeyboardHook():
 
         events_peek = self.readHandle.PeekConsoleInput(10000)
         if not len(events_peek) == self.input_lenth:
+            #Wait for KEY_UP and any other extra key events after initial KEY_DOWN
             time.sleep(1000)
+            events_peek = self.readHandle.PeekConsoleInput(10000)
             self.input_lenth = len(events_peek)
             print 'events_peek length: ' + str(self.input_lenth)
             return True
