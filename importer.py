@@ -45,7 +45,9 @@ class KeyboardHook():
         """poll method to check for keyboard input"""
         if IS_WINDOWS:
             if not len(self.capturedChars) == 0:
-                return self.capturedChars.pop(0)
+                captured_char = self.capturedChars.pop(0)
+                del self.capturedChars[:]
+                return captured_char
 
             events_peek = self.readHandle.PeekConsoleInput(10000)
 
@@ -63,7 +65,9 @@ class KeyboardHook():
                 self.curEventLength = len(events_peek)
 
             if not len(self.capturedChars) == 0:
-                return self.capturedChars.pop(0)
+                captured_char = self.capturedChars.pop(0)
+                del self.capturedChars[:]
+                return captured_char
             else:
                 return None
         else:
@@ -79,6 +83,22 @@ def main():
     import os
     from os import listdir, makedirs
     from os.path import exists, join
+
+    print 'Wait Loop1'
+    with KeyboardHook() as keyboard_hook:
+        while True:
+            keyboard_input = keyboard_hook.poll()
+            if not keyboard_input is None:
+                print "\nUser interrupted wait cycle\n"
+                break
+
+    print 'Wait Loop2'
+    with KeyboardHook() as keyboard_hook:
+        while True:
+            keyboard_input = keyboard_hook.poll()
+            if not keyboard_input is None:
+                print "\nUser interrupted wait cycle\n"
+                break
 
     #
     # Required Parameters
@@ -378,6 +398,7 @@ def refresh_and_export(importer_directory, salesforce_type,
 
                 keyboard_input = keyboard_hook.poll()
                 if not keyboard_input is None:
+                    print "\nUser interrupted wait cycle\n"
                     break
 
         message = "Refreshing all connections...Completed"
