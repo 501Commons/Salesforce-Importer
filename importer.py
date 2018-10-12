@@ -44,33 +44,22 @@ class KeyboardHook():
     def poll(self):
         """poll method to check for keyboard input"""
         if IS_WINDOWS:
-            if not len(self.capturedChars) == 0:
-                return True
-
             events_peek = self.readHandle.PeekConsoleInput(10000)
 
             if len(events_peek) == 0:
                 return False
 
             if not len(events_peek) == self.curEventLength:
-                for current_event in events_peek[self.curEventLength:]:
-                    if current_event.EventType == KEY_EVENT:
-                        if ord(current_event.Char) == 0 or not current_event.KeyDown:
-                            pass
-                        else:
-                            curChar = str(current_event.Char)
-                            self.capturedChars.append(curChar)
                 self.curEventLength = len(events_peek)
-
-            if not len(self.capturedChars) == 0:
                 return True
-            else:
-                return False
+
+            return False
         else:
             data_read, data_write, data_error = select.select([sys.stdin], [], [], 0)
             if not data_read == []:
                 return True
-            return None
+                
+            return False
 
 def main():
     """Main entry point"""
