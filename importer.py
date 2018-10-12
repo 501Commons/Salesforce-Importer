@@ -14,15 +14,15 @@ class KeyboardHook():
         self.readHandle = GetStdHandle(STD_INPUT_HANDLE)
         self.readHandle.SetConsoleMode(ENABLE_PROCESSED_INPUT)
 
-        #Clear input buffer
-        events_peek = self.readHandle.PeekConsoleInput(10000)
-        if len(events_peek) > 0:
-            self.readHandle.ReadConsoleInput(len(events_peek))
-
         return self
 
     def __exit__(self, type, value, traceback):
         pass
+
+    def reset(self):
+        events_peek = self.readHandle.PeekConsoleInput(10000)
+        if len(events_peek) > 0:
+            self.readHandle.ReadConsoleInput(len(events_peek))
 
     def poll(self):
         """poll method to check for keyboard input"""
@@ -44,6 +44,7 @@ def main():
 
     print 'Wait Loop1'
     with KeyboardHook() as keyboard_hook:
+        keyboard_hook.reset()
         while True:
             keyboard_input = keyboard_hook.poll()
             if keyboard_input:
@@ -52,6 +53,7 @@ def main():
 
     print 'Wait Loop2'
     with KeyboardHook() as keyboard_hook:
+        keyboard_hook.reset()
         while True:
             keyboard_input = keyboard_hook.poll()
             if keyboard_input:
