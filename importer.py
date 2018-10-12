@@ -21,7 +21,7 @@ class KeyboardHook():
     def __exit__(self, type, value, traceback):
         pass
 
-    def poll(self):
+    def key_pressed(self):
         """poll method to check for keyboard input"""
 
         events_peek = self.readHandle.PeekConsoleInput(10000)
@@ -29,7 +29,6 @@ class KeyboardHook():
         #Events come in pairs of KEY_DOWN, KEY_UP so wait for at least 2 events
         if len(events_peek) >= (self.input_lenth + 2):
             self.input_lenth = len(events_peek)
-            print 'events_peek length: ' + str(self.input_lenth)
             return True
 
         return False
@@ -338,8 +337,7 @@ def refresh_and_export(importer_directory, salesforce_type,
                     wait_time = 0
                     break
 
-                keyboard_input = keyboard_hook.poll()
-                if not keyboard_input is None:
+                if keyboard_hook.key_pressed():
                     print "\nUser interrupted wait cycle\n"
                     break
 
