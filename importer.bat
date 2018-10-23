@@ -49,11 +49,16 @@ IF NOT EXIST "!IMPORT_DIRECTORY!" (
 )
 
 REM Backward Compatibility: Try with and wihout quotes in case they are already included
+echo %IMPORT_DIRECTORY%
+echo %IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming
 echo ***** Copy Incoming *****
 xcopy "%IMPORT_DIRECTORY%" "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" /s /y /i
 if NOT EXIST "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" (
-    xcopy %IMPORT_DIRECTORY% "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" /s /y /i
+    echo ***** Copy Incoming without quoates *****
+    xcopy %IMPORT_DIRECTORY% %IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming /s /y /i
 )
+
+goto scriptexit
 
 :skip_import_directory_check
 
