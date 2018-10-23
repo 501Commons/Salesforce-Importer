@@ -49,6 +49,7 @@ IF NOT EXIST "!IMPORT_DIRECTORY!" (
 )
 
 REM Backward Compatibility: Try with and wihout quotes in case they are already included
+echo ***** Copy Incoming *****
 xcopy "%IMPORT_DIRECTORY%" "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" /s /y /i
 if NOT EXIST "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" (
     xcopy %IMPORT_DIRECTORY% "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" /s /y /i
@@ -58,10 +59,12 @@ if NOT EXIST "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" (
 
 set PATH=%PATH%;%JAVA_HOME%;%PYTHON_HOME%;%PYTHON_HOME%\Scripts
 
-cd "%PYTHON_HOME%"\Scripts
+echo ***** Python Setup *****
+cd "%PYTHON_HOME%\Scripts"
 python -m pip install --upgrade pip
 pip install pypiwin32
 
+echo ***** Authentication Setup *****
 copy /Y "%IMPORTER_PRIVATE_DIR%\DataLoader\key.txt" "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\DataLoader\key.txt"
 
 echo ***************
