@@ -53,8 +53,10 @@ echo %IMPORT_DIRECTORY%
 echo %IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming
 echo ***** Copy Incoming *****
 xcopy "%IMPORT_DIRECTORY%" "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" /s /y /i
+
+echo ***** Copy Incoming - Verify Copy *****
 if NOT EXIST "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" (
-    echo ***** Copy Incoming without quoates *****
+    echo ***** Copy Incoming without quotes *****
     xcopy %IMPORT_DIRECTORY% %IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming /s /y /i
 )
 
