@@ -2,8 +2,8 @@
 SETLOCAL ENABLEDELAYEDEXPANSION
 
 set SF_DATALOADER="C:\Program Files (x86)\salesforce.com\Data Loader"
-IF NOT EXIST "%SF_DATALOADER%" (
-    ECHO Error: "%SF_DATALOADER%" does not exist
+IF NOT EXIST %SF_DATALOADER% (
+    ECHO Error: %SF_DATALOADER% does not exist
     cscript importer.vbs "Salesforce Data Loader Required - a browser will open with the install info."
     call explorer "https://help.salesforce.com/articleView?id=000239784&type=1"
     goto scriptexit
