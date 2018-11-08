@@ -1,9 +1,50 @@
+
 """import Module for Excel to Salesforce"""
+
+try:
+    from win32api import STD_INPUT_HANDLE
+    from win32console import GetStdHandle, ENABLE_PROCESSED_INPUT
+except ImportError as ex:
+    print str(ex)
+
+class KeyboardHook():
+    """Keyboard Hook Class"""
+
+    def __enter__(self):
+        self.readHandle = GetStdHandle(STD_INPUT_HANDLE)
+        self.readHandle.SetConsoleMode(ENABLE_PROCESSED_INPUT)
+
+        self.input_lenth = len(self.readHandle.PeekConsoleInput(10000))
+
+        return self
+
+    def __exit__(self, type, value, traceback):
+        pass
+
+    def reset(self):
+        self.input_lenth = len(self.readHandle.PeekConsoleInput(10000))
+
+        return True
+
+    def key_pressed(self):
+        """poll method to check for keyboard input"""
+
+        events_peek = self.readHandle.PeekConsoleInput(10000)
+
+        #Events come in pairs of KEY_DOWN, KEY_UP so wait for at least 2 events
+        if len(events_peek) >= (self.input_lenth + 2):
+            self.input_lenth = len(events_peek)
+            return True
+
+        return False
+
 def main():
     """Main entry point"""
 
     import sys
-    from os.path import join
+    import os
+    from os import listdir, makedirs
+    from os.path import exists, join
 
     #
     # Required Parameters
@@ -31,6 +72,10 @@ def main():
     if '-waittime' in sys.argv:
         wait_time = int(sys.argv[sys.argv.index('-waittime') + 1])
 
+    norefresh = False
+    if '-norefresh' in sys.argv:
+        norefresh = True
+
     noupdate = False
     if '-noupdate' in sys.argv:
         noupdate = True
@@ -50,6 +95,10 @@ def main():
     interactivemode = False
     if '-interactivemode' in sys.argv:
         interactivemode = True
+
+    displayalerts = False
+    if '-displayalerts' in sys.argv:
+        displayalerts = True
 
     skipexcelrefresh = False
     if '-skipexcelrefresh' in sys.argv:
@@ -73,22 +122,44 @@ def main():
     importer_directory = join(importer_root, "Clients\\" + client_type)
     print "Setting Importer Directory: " + importer_directory
 
+    #Clear out log directory
+    importer_log_directory = join(importer_root, "..\\Status\\")
+    if not exists(importer_log_directory):
+        makedirs(importer_log_directory)
+
+    importer_log_directory = join(importer_log_directory, client_subtype)
+    if not exists(importer_log_directory):
+        makedirs(importer_log_directory)
+
+    print "Clearing out the Importer Log Directory: " + importer_log_directory
+    for file_name_only in listdir(importer_log_directory):
+        file_name_full = join(importer_log_directory, file_name_only)
+        if os.path.isfile(file_name_full):
+            os.remove(file_name_full)
+
     # Export External Data
     status_export = ""
     if not noexportodbc:
         print "\n\nExporter - Export External Data\n\n"
-        status_export = export_odbc(importer_directory, salesforce_type, interactivemode)
+        status_export = export_odbc(importer_directory,
+                                    salesforce_type,
+                                    client_subtype,
+                                    interactivemode,
+                                    displayalerts)
 
     # Insert Data
     status_import = ""
-    if "Invalid Return Code" not in status_export:
+    if not norefresh and "Invalid Return Code" not in status_export:
         for insert_run in range(0, insert_attempts):
 
             print "\n\nImporter - Insert Data Process (run: %d)\n\n" % (insert_run)
 
             status_import = process_data(importer_directory, salesforce_type, client_type,
                                          client_subtype, False, wait_time,
-                                         noexportsf, interactivemode, skipexcelrefresh)
+                                         noexportsf,
+                                         interactivemode,
+                                         displayalerts,
+                                         skipexcelrefresh)
 
             # Insert files are empty so continue to update process
             if "import_dataloader (returncode)" not in status_import:
@@ -99,14 +170,15 @@ def main():
         print "\n\nImporter - Update Data Process\n\n"
         status_import = process_data(importer_directory, salesforce_type, client_type,
                                      client_subtype, True, wait_time,
-                                     noexportsf, interactivemode, skipexcelrefresh)
+                                     noexportsf, interactivemode, displayalerts, skipexcelrefresh)
 
     # Restore stdout
     sys.stdout = sys_stdout_previous_state
 
     output_log = ""
-    with open(join(importer_root, "..\\importer.log"), 'r') as exportlog:
-        output_log = exportlog.read()
+    if not interactivemode:
+        with open(join(importer_root, "..\\importer.log"), 'r') as exportlog:
+            output_log = exportlog.read()
 
     file_path = importer_directory + "\\Status"
     import datetime
@@ -123,13 +195,13 @@ def main():
     if contains_error(status_import) or contains_error(status_export):
         results = "Error"
     subject = "{}-{} Salesforce Importer Results - {}".format(client_type, client_subtype, results)
-    send_email(client_emaillist, subject, file_path, emailattachments)
+    send_email(client_emaillist, subject, file_path, emailattachments, importer_log_directory)
 
     print "\nImporter process completed\n"
 
 def process_data(importer_directory, salesforce_type, client_type,
                  client_subtype, update_mode, wait_time,
-                 noexportsf, interactivemode, skipexcelrefresh):
+                 noexportsf, interactivemode, displayalerts, skipexcelrefresh):
     """Process Data based on data_mode"""
 
     #Create log file for import status and reports
@@ -151,7 +223,7 @@ def process_data(importer_directory, salesforce_type, client_type,
     try:
         if not noexportsf:
             status_process_data = export_dataloader(importer_directory,
-                                                    salesforce_type, interactivemode)
+                                                    salesforce_type, interactivemode, displayalerts)
         else:
             status_process_data = "Skipping export from Salesforce"
     except Exception as ex:
@@ -168,7 +240,7 @@ def process_data(importer_directory, salesforce_type, client_type,
             status_process_data = refresh_and_export(importer_directory,
                                                      salesforce_type, client_type,
                                                      client_subtype, update_mode,
-                                                     wait_time, interactivemode)
+                                                     wait_time, interactivemode, displayalerts)
         else:
             status_process_data = "Skipping refresh and export from Excel"
     except Exception as ex:
@@ -202,7 +274,7 @@ def process_data(importer_directory, salesforce_type, client_type,
 
 def refresh_and_export(importer_directory, salesforce_type,
                        client_type, client_subtype, update_mode,
-                       wait_time, interactivemode):
+                       wait_time, interactivemode, displayalerts):
     """Refresh Excel connections"""
 
     import os
@@ -219,7 +291,7 @@ def refresh_and_export(importer_directory, salesforce_type,
             excel_file_path + client_type + "-" + client_subtype + "_" + salesforce_type + ".xlsx"))
 
         excel_connection.Visible = interactivemode
-        excel_connection.DisplayAlerts = interactivemode
+        excel_connection.DisplayAlerts = displayalerts
 
         #for connection in workbook.Connections:
             #print connection.name
@@ -248,23 +320,35 @@ def refresh_and_export(importer_directory, salesforce_type,
 
         # Wait for excel to finish refresh
         message = ("Pausing " + str(wait_time) +
-                   " seconds to give Excel time to complete data queries...")
+                   " seconds to give Excel time to complete background query..." +
+                   "\n\t\t***if Excel background query complete then press any key to exit wait cycle")
         print message
         refresh_status += message + "\n"
-        while wait_time > 0:
-            if wait_time > 30:
-                time.sleep(30)
 
-                wait_time -= 30
-                message = ("\t" + str(wait_time) +
-                           " seconds remaining for Excel to complete data queries...")
-                print message
-                refresh_status += message + "\n"
+        with KeyboardHook() as keyboard_hook:
 
-            else:
-                time.sleep(wait_time)
-                wait_time = 0
-                break
+            #Clear the input buffer
+            keyboard_hook.reset()
+
+            while wait_time > 0:
+                if wait_time > 30:
+                    time.sleep(30)
+
+                    wait_time -= 30
+                    message = ("\t" + str(wait_time) +
+                               " seconds remaining for Excel to complete background query..." +
+                               "\n\t\t***if Excel background query complete then press any key to exit wait cycle")
+                    print message
+                    refresh_status += message + "\n"
+
+                else:
+                    time.sleep(wait_time)
+                    wait_time = 0
+                    break
+
+                if keyboard_hook.key_pressed():
+                    print "\nUser interrupted wait cycle\n"
+                    break
 
         message = "Refreshing all connections...Completed"
         print message
@@ -404,7 +488,7 @@ def import_dataloader(importer_directory, client_type, salesforce_type, data_mod
 
     return return_code + return_stdout + return_stderr
 
-def export_dataloader(importer_directory, salesforce_type, interactivemode):
+def export_dataloader(importer_directory, salesforce_type, interactivemode, displayalerts):
     """Export out of Salesforce using DataLoader"""
 
     from os.path import exists
@@ -444,7 +528,7 @@ def export_dataloader(importer_directory, salesforce_type, interactivemode):
 
     return return_code + return_stdout + return_stderr
 
-def export_odbc(importer_directory, salesforce_type, interactivemode):
+def export_odbc(importer_directory, salesforce_type, client_subtype, interactivemode, displayalerts):
     """Export out of Salesforce using DataLoader"""
 
     from os.path import exists
@@ -455,9 +539,11 @@ def export_odbc(importer_directory, salesforce_type, interactivemode):
         exporter_directory += "\\..\\..\\.."
 
     interactive_flag = ""
-    if interactivemode:
+    if (interactivemode or displayalerts):
         interactive_flag = "-interactivemode"
-    bat_file = exporter_directory + "\\exporter.bat {} {}".format(salesforce_type, interactive_flag)
+    bat_file = exporter_directory + "\\exporter.bat {} {} {}".format(salesforce_type,
+                                                                     client_subtype,
+                                                                     interactive_flag)
 
     return_code = ""
     return_stdout = ""
@@ -497,7 +583,7 @@ def contains_error(text):
 
     return False
 
-def send_email(client_emaillist, subject, file_path, emailattachments):
+def send_email(client_emaillist, subject, file_path, emailattachments, log_path):
     """Send email via O365"""
 
     message = "\n\nPreparing email results\n"
@@ -509,13 +595,14 @@ def send_email(client_emaillist, subject, file_path, emailattachments):
 
     #https://stackoverflow.com/questions/3362600/how-to-send-email-attachments
     import base64
-    import os
-    import smtplib
-    from os.path import basename
     from email.mime.application import MIMEApplication
     from email.mime.multipart import MIMEMultipart
     from email.mime.text import MIMEText
     from email.utils import COMMASPACE, formatdate
+    import os
+    from os.path import basename
+    from shutil import copy
+    import smtplib
 
     msg = MIMEMultipart()
 
@@ -534,13 +621,13 @@ def send_email(client_emaillist, subject, file_path, emailattachments):
     if not emailattachments:
         msgbody += "Attachments disabled: Result files can be accessed on the import client.\n\n"
 
+    msgbody += "Log Directory: {}\n\n".format(log_path)
+
     for file_name in onlyfiles:
+
         if contains_data(file_name) and ".sent" not in file_name:
 
-            message = "Email attaching file: " + file_name + "\n"
-            print message
-
-            msgbody += "\t{}, with {} rows\n".format(file_name, file_linecount(file_name))
+            msgbody += "\t{}, with {} rows\n".format(basename(file_name), file_linecount(file_name))
 
             if emailattachments or (contains_error(subject) and "log" in file_name.lower()):
                 with open(file_name, "rb") as file_name_open:
@@ -556,13 +643,17 @@ def send_email(client_emaillist, subject, file_path, emailattachments):
             # Rename file so do not attached again
             sent_file = join(file_path, file_name)
             filename, file_extension = os.path.splitext(sent_file)
-            sent_file = "{}.sent.{}".format(filename, file_extension)
+            sent_file = "{}.sent{}".format(filename, file_extension)
 
             if exists(sent_file):
                 os.remove(sent_file)
 
             os.rename(file_name, sent_file)
 
+            #Save copy to log directory
+            copy(sent_file, log_path)
+
+    print msgbody
     msg.attach(MIMEText(msgbody))
 
     server = smtplib.SMTP(server, 587)
