@@ -30,7 +30,7 @@
         <property name="name" value="Insert-ServiceHousehold_Sandbox"/>
         <property name="configOverrideMap">
             <map>
-                <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
+                <entry key="sfdc.endpoint" value="https://cs23.salesforce.com"/> 
                 <entry key="sfdc.username" value="db.oppco@501commons.org.master"/>
                 <entry key="sfdc.password" value="186b50baa671ae527d4b31b9bde9207edeb94b978322917055cf6ae2ab6181b0e270830998338546a0dc09b1b4b8b12b8948701f123bce13b46c8f507ed25381"/>
                 <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\DataLoader\key.txt"/>
@@ -75,7 +75,7 @@
         <property name="name" value="Insert-ContactOtherNames_Sandbox"/>
         <property name="configOverrideMap">
             <map>
-                <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
+                <entry key="sfdc.endpoint" value="https://cs23.salesforce.com"/> 
                 <entry key="sfdc.username" value="db.oppco@501commons.org.master"/>
                 <entry key="sfdc.password" value="186b50baa671ae527d4b31b9bde9207edeb94b978322917055cf6ae2ab6181b0e270830998338546a0dc09b1b4b8b12b8948701f123bce13b46c8f507ed25381"/>
                 <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\DataLoader\key.txt"/>
@@ -120,7 +120,7 @@
         <property name="name" value="Update-ServiceHousehold_Sandbox"/>
         <property name="configOverrideMap">
             <map>
-                <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
+                <entry key="sfdc.endpoint" value="https://cs23.salesforce.com"/> 
                 <entry key="sfdc.username" value="db.oppco@501commons.org.master"/>
                 <entry key="sfdc.password" value="186b50baa671ae527d4b31b9bde9207edeb94b978322917055cf6ae2ab6181b0e270830998338546a0dc09b1b4b8b12b8948701f123bce13b46c8f507ed25381"/>
                 <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\DataLoader\key.txt"/>
@@ -166,7 +166,7 @@
         <property name="name" value="Update-ServiceHouseholdDeleted_Sandbox"/>
         <property name="configOverrideMap">
             <map>
-                <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
+                <entry key="sfdc.endpoint" value="https://cs23.salesforce.com"/> 
                 <entry key="sfdc.username" value="db.oppco@501commons.org.master"/>
                 <entry key="sfdc.password" value="186b50baa671ae527d4b31b9bde9207edeb94b978322917055cf6ae2ab6181b0e270830998338546a0dc09b1b4b8b12b8948701f123bce13b46c8f507ed25381"/>
                 <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\DataLoader\key.txt"/>
@@ -212,7 +212,7 @@
         <property name="name" value="Insert-ServiceContact_Sandbox"/>
         <property name="configOverrideMap">
             <map>
-                <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
+                <entry key="sfdc.endpoint" value="https://cs23.salesforce.com"/> 
                 <entry key="sfdc.username" value="db.oppco@501commons.org.master"/>
                 <entry key="sfdc.password" value="186b50baa671ae527d4b31b9bde9207edeb94b978322917055cf6ae2ab6181b0e270830998338546a0dc09b1b4b8b12b8948701f123bce13b46c8f507ed25381"/>
                 <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\DataLoader\key.txt"/>
@@ -258,7 +258,7 @@
         <property name="name" value="Update-ServiceContact_Sandbox"/>
         <property name="configOverrideMap">
             <map>
-                <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
+                <entry key="sfdc.endpoint" value="https://cs23.salesforce.com"/> 
                 <entry key="sfdc.username" value="db.oppco@501commons.org.master"/>
                 <entry key="sfdc.password" value="186b50baa671ae527d4b31b9bde9207edeb94b978322917055cf6ae2ab6181b0e270830998338546a0dc09b1b4b8b12b8948701f123bce13b46c8f507ed25381"/>
                 <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\DataLoader\key.txt"/>
@@ -304,7 +304,7 @@
         <property name="name" value="Insert-Household_Sandbox"/>
         <property name="configOverrideMap">
             <map>
-                <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
+                <entry key="sfdc.endpoint" value="https://cs23.salesforce.com"/> 
                 <entry key="sfdc.username" value="db.oppco@501commons.org.master"/>
                 <entry key="sfdc.password" value="186b50baa671ae527d4b31b9bde9207edeb94b978322917055cf6ae2ab6181b0e270830998338546a0dc09b1b4b8b12b8948701f123bce13b46c8f507ed25381"/>
                 <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\DataLoader\key.txt"/>
@@ -350,7 +350,7 @@
         <property name="name" value="Insert-Contact_Sandbox"/>
         <property name="configOverrideMap">
             <map>
-                <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
+                <entry key="sfdc.endpoint" value="https://cs23.salesforce.com"/> 
                 <entry key="sfdc.username" value="db.oppco@501commons.org.master"/>
                 <entry key="sfdc.password" value="186b50baa671ae527d4b31b9bde9207edeb94b978322917055cf6ae2ab6181b0e270830998338546a0dc09b1b4b8b12b8948701f123bce13b46c8f507ed25381"/>
                 <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\DataLoader\key.txt"/>
