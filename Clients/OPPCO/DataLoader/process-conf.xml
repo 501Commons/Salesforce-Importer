@@ -1,5 +1,28 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
+    <bean id="Delete-ServiceHousehold_Prod"
+          class="com.salesforce.dataloader.process.ProcessRunner"
+          singleton="false">
+        <description>Service Delete job'.</description>
+        <property name="name" value="Delete-ServiceHousehold_Prod"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.endpoint" value="https://oppco.my.salesforce.com"/> 
+                <entry key="sfdc.username" value="db.oppco@501commons.org"/>
+                <entry key="sfdc.password" value="8f027079889b8b35100188758a05f80d49b5734a2d47b5895022f8ebf12e3388013e83544f0dfd4c82cb6b47a74cc04d11628a89f8988bc8f8230307a9c89f69"/>
+                <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\DataLoader\key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <entry key="sfdc.externalIdField" value=""/>
+                <entry key="sfdc.entity" value="C501_Service_Household__c"/>
+                <entry key="process.operation" value="delete"/>
+                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\DataLoader\Delete-ServiceHousehold.sdl"/>
+                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\Import\Delete-ServiceHousehold.csv"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
+            </map>
+        </property>
+    </bean>
     <bean id="Insert-ServiceHousehold_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
           singleton="false">
@@ -177,6 +200,29 @@
                 <entry key="process.operation" value="update"/>
                 <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\DataLoader\Update-ServiceHouseholdDeleted.sdl"/>
                 <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\Import\Update-ServiceHouseholdDeleted.csv"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="Delete-ServiceContact_Prod"
+          class="com.salesforce.dataloader.process.ProcessRunner"
+          singleton="false">
+        <description>Service Delete job'.</description>
+        <property name="name" value="Delete-ServiceContact_Prod"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.endpoint" value="https://oppco.my.salesforce.com"/> 
+                <entry key="sfdc.username" value="db.oppco@501commons.org"/>
+                <entry key="sfdc.password" value="8f027079889b8b35100188758a05f80d49b5734a2d47b5895022f8ebf12e3388013e83544f0dfd4c82cb6b47a74cc04d11628a89f8988bc8f8230307a9c89f69"/>
+                <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\DataLoader\key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <entry key="sfdc.externalIdField" value=""/>
+                <entry key="sfdc.entity" value="C501_Service_Contact__c"/>
+                <entry key="process.operation" value="delete"/>
+                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\DataLoader\Delete-ServiceContact.sdl"/>
+                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\Import\Delete-ServiceContact.csv"/>
                 <entry key="dataAccess.type" value="csvRead"/>
                 <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
             </map>
