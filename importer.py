@@ -80,6 +80,10 @@ def main():
     if '-noupdate' in sys.argv:
         noupdate = True
 
+    nodelete = False
+    if '-nodelete' in sys.argv:
+        nodelete = True
+
     noexportodbc = False
     if '-noexportodbc' in sys.argv:
         noexportodbc = True
@@ -155,7 +159,7 @@ def main():
             print "\n\nImporter - Insert Data Process (run: %d)\n\n" % (insert_run)
 
             status_import = process_data(importer_directory, salesforce_type, client_type,
-                                         client_subtype, False, wait_time,
+                                         client_subtype, 'Insert', wait_time,
                                          noexportsf,
                                          interactivemode,
                                          displayalerts,
@@ -169,7 +173,14 @@ def main():
     if not noupdate and not contains_error(status_import):
         print "\n\nImporter - Update Data Process\n\n"
         status_import = process_data(importer_directory, salesforce_type, client_type,
-                                     client_subtype, True, wait_time,
+                                     client_subtype, 'Update', wait_time,
+                                     noexportsf, interactivemode, displayalerts, skipexcelrefresh)
+
+    # Delete Data
+    if not nodelete and not contains_error(status_import):
+        print "\n\nImporter - Delete Data Process\n\n"
+        status_import = process_data(importer_directory, salesforce_type, client_type,
+                                     client_subtype, 'Delete', wait_time,
                                      noexportsf, interactivemode, displayalerts, skipexcelrefresh)
 
     # Restore stdout
@@ -200,9 +211,9 @@ def main():
     print "\nImporter process completed\n"
 
 def process_data(importer_directory, salesforce_type, client_type,
-                 client_subtype, update_mode, wait_time,
+                 client_subtype, operation, wait_time,
                  noexportsf, interactivemode, displayalerts, skipexcelrefresh):
-    """Process Data based on data_mode"""
+    """Process Data based on operation"""
 
     #Create log file for import status and reports
     from os import makedirs
@@ -211,11 +222,7 @@ def process_data(importer_directory, salesforce_type, client_type,
     if not exists(file_path):
         makedirs(file_path)
 
-    data_mode = "Insert"
-    if update_mode:
-        data_mode = "Update"
-
-    output_log = "Process Data (" + data_mode + ")\n\n"
+    output_log = "Process Data (" + operation + ")\n\n"
     status_process_data = ""
 
     # Export data from Salesforce
@@ -239,7 +246,7 @@ def process_data(importer_directory, salesforce_type, client_type,
                 and not contains_error(output_log.lower())):
             status_process_data = refresh_and_export(importer_directory,
                                                      salesforce_type, client_type,
-                                                     client_subtype, update_mode,
+                                                     client_subtype, operation,
                                                      wait_time, interactivemode, displayalerts)
         else:
             status_process_data = "Skipping refresh and export from Excel"
@@ -255,7 +262,7 @@ def process_data(importer_directory, salesforce_type, client_type,
         if not contains_error(status_process_data) and not contains_error(output_log):
             status_process_data = import_dataloader(importer_directory,
                                                     client_type, salesforce_type,
-                                                    data_mode)
+                                                    operation)
         else:
             status_process_data = "Error detected so skipped"
     except Exception as ex:
@@ -266,14 +273,14 @@ def process_data(importer_directory, salesforce_type, client_type,
 
     import datetime
     date_tag = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    with open(join(file_path, "Salesforce-Importer-Log-{}-{}.txt".format(data_mode, date_tag)),
+    with open(join(file_path, "Salesforce-Importer-Log-{}-{}.txt".format(operation, date_tag)),
               "w") as text_file:
         text_file.write(output_log)
 
     return status_process_data
 
 def refresh_and_export(importer_directory, salesforce_type,
-                       client_type, client_subtype, update_mode,
+                       client_type, client_subtype, operation,
                        wait_time, interactivemode, displayalerts):
     """Refresh Excel connections"""
 
@@ -358,10 +365,12 @@ def refresh_and_export(importer_directory, salesforce_type,
             os.makedirs(excel_file_path + "Import\\")
 
         for sheet in workbook.Sheets:
-            # Only export update, insert, or report sheets
+
+            # Only export update, insert, delete, or report sheets
             sheet_name_lower = sheet.Name.lower()
             if ("update" not in sheet_name_lower
                     and "insert" not in sheet_name_lower
+                    and "delete" not in sheet_name_lower
                     and "report" not in sheet_name_lower):
                 continue
 
@@ -383,7 +392,9 @@ def refresh_and_export(importer_directory, salesforce_type,
             workbook.SaveAs(sheet_file, 6)
 
             # Update check to make sure insert sheet is empty
-            if update_mode and "insert" in sheet.Name.lower() and contains_data(sheet_file):
+            if (operation == "Update"
+                    and "insert" in sheet.Name.lower()
+                    and contains_data(sheet_file)):
                 raise Exception("Update Error", (
                     "Insert sheet contains data and should be empty during update process: " +
                     sheet_file))
@@ -431,7 +442,7 @@ def file_linecount(file_name):
 
     return line_index
 
-def import_dataloader(importer_directory, client_type, salesforce_type, data_mode):
+def import_dataloader(importer_directory, client_type, salesforce_type, operation):
     """Import into Salesforce using DataLoader"""
 
     import os
@@ -447,7 +458,7 @@ def import_dataloader(importer_directory, client_type, salesforce_type, data_mod
     return_stderr = ""
 
     for file_name in listdir(bat_path):
-        if not data_mode in file_name or ".sdl" not in file_name:
+        if not operation in file_name or ".sdl" not in file_name:
             continue
 
         # Check if associated csv has any data

@@ -39,3 +39,5 @@ Service=C501_Service__c
 SubService=C501_Sub_Service__c
 Outcomes=C501_Outcomes__c
 PersonCaseWorker=C501_Case_Worker__c
+C501_VA_Service_Connected_Disability__c=C501_VA_Service_Connected_Disability__c
+C501_Worker_s_Compensation__c=C501_Worker_s_Compensation__c
