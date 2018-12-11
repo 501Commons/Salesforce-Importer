@@ -80,9 +80,9 @@ def main():
     if '-noupdate' in sys.argv:
         noupdate = True
 
-    nodelete = False
-    if '-nodelete' in sys.argv:
-        nodelete = True
+    enabledelete = False
+    if '-enabledelete' in sys.argv:
+        enabledelete = True
 
     noexportodbc = False
     if '-noexportodbc' in sys.argv:
@@ -177,7 +177,7 @@ def main():
                                      noexportsf, interactivemode, displayalerts, skipexcelrefresh)
 
     # Delete Data
-    if not nodelete and not contains_error(status_import):
+    if enabledelete and not contains_error(status_import):
         print "\n\nImporter - Delete Data Process\n\n"
         status_import = process_data(importer_directory, salesforce_type, client_type,
                                      client_subtype, 'Delete', wait_time,
