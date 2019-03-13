@@ -9,7 +9,7 @@
             <map>
                 <entry key="sfdc.endpoint" value="https://techbridgegirls.my.salesforce.com"/> 
                 <entry key="sfdc.username" value="501commons@techbridgegirls.org"/>
-                <entry key="sfdc.password" value="b689cedabde8c18ebce0afc3657c4bf420a73d0ff6c770296332a795d9696227406818c408520f5f90c973b7b902d9febcc44d366749c4945d8d50080f0f1471"/>
+                <entry key="sfdc.password" value="d498da86f4d7beb7ca2276300a639c0976cfefec4ba989ef7e1d716ade779362501a2a4ed34370bbaf28358cdd6c5e3a6fe71b1fec2f904f22be54e6e8f353e8"/>
                 <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\TBG\DataLoader\key.txt"/>
                 <entry key="sfdc.timeoutSecs" value="600"/>
                 <entry key="sfdc.loadBatchSize" value="200"/>
@@ -32,7 +32,7 @@
             <map>
                 <entry key="sfdc.endpoint" value="https://techbridgegirls.my.salesforce.com"/> 
                 <entry key="sfdc.username" value="501commons@techbridgegirls.org"/>
-                <entry key="sfdc.password" value="b689cedabde8c18ebce0afc3657c4bf420a73d0ff6c770296332a795d9696227406818c408520f5f90c973b7b902d9febcc44d366749c4945d8d50080f0f1471"/>
+                <entry key="sfdc.password" value="d498da86f4d7beb7ca2276300a639c0976cfefec4ba989ef7e1d716ade779362501a2a4ed34370bbaf28358cdd6c5e3a6fe71b1fec2f904f22be54e6e8f353e8"/>
                 <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\TBG\DataLoader\key.txt"/>
                 <entry key="sfdc.timeoutSecs" value="600"/>
                 <entry key="sfdc.loadBatchSize" value="200"/>
@@ -55,7 +55,7 @@
             <map>
                 <entry key="sfdc.endpoint" value="https://techbridgegirls.my.salesforce.com"/> 
                 <entry key="sfdc.username" value="501commons@techbridgegirls.org"/>
-                <entry key="sfdc.password" value="b689cedabde8c18ebce0afc3657c4bf420a73d0ff6c770296332a795d9696227406818c408520f5f90c973b7b902d9febcc44d366749c4945d8d50080f0f1471"/>
+                <entry key="sfdc.password" value="d498da86f4d7beb7ca2276300a639c0976cfefec4ba989ef7e1d716ade779362501a2a4ed34370bbaf28358cdd6c5e3a6fe71b1fec2f904f22be54e6e8f353e8"/>
                 <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\TBG\DataLoader\key.txt"/>
                 <entry key="sfdc.timeoutSecs" value="600"/>
                 <entry key="sfdc.loadBatchSize" value="200"/>
