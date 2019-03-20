@@ -1,26 +1,28 @@
 
-Data Loader Guide
-http://resources.docs.salesforce.com/210/17/en-us/sfdc/pdf/salesforce_data_loader.pdf
 
-Data Loader Quick Reference
-http://www.developerforce.com/media/Cheatsheet_Setting_Up_Automated_Data_Loader_9_0.pdf
+Data Loader
+https://help.salesforce.com/articleView?id=data_loader.htm
 
 Setup Instructions
 
-1) Verify Microsoft Excel 2016 is installed and working 
+1) Install Zulu & Salesforce Data Loader (Instructions -> https://help.salesforce.com/articleView?id=loader_install_windows.htm)
 
-2) Install Salesforce Data Loader (Instructions -> https://help.salesforce.com/articleView?id=000239784&type=1)
+2) Install the latest Java Platform (JDK) -> https://www.oracle.com/technetwork/java/javase/downloads/index.html 
 
-NOTE:
-  a) Make sure your current user has Administrator access on the machine
-  b) During Installation on the 'Install for admins only?' screen when prompted for 'Do you have administrator rights on this machine?' select Yes
-
-3) Run Salesforce Data Loader to verify installation.  If you need Java installed then you will be prompted to install Java and follow the process to install Java. After Java installed run Data Loader to verify installation. 
-
-4) Install Git for Windows http://gitforwindows.org
+3) Install Git for Windows -> http://gitforwindows.org
     NOTE: Don't need to have an account just need the application installed
 
-5) Install Python 2.7.14 https://www.python.org/downloads/ 
+4) Install Python 2.7.14 https://www.python.org/downloads/ 
+
+5) **501 Admin** will provider zip file for custom settings ([Client].zip).  Extract zip into C:\repo\Salesforce-Exporter-Private\Clients\[Client].
+
+Example: C:\repo\Salesforce-Exporter-Private\Clients\XYZ where XYZ are the ClientInitials should contain an Exporter.bat file and a DataLoader directory.
+
+6) Edit c:\repo\Exporter-Private\Exporter.bat
+    Check & Verify the following values - update accordingly
+    * EMAIL_LIST - include client emails
+    * IMPORT_DIRECTORY - Location of incoming data files (e.g., DropBox, OneDrive)
+    * JAVA_HOME - Verify directory is valid or change to correct xxx version number based on installed C:\Program Files\Java\jre1.8.0_xxx\bin
 
 7) **501 Admin** will provider zip file for custom settings ([Client].zip).  Extract zip into C:\repo\Salesforce-Importer-Private\Clients\[Client].
 

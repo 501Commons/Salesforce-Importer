@@ -1,3 +1,3 @@
 echo incoming %1 %2 %3
-cd "%USER_PROFILE%\dataloader\v45.0.0\bin"
+cd "C:\repo\Salesforce-Importer-Private\Clients\%2\Salesforce-Importer\Clients\%2\dependencies\salesforce.com\dataloader\v44\bin"
 call process C:\repo\Salesforce-Importer-Private\Clients\%2\Salesforce-Importer\Clients\%2\DataLoader\ %3_%1

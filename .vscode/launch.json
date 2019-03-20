@@ -29,6 +29,7 @@
 //                ,"-skipexcelrefresh"
                 ,"-waittime"
                 ,"1"
+                ,"-interactivemode"
             ],
             "debugOptions": [
                 "RedirectOutput"
