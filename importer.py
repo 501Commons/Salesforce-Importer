@@ -297,7 +297,7 @@ def refresh_and_export(importer_directory, salesforce_type,
         workbook = workbooks.Open((
             excel_file_path + client_type + "-" + client_subtype + "_" + salesforce_type + ".xlsx"))
 
-        excel_connection.Visible = interactivemode
+        excel_connection.Visible = False
         excel_connection.DisplayAlerts = displayalerts
 
         #for connection in workbook.Connections:
