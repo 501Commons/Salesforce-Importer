@@ -327,15 +327,15 @@ def refresh_and_export(importer_directory, salesforce_type,
 
         # Wait for excel to finish refresh
         message = ("Pausing " + str(wait_time) +
-                   " seconds to give Excel time to complete background query..." +
-                   "\n\t\t***if Excel background query complete then press any key to exit wait cycle")
+                   " seconds to give Excel time to complete background query...")
+#                   "\n\t\t***if Excel background query complete then press any key to exit wait cycle")
         print message
         refresh_status += message + "\n"
 
-        with KeyboardHook() as keyboard_hook:
+#        with KeyboardHook() as keyboard_hook:
 
             #Clear the input buffer
-            keyboard_hook.reset()
+#            keyboard_hook.reset()
 
             while wait_time > 0:
                 if wait_time > 30:
@@ -343,8 +343,8 @@ def refresh_and_export(importer_directory, salesforce_type,
 
                     wait_time -= 30
                     message = ("\t" + str(wait_time) +
-                               " seconds remaining for Excel to complete background query..." +
-                               "\n\t\t***if Excel background query complete then press any key to exit wait cycle")
+                               " seconds remaining for Excel to complete background query...")
+#                               "\n\t\t***if Excel background query complete then press any key to exit wait cycle")
                     print message
                     refresh_status += message + "\n"
 
@@ -353,9 +353,9 @@ def refresh_and_export(importer_directory, salesforce_type,
                     wait_time = 0
                     break
 
-                if keyboard_hook.key_pressed():
-                    print "\nUser interrupted wait cycle\n"
-                    break
+#                if keyboard_hook.key_pressed():
+#                    print "\nUser interrupted wait cycle\n"
+#                    break
 
         message = "Refreshing all connections...Completed"
         print message
