@@ -309,7 +309,7 @@ def refresh_and_export(importer_directory, salesforce_type,
         #   1) Enable background refresh disabled/unchecked in xlsx for all Connections
         #   2) Include in Refresh All enabled/checked in xlsx for all Connections
         #   To verify: Open xlsx Data > Connections > Properties for each to verify
-        message = "\nRefreshing all connections..."
+        message = "\nImport Process - Refreshing all connections..."
         print message
         refresh_status += message + "\n"
 
@@ -357,7 +357,7 @@ def refresh_and_export(importer_directory, salesforce_type,
 #                    print "\nUser interrupted wait cycle\n"
 #                    break
 
-        message = "Refreshing all connections...Completed"
+        message = "Import Process - Refreshing all connections...Completed"
         print message
         refresh_status += message + "\n"
 
@@ -521,7 +521,7 @@ def export_dataloader(importer_directory, salesforce_type, interactivemode, disp
     if not exists(exporter_directory):
         print "Skip Export Process (export not detected)"
     else:
-        message = "Starting Export Process: " + bat_file + "\n\nThe export process can take up to a couple of minutes depending on your Internet connection..."
+        message = "Starting Export Process: " + bat_file + "\n\nExport Process - can take up to a couple of minutes depending on your Internet connection..."
         print message
         return_stdout += message + "\n"
         export_process = Popen(bat_file, stdout=PIPE, stderr=PIPE)
