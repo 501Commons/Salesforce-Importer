@@ -3,40 +3,23 @@
 Data Loader
 https://help.salesforce.com/articleView?id=data_loader.htm
 
-Setup Instructions
+Importer Setup Instructions
 
-1) Install Zulu & Salesforce Data Loader (Instructions -> https://help.salesforce.com/articleView?id=loader_install_windows.htm)
-
-2) Install the latest Java Platform (JDK) -> https://www.oracle.com/technetwork/java/javase/downloads/index.html 
-
-3) Install Git for Windows -> http://gitforwindows.org
+1) Install Git for Windows -> http://gitforwindows.org
     NOTE: Don't need to have an account just need the application installed
 
-4) Install Python 2.7.14 https://www.python.org/downloads/ 
+2) **501 Admin** will provider zip file for custom settings ([Client].zip).  Extract zip into C:\repo.  After unzip there should be a c:\repo\Salesforce-Importer-Private directory
 
-5) **501 Admin** will provider zip file for custom settings ([Client].zip).  Extract zip into C:\repo\Salesforce-Exporter-Private\Clients\[Client].
+Example: C:\repo\Salesforce-Importer-Private\Clients\XYZ where XYZ are the ClientInitials should contain an Importer.bat file and a DataLoader directory.
 
-Example: C:\repo\Salesforce-Exporter-Private\Clients\XYZ where XYZ are the ClientInitials should contain an Exporter.bat file and a DataLoader directory.
-
-6) Edit c:\repo\Exporter-Private\Exporter.bat
+3) Edit c:\repo\Importer-Private\Importer.bat
     Check & Verify the following values - update accordingly
     * EMAIL_LIST - include client emails
     * IMPORT_DIRECTORY - Location of incoming data files (e.g., DropBox, OneDrive)
-    * JAVA_HOME - Verify directory is valid or change to correct xxx version number based on installed C:\Program Files\Java\jre1.8.0_xxx\bin
-
-7) **501 Admin** will provider zip file for custom settings ([Client].zip).  Extract zip into C:\repo\Salesforce-Importer-Private\Clients\[Client].
-
-Example: C:\repo\Salesforce-Importer-Private\Clients\XYZ where XYZ are the ClientInitials should contain an importer.bat file and a DataLoader directory.
-
-7) Edit c:\repo\Importer-Private\importer.bat
-    Check & Verify the following values - update accordingly
-    * EMAIL_LIST - include client emails
-    * IMPORT_DIRECTORY - Location of incoming data files (e.g., DropBox, OneDrive)
-    * JAVA_HOME - Verify directory is valid or change to correct xxx version number based on installed C:\Program Files\Java\jre1.8.0_xxx\bin
 
 Running Import
 
-Run c:\repo\Importer-Private\importer.bat to start the importer.  You can run
+Run c:\repo\Salesforce-Importer-Private\importer.bat to start the importer.  You can run
     - importer.bat manually
     - schedule with Task Scheduler (be sure to set working directory to the importer.bat directory)
 
