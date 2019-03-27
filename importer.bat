@@ -23,6 +23,7 @@ if NOT EXIST "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" (
 :skip_import_directory_check
 
 echo ***** Python Setup *****
+echo PYTHON_HOME %PYTHON_HOME%
 set PATH=%PATH%;%JAVA_HOME%;%PYTHON_HOME%;%PYTHON_HOME%\Scripts
 cd "%PYTHON_HOME%\Scripts"
 python -m pip install --upgrade pip
