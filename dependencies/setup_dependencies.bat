@@ -1,4 +1,4 @@
-set JAVA_HOME=C:\repo\Salesforce-Importer\dependencies\Java\jdk-12
+set JAVA_HOME=C:\repo\Salesforce-Importer\dependencies\Java\jre1.8.0_201
 echo exporter: setting JAVA_HOME to %JAVA_HOME%
 set PYTHON_HOME=C:\repo\Salesforce-Importer\dependencies\Python\Python36-32
 echo exporter: setting PYTHON_HOME to %PYTHON_HOME%
