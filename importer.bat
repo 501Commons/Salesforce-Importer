@@ -45,4 +45,6 @@ cd %IMPORTER_PRIVATE_DIR%
 
 :scriptexit
 
+pause 
+
 ENDLOCAL
