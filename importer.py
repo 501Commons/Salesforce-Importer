@@ -337,21 +337,21 @@ def refresh_and_export(importer_directory, salesforce_type,
             #Clear the input buffer
 #            keyboard_hook.reset()
 
-            while wait_time > 0:
-                if wait_time > 30:
-                    time.sleep(30)
+        while wait_time > 0:
+            if wait_time > 30:
+                time.sleep(30)
 
-                    wait_time -= 30
-                    message = ("\t" + str(wait_time) +
-                               " seconds remaining for Excel to complete background query...")
+                wait_time -= 30
+                message = ("\t" + str(wait_time) +
+                            " seconds remaining for Excel to complete background query...")
 #                               "\n\t\t***if Excel background query complete then press any key to exit wait cycle")
-                    print message
-                    refresh_status += message + "\n"
+                print message
+                refresh_status += message + "\n"
 
-                else:
-                    time.sleep(wait_time)
-                    wait_time = 0
-                    break
+            else:
+                time.sleep(wait_time)
+                wait_time = 0
+                break
 
 #                if keyboard_hook.key_pressed():
 #                    print "\nUser interrupted wait cycle\n"
