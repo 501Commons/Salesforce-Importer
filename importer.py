@@ -521,7 +521,7 @@ def export_dataloader(importer_directory, salesforce_type, interactivemode, disp
     if not exists(exporter_directory):
         print "Skip Export Process (export not detected)"
     else:
-        message = "Starting Export Process: " + bat_file
+        message = "Starting Export Process: " + bat_file + "\n\nThis process can take up to a couple of minutes depending on your Internet connection..."
         print message
         return_stdout += message + "\n"
         export_process = Popen(bat_file, stdout=PIPE, stderr=PIPE)
