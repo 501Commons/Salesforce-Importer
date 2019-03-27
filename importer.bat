@@ -1,43 +1,6 @@
 @echo off
 SETLOCAL ENABLEDELAYEDEXPANSION
 
-set SF_DATALOADER="C:\Program Files (x86)\salesforce.com\Data Loader"
-IF NOT EXIST %SF_DATALOADER% (
-    ECHO Error: %SF_DATALOADER% does not exist
-    cscript importer.vbs "Salesforce Data Loader Required - a browser will open with the install info."
-    call explorer "https://help.salesforce.com/articleView?id=000239784&type=1"
-    goto scriptexit
-)
-
-REM Java should get installed as part of Data Loader
-IF EXIST "%JAVA_HOME%" goto java_exists
-
-REM Attempt to find Java Version
-call java.exe -version >temp.txt 2>&1
-set /p JAVA_TEST=<temp.txt
-FOR /F delims^=^"^ tokens^=2 %%G IN ("%JAVA_TEST%") DO set JAVA_VERSION=%%G
-set JAVA_HOME_CHECK="C:\Program Files (x86)\Java\jre%JAVA_VERSION%"
-IF EXIST "%JAVA_HOME_CHECK%" (
-    set JAVA_HOME=%JAVA_HOME_CHECK%
-    goto java_exists
-) 
-
-ECHO Error: "%JAVA_HOME%" does not exist
-cscript importer.vbs "Java not found which is installed via Salesforce Data Loader - Reinstall Data Loader and follow the instructions for Java setup.  A browser will open with the install info."
-call explorer "https://help.salesforce.com/articleView?id=000239784&type=1"
-goto scriptexit
-
-:java_exists
-
-IF EXIST "%PYTHON_HOME%" goto python_exists
-
-ECHO Error Python 2.7.14 Required: "%PYTHON_HOME%" does not exist
-cscript importer.vbs "Python 2.7.14 Required - a browser will open with the install info."
-call explorer "https://www.python.org/downloads/"
-goto scriptexit
-
-:python_exists
-
 REM Using ! instead of % in case using special chars like parenthesis in path
 IF "!IMPORT_DIRECTORY!" == "" (
     goto skip_import_directory_check
