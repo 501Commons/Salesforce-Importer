@@ -23,7 +23,6 @@ if NOT EXIST "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" (
 :skip_import_directory_check
 
 echo ***** Python Setup *****
-echo PYTHON_HOME %PYTHON_HOME%
 set PATH=%JAVA_HOME%;%PYTHON_HOME%;%PYTHON_HOME%\Scripts;%PATH%
 cd "%PYTHON_HOME%"
 python -m pip install --upgrade pip
@@ -45,7 +44,5 @@ echo ***************
 cd %IMPORTER_PRIVATE_DIR%
 
 :scriptexit
-
-pause
 
 ENDLOCAL
