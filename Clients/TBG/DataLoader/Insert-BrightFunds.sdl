@@ -1,21 +1,22 @@
 #Mapping values
-#Fri Oct 05 11:09:46 PDT 2018
-Contact1\ Imported=npsp__Contact1Imported__c
-Donation\ Primary\ Contact=C501_Donation_Primary_Contact__c
-Donation\ Pass-Through\ Organization=C501_Donation_Pass_Through_Organization__c
-Account1\ Imported=npsp__Account1Imported__c
+#Mon Mar 25 23:54:31 PDT 2019
 Donation\ Last\ Import\ Date=C501_Donation_Last_Import_Date__c
-Donor\ Email=npsp__Contact1_Work_Email__c
-Last\ Name=npsp__Contact1_Lastname__c
-Contact1\ Last\ Import\ Date=C501_Contact1_Last_Import_Date__c
-Donation\ Online\ Donation=C501_Donation_Online_Donation__c
-Matching\ Gift\ Account=C501_Donation_Matching_Gift_Account__c
-Donation\ Budget\ Constituency=C501_Donation_Budget_Constituency__c
-Company\ Name=npsp__Account1_Name__c
-Donation\ Regions\ Vested=C501_Donation_Regions_Vested__c
-Amount=npsp__Donation_Amount__c
-Donation\ Description=npsp__Donation_Description__c
-Created=npsp__Donation_Date__c
 First\ Name=npsp__Contact1_Firstname__c
+Contact1\ Imported=npsp__Contact1Imported__c
+Created=npsp__Donation_Date__c
+Donation\ Primary\ Contact=C501_Donation_Primary_Contact__c
+Matching\ Gift\ Account=C501_Donation_Matching_Gift_Account__c
+Contact1\ Last\ Import\ Date=C501_Contact1_Last_Import_Date__c
+Donor\ Email=npsp__Contact1_Work_Email__c
 Donation\ Record\ Type\ Name=npsp__Donation_Record_Type_Name__c
+Donation\ Description=npsp__Donation_Description__c
+Account1\ Name=npsp__Account1_Name__c
+Amount=npsp__Donation_Amount__c
+Donation\ Regions\ Vested=C501_Donation_Regions_Vested__c
+Account1\ Imported=npsp__Account1Imported__c
+Donation\ Online\ Donation=C501_Donation_Online_Donation__c
 Donation\ Donor=npsp__Donation_Donor__c
+Donation\ Pass-Through\ Organization=C501_Donation_Pass_Through_Organization__c
+Donation\ Budget\ Constituency=C501_Donation_Budget_Constituency__c
+Last\ Name=npsp__Contact1_Lastname__c
+Contact.Duplicate\ Found=C501_Last_Import_Duplicate_Found__c
