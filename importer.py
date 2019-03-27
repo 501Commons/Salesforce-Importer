@@ -5,7 +5,7 @@ try:
     from win32api import STD_INPUT_HANDLE
     from win32console import GetStdHandle, ENABLE_PROCESSED_INPUT
 except ImportError as ex:
-    print print(ex)
+    print str(ex)
 
 class KeyboardHook():
     """Keyboard Hook Class"""
@@ -50,10 +50,10 @@ def main():
     # Required Parameters
     #
 
-    salesforce_type = print(sys.argv[1])
-    client_type = print(sys.argv[2])
-    client_subtype = print(sys.argv[3])
-    client_emaillist = print(sys.argv[4])
+    salesforce_type = str(sys.argv[1])
+    client_type = str(sys.argv[2])
+    client_subtype = str(sys.argv[3])
+    client_emaillist = str(sys.argv[4])
 
     if len(sys.argv) < 5:
         print ("Calling error - missing required inputs.  Expecting " +
@@ -234,7 +234,7 @@ def process_data(importer_directory, salesforce_type, client_type,
         else:
             status_process_data = "Skipping export from Salesforce"
     except Exception as ex:
-        output_log += "\n\nexport_dataloader - Unexpected export error:" + print(ex)
+        output_log += "\n\nexport_dataloader - Unexpected export error:" + str(ex)
         status_process_data = "Error detected - Exception"
     else:
         output_log += "\n\nExport\n" + status_process_data
@@ -251,7 +251,7 @@ def process_data(importer_directory, salesforce_type, client_type,
         else:
             status_process_data = "Skipping refresh and export from Excel"
     except Exception as ex:
-        output_log += "\n\nrefresh_and_export - Unexpected export error:" + print(ex)
+        output_log += "\n\nrefresh_and_export - Unexpected export error:" + str(ex)
         status_process_data = "Error detected - Exception"
     else:
         output_log += "\n\nExport\n" + status_process_data
@@ -266,7 +266,7 @@ def process_data(importer_directory, salesforce_type, client_type,
         else:
             status_process_data = "Error detected so skipped"
     except Exception as ex:
-        output_log += "\n\nUnexpected import error:" + print(ex)
+        output_log += "\n\nUnexpected import error:" + str(ex)
         status_process_data = "Error detected - Exception"
     else:
         output_log += "\n\nImport\n" + status_process_data
@@ -326,7 +326,7 @@ def refresh_and_export(importer_directory, salesforce_type,
         workbook.RefreshAll()
 
         # Wait for excel to finish refresh
-        message = ("Pausing " + print(wait_time) +
+        message = ("Pausing " + str(wait_time) +
                    " seconds to give Excel time to complete background query..." +
                    "\n\t\t***if Excel background query complete then press any key to exit wait cycle")
         print message
@@ -342,7 +342,7 @@ def refresh_and_export(importer_directory, salesforce_type,
                     time.sleep(30)
 
                     wait_time -= 30
-                    message = ("\t" + print(wait_time) +
+                    message = ("\t" + str(wait_time) +
                                " seconds remaining for Excel to complete background query..." +
                                "\n\t\t***if Excel background query complete then press any key to exit wait cycle")
                     print message
@@ -400,7 +400,7 @@ def refresh_and_export(importer_directory, salesforce_type,
                     sheet_file))
 
     except Exception as ex:
-        refresh_status += "Unexpected error:" + print(ex)
+        refresh_status += "Unexpected error:" + str(ex)
         raise Exception("Export Error", refresh_status)
 
     finally:
@@ -477,7 +477,7 @@ def import_dataloader(importer_directory, client_type, salesforce_type, operatio
 
         stdout, stderr = import_process.communicate()
 
-        return_code += "import_dataloader (returncode): " + print(import_process.returncode)
+        return_code += "import_dataloader (returncode): " + str(import_process.returncode)
         return_stdout += "\n\nimport_dataloader (stdout):\n" + stdout
         return_stderr += "\n\nimport_dataloader (stderr):\n" + stderr
 
@@ -528,7 +528,7 @@ def export_dataloader(importer_directory, salesforce_type, interactivemode, disp
 
         stdout, stderr = export_process.communicate()
 
-        return_code += "\n\nexport_dataloader (returncode): " + print(export_process.returncode)
+        return_code += "\n\nexport_dataloader (returncode): " + str(export_process.returncode)
         return_stdout += "\n\nexport_dataloader (stdout):\n" + stdout
         return_stderr += "\n\nexport_dataloader (stderr):\n" + stderr
 
@@ -570,7 +570,7 @@ def export_odbc(importer_directory, salesforce_type, client_subtype, interactive
 
         stdout, stderr = export_process.communicate()
 
-        return_code += "\n\nexport_odbc (returncode): " + print(export_process.returncode)
+        return_code += "\n\nexport_odbc (returncode): " + str(export_process.returncode)
         return_stdout += "\n\nexport_odbc (stdout):\n" + stdout
         return_stderr += "\n\nexport_odbc (stderr):\n" + stderr
 
