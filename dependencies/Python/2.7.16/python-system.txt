@@ -1,0 +1,2 @@
+python27.dll and supporting py* files are installed in System32 directory so copied them here
+to install w/ github sync.
