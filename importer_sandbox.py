@@ -80,6 +80,10 @@ def main():
     if '-noupdate' in sys.argv:
         noupdate = True
 
+    enabledelete = False
+    if '-enabledelete' in sys.argv:
+        enabledelete = True
+
     noexportodbc = False
     if '-noexportodbc' in sys.argv:
         noexportodbc = True
@@ -155,7 +159,7 @@ def main():
             print "\n\nImporter - Insert Data Process (run: %d)\n\n" % (insert_run)
 
             status_import = process_data(importer_directory, salesforce_type, client_type,
-                                         client_subtype, False, wait_time,
+                                         client_subtype, 'Insert', wait_time,
                                          noexportsf,
                                          interactivemode,
                                          displayalerts,
@@ -169,7 +173,14 @@ def main():
     if not noupdate and not contains_error(status_import):
         print "\n\nImporter - Update Data Process\n\n"
         status_import = process_data(importer_directory, salesforce_type, client_type,
-                                     client_subtype, True, wait_time,
+                                     client_subtype, 'Update', wait_time,
+                                     noexportsf, interactivemode, displayalerts, skipexcelrefresh)
+
+    # Delete Data
+    if enabledelete and not contains_error(status_import):
+        print "\n\nImporter - Delete Data Process\n\n"
+        status_import = process_data(importer_directory, salesforce_type, client_type,
+                                     client_subtype, 'Delete', wait_time,
                                      noexportsf, interactivemode, displayalerts, skipexcelrefresh)
 
     # Restore stdout
@@ -200,9 +211,9 @@ def main():
     print "\nImporter process completed\n"
 
 def process_data(importer_directory, salesforce_type, client_type,
-                 client_subtype, update_mode, wait_time,
+                 client_subtype, operation, wait_time,
                  noexportsf, interactivemode, displayalerts, skipexcelrefresh):
-    """Process Data based on data_mode"""
+    """Process Data based on operation"""
 
     #Create log file for import status and reports
     from os import makedirs
@@ -211,11 +222,7 @@ def process_data(importer_directory, salesforce_type, client_type,
     if not exists(file_path):
         makedirs(file_path)
 
-    data_mode = "Insert"
-    if update_mode:
-        data_mode = "Update"
-
-    output_log = "Process Data (" + data_mode + ")\n\n"
+    output_log = "Process Data (" + operation + ")\n\n"
     status_process_data = ""
 
     # Export data from Salesforce
@@ -239,7 +246,7 @@ def process_data(importer_directory, salesforce_type, client_type,
                 and not contains_error(output_log.lower())):
             status_process_data = refresh_and_export(importer_directory,
                                                      salesforce_type, client_type,
-                                                     client_subtype, update_mode,
+                                                     client_subtype, operation,
                                                      wait_time, interactivemode, displayalerts)
         else:
             status_process_data = "Skipping refresh and export from Excel"
@@ -255,7 +262,7 @@ def process_data(importer_directory, salesforce_type, client_type,
         if not contains_error(status_process_data) and not contains_error(output_log):
             status_process_data = import_dataloader(importer_directory,
                                                     client_type, salesforce_type,
-                                                    data_mode)
+                                                    operation)
         else:
             status_process_data = "Error detected so skipped"
     except Exception as ex:
@@ -266,14 +273,14 @@ def process_data(importer_directory, salesforce_type, client_type,
 
     import datetime
     date_tag = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    with open(join(file_path, "Salesforce-Importer-Log-{}-{}.txt".format(data_mode, date_tag)),
+    with open(join(file_path, "Salesforce-Importer-Log-{}-{}.txt".format(operation, date_tag)),
               "w") as text_file:
         text_file.write(output_log)
 
     return status_process_data
 
 def refresh_and_export(importer_directory, salesforce_type,
-                       client_type, client_subtype, update_mode,
+                       client_type, client_subtype, operation,
                        wait_time, interactivemode, displayalerts):
     """Refresh Excel connections"""
 
@@ -290,7 +297,7 @@ def refresh_and_export(importer_directory, salesforce_type,
         workbook = workbooks.Open((
             excel_file_path + client_type + "-" + client_subtype + "_" + salesforce_type + ".xlsx"))
 
-        excel_connection.Visible = interactivemode
+        excel_connection.Visible = False
         excel_connection.DisplayAlerts = displayalerts
 
         #for connection in workbook.Connections:
@@ -302,7 +309,7 @@ def refresh_and_export(importer_directory, salesforce_type,
         #   1) Enable background refresh disabled/unchecked in xlsx for all Connections
         #   2) Include in Refresh All enabled/checked in xlsx for all Connections
         #   To verify: Open xlsx Data > Connections > Properties for each to verify
-        message = "\nRefreshing all connections..."
+        message = "\nImport Process - Refreshing all connections..."
         print message
         refresh_status += message + "\n"
 
@@ -320,37 +327,37 @@ def refresh_and_export(importer_directory, salesforce_type,
 
         # Wait for excel to finish refresh
         message = ("Pausing " + str(wait_time) +
-                   " seconds to give Excel time to complete background query..." +
-                   "\n\t\t***if Excel background query complete then press any key to exit wait cycle")
+                   " seconds to give Excel time to complete background query...")
+#                   "\n\t\t***if Excel background query complete then press any key to exit wait cycle")
         print message
         refresh_status += message + "\n"
 
-        with KeyboardHook() as keyboard_hook:
+#        with KeyboardHook() as keyboard_hook:
 
             #Clear the input buffer
-            keyboard_hook.reset()
+#            keyboard_hook.reset()
 
-            while wait_time > 0:
-                if wait_time > 30:
-                    time.sleep(30)
+        while wait_time > 0:
+            if wait_time > 30:
+                time.sleep(30)
 
-                    wait_time -= 30
-                    message = ("\t" + str(wait_time) +
-                               " seconds remaining for Excel to complete background query..." +
-                               "\n\t\t***if Excel background query complete then press any key to exit wait cycle")
-                    print message
-                    refresh_status += message + "\n"
+                wait_time -= 30
+                message = ("\t" + str(wait_time) +
+                            " seconds remaining for Excel to complete background query...")
+#                               "\n\t\t***if Excel background query complete then press any key to exit wait cycle")
+                print message
+                refresh_status += message + "\n"
 
-                else:
-                    time.sleep(wait_time)
-                    wait_time = 0
-                    break
+            else:
+                time.sleep(wait_time)
+                wait_time = 0
+                break
 
-                if keyboard_hook.key_pressed():
-                    print "\nUser interrupted wait cycle\n"
-                    break
+#                if keyboard_hook.key_pressed():
+#                    print "\nUser interrupted wait cycle\n"
+#                    break
 
-        message = "Refreshing all connections...Completed"
+        message = "Import Process - Refreshing all connections...Completed"
         print message
         refresh_status += message + "\n"
 
@@ -358,10 +365,12 @@ def refresh_and_export(importer_directory, salesforce_type,
             os.makedirs(excel_file_path + "Import\\")
 
         for sheet in workbook.Sheets:
-            # Only export update, insert, or report sheets
+
+            # Only export update, insert, delete, or report sheets
             sheet_name_lower = sheet.Name.lower()
             if ("update" not in sheet_name_lower
                     and "insert" not in sheet_name_lower
+                    and "delete" not in sheet_name_lower
                     and "report" not in sheet_name_lower):
                 continue
 
@@ -383,7 +392,9 @@ def refresh_and_export(importer_directory, salesforce_type,
             workbook.SaveAs(sheet_file, 6)
 
             # Update check to make sure insert sheet is empty
-            if update_mode and "insert" in sheet.Name.lower() and contains_data(sheet_file):
+            if (operation == "Update"
+                    and "insert" in sheet.Name.lower()
+                    and contains_data(sheet_file)):
                 raise Exception("Update Error", (
                     "Insert sheet contains data and should be empty during update process: " +
                     sheet_file))
@@ -431,7 +442,7 @@ def file_linecount(file_name):
 
     return line_index
 
-def import_dataloader(importer_directory, client_type, salesforce_type, data_mode):
+def import_dataloader(importer_directory, client_type, salesforce_type, operation):
     """Import into Salesforce using DataLoader"""
 
     import os
@@ -447,7 +458,7 @@ def import_dataloader(importer_directory, client_type, salesforce_type, data_mod
     return_stderr = ""
 
     for file_name in listdir(bat_path):
-        if not data_mode in file_name or ".sdl" not in file_name:
+        if not operation in file_name or ".sdl" not in file_name:
             continue
 
         # Check if associated csv has any data
@@ -510,7 +521,7 @@ def export_dataloader(importer_directory, salesforce_type, interactivemode, disp
     if not exists(exporter_directory):
         print "Skip Export Process (export not detected)"
     else:
-        message = "Starting Export Process: " + bat_file
+        message = "Starting Export Process: " + bat_file + "\n\nExport Process - can take up to a couple of minutes depending on your Internet connection..."
         print message
         return_stdout += message + "\n"
         export_process = Popen(bat_file, stdout=PIPE, stderr=PIPE)
