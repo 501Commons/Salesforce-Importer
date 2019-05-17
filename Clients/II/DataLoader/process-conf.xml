@@ -1,51 +1,5 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
-    <bean id="Insert-Contact-Facility_Sandbox"
-          class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
-        <description>Contact Insert job gets the Contact record updates from a CSV file and uploads them to salesforce using 'insert'.</description>
-        <property name="name" value="Insert-Contact-Facility_Sandbox"/>
-        <property name="configOverrideMap">
-            <map>
-                <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
-                <entry key="sfdc.username" value="db.ii@501commons.org.subpool"/>
-                <entry key="sfdc.password" value="d63494d4a21bcea49f45f99d924ad48f8d493a76c44692e928c38d02389ef4950f978d0683a62bba1c1ea48af60e9b8c9d7a4bdb4bae2f441656b51f1557f5d3"/>
-                <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\DataLoader\key.txt"/>
-                <entry key="sfdc.timeoutSecs" value="600"/>
-                <entry key="sfdc.loadBatchSize" value="200"/>
-                <entry key="sfdc.externalIdField" value="ii_Famlink_Id__c"/>
-                <entry key="sfdc.entity" value="Contact"/>
-                <entry key="process.operation" value="insert"/>
-                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\DataLoader\Insert-Contact-Facility.sdl"/>
-                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\Import\Insert-Contact-Facility.csv"/>
-                <entry key="dataAccess.type" value="csvRead"/>
-                <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
-            </map>
-        </property>
-    </bean>
-    <bean id="Insert-Contact-Subs_Sandbox"
-          class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
-        <description>Contact Insert job gets the Contact record updates from a CSV file and uploads them to salesforce using 'insert'.</description>
-        <property name="name" value="Insert-Contact-Subs_Sandbox"/>
-        <property name="configOverrideMap">
-            <map>
-                <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
-                <entry key="sfdc.username" value="db.ii@501commons.org.subpool"/>
-                <entry key="sfdc.password" value="d63494d4a21bcea49f45f99d924ad48f8d493a76c44692e928c38d02389ef4950f978d0683a62bba1c1ea48af60e9b8c9d7a4bdb4bae2f441656b51f1557f5d3"/>
-                <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\DataLoader\key.txt"/>
-                <entry key="sfdc.timeoutSecs" value="600"/>
-                <entry key="sfdc.loadBatchSize" value="200"/>
-                <entry key="sfdc.externalIdField" value="ii_Stars_Id__c"/>
-                <entry key="sfdc.entity" value="Contact"/>
-                <entry key="process.operation" value="insert"/>
-                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\DataLoader\Insert-Contact-Subs.sdl"/>
-                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\Import\Insert-Contact-Subs.csv"/>
-                <entry key="dataAccess.type" value="csvRead"/>
-                <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
-            </map>
-        </property>
-    </bean>
     <bean id="Insert-Contact-Facility_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
           singleton="false">
@@ -317,6 +271,328 @@
                 <entry key="process.operation" value="update"/>
                 <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\DataLoader\Update-Training-OutOfUnit.sdl"/>
                 <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\Import\Update-Training-OutOfUnit.csv"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="Insert-Contact-Facility_Sandbox"
+          class="com.salesforce.dataloader.process.ProcessRunner"
+          singleton="false">
+        <description>Contact Insert job gets the Contact record updates from a CSV file and uploads them to salesforce using 'insert'.</description>
+        <property name="name" value="Insert-Contact-Facility_Sandbox"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
+                <entry key="sfdc.username" value="db.ii@501commons.org.master"/>
+                <entry key="sfdc.password" value="eaa9fe54ed35f2d1b8dc73fa709a059a130e535da80c1f1b336be540361b701ebb4c2019189eada8cd6ea20257a57e50cf4081210b4e7ff887cf0953bde42da8"/>
+                <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\DataLoader\key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <entry key="sfdc.externalIdField" value="ii_Famlink_Id__c"/>
+                <entry key="sfdc.entity" value="Contact"/>
+                <entry key="process.operation" value="insert"/>
+                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\DataLoader\Insert-Contact-Facility.sdl"/>
+                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\Import\Insert-Contact-Facility.csv"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="Insert-Contact-Subs_Sandbox"
+          class="com.salesforce.dataloader.process.ProcessRunner"
+          singleton="false">
+        <description>Contact Insert job gets the Contact record updates from a CSV file and uploads them to salesforce using 'insert'.</description>
+        <property name="name" value="Insert-Contact-Subs_Sandbox"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
+                <entry key="sfdc.username" value="db.ii@501commons.org.master"/>
+                <entry key="sfdc.password" value="eaa9fe54ed35f2d1b8dc73fa709a059a130e535da80c1f1b336be540361b701ebb4c2019189eada8cd6ea20257a57e50cf4081210b4e7ff887cf0953bde42da8"/>
+                <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\DataLoader\key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <entry key="sfdc.externalIdField" value="ii_Stars_Id__c"/>
+                <entry key="sfdc.entity" value="Contact"/>
+                <entry key="process.operation" value="insert"/>
+                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\DataLoader\Insert-Contact-Subs.sdl"/>
+                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\Import\Insert-Contact-Subs.csv"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="Update-Contact-Facility_Sandbox"
+          class="com.salesforce.dataloader.process.ProcessRunner"
+          singleton="false">
+        <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
+        <property name="name" value="Update-Contact-Facility_Sandbox"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
+                <entry key="sfdc.username" value="db.ii@501commons.org.master"/>
+                <entry key="sfdc.password" value="eaa9fe54ed35f2d1b8dc73fa709a059a130e535da80c1f1b336be540361b701ebb4c2019189eada8cd6ea20257a57e50cf4081210b4e7ff887cf0953bde42da8"/>
+                <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\DataLoader\key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <entry key="sfdc.externalIdField" value="Id"/>
+                <entry key="sfdc.entity" value="Contact"/>
+                <entry key="process.operation" value="update"/>
+                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\DataLoader\Update-Contact-Facility.sdl"/>
+                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\Import\Update-Contact-Facility.csv"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="Update-Contact-Subs_Sandbox"
+          class="com.salesforce.dataloader.process.ProcessRunner"
+          singleton="false">
+        <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
+        <property name="name" value="Update-Contact-Subs_Sandbox"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
+                <entry key="sfdc.username" value="db.ii@501commons.org.master"/>
+                <entry key="sfdc.password" value="eaa9fe54ed35f2d1b8dc73fa709a059a130e535da80c1f1b336be540361b701ebb4c2019189eada8cd6ea20257a57e50cf4081210b4e7ff887cf0953bde42da8"/>
+                <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\DataLoader\key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <entry key="sfdc.externalIdField" value="Id"/>
+                <entry key="sfdc.entity" value="Contact"/>
+                <entry key="process.operation" value="update"/>
+                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\DataLoader\Update-Contact-Subs.sdl"/>
+                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\Import\Update-Contact-Subs.csv"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
+            </map>
+        </property>
+    </bean>    
+    <bean id="Update-Contact-Facility-NotApp_Sandbox"
+          class="com.salesforce.dataloader.process.ProcessRunner"
+          singleton="false">
+        <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
+        <property name="name" value="Update-Contact-Facility-NotApp_Sandbox"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
+                <entry key="sfdc.username" value="db.ii@501commons.org.master"/>
+                <entry key="sfdc.password" value="eaa9fe54ed35f2d1b8dc73fa709a059a130e535da80c1f1b336be540361b701ebb4c2019189eada8cd6ea20257a57e50cf4081210b4e7ff887cf0953bde42da8"/>
+                <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\DataLoader\key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <entry key="sfdc.externalIdField" value="Id"/>
+                <entry key="sfdc.entity" value="Contact"/>
+                <entry key="process.operation" value="update"/>
+                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\DataLoader\Update-Contact-Facility-NotApp.sdl"/>
+                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\Import\Update-Contact-Facility-NotApp.csv"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="Update-Contact-Subs-NotApp_Sandbox"
+          class="com.salesforce.dataloader.process.ProcessRunner"
+          singleton="false">
+        <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
+        <property name="name" value="Update-Contact-Subs-NotApp_Sandbox"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
+                <entry key="sfdc.username" value="db.ii@501commons.org.master"/>
+                <entry key="sfdc.password" value="eaa9fe54ed35f2d1b8dc73fa709a059a130e535da80c1f1b336be540361b701ebb4c2019189eada8cd6ea20257a57e50cf4081210b4e7ff887cf0953bde42da8"/>
+                <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\DataLoader\key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <entry key="sfdc.externalIdField" value="Id"/>
+                <entry key="sfdc.entity" value="Contact"/>
+                <entry key="process.operation" value="update"/>
+                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\DataLoader\Update-Contact-Subs-NotApp.sdl"/>
+                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\Import\Update-Contact-Subs-NotApp.csv"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="Update-AM-Campus-User_Sandbox"
+          class="com.salesforce.dataloader.process.ProcessRunner"
+          singleton="false">
+        <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
+        <property name="name" value="Update-AM-Campus-User_Sandbox"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
+                <entry key="sfdc.username" value="db.ii@501commons.org.master"/>
+                <entry key="sfdc.password" value="eaa9fe54ed35f2d1b8dc73fa709a059a130e535da80c1f1b336be540361b701ebb4c2019189eada8cd6ea20257a57e50cf4081210b4e7ff887cf0953bde42da8"/>
+                <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\DataLoader\key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <entry key="sfdc.externalIdField" value="Id"/>
+                <entry key="sfdc.entity" value="Contact"/>
+                <entry key="process.operation" value="update"/>
+                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\DataLoader\Update-AM-Campus-User.sdl"/>
+                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\Import\Update-AM-Campus-User.csv"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="Update-AM-Facility_Sandbox"
+          class="com.salesforce.dataloader.process.ProcessRunner"
+          singleton="false">
+        <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
+        <property name="name" value="Update-AM-Facility_Sandbox"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
+                <entry key="sfdc.username" value="db.ii@501commons.org.master"/>
+                <entry key="sfdc.password" value="eaa9fe54ed35f2d1b8dc73fa709a059a130e535da80c1f1b336be540361b701ebb4c2019189eada8cd6ea20257a57e50cf4081210b4e7ff887cf0953bde42da8"/>
+                <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\DataLoader\key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <entry key="sfdc.externalIdField" value="Id"/>
+                <entry key="sfdc.entity" value="Contact"/>
+                <entry key="process.operation" value="update"/>
+                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\DataLoader\Update-AM-Facility.sdl"/>
+                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\Import\Update-AM-Facility.csv"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="Update-AM-Subs_Sandbox"
+          class="com.salesforce.dataloader.process.ProcessRunner"
+          singleton="false">
+        <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
+        <property name="name" value="Update-AM-Subs_Sandbox"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
+                <entry key="sfdc.username" value="db.ii@501commons.org.master"/>
+                <entry key="sfdc.password" value="eaa9fe54ed35f2d1b8dc73fa709a059a130e535da80c1f1b336be540361b701ebb4c2019189eada8cd6ea20257a57e50cf4081210b4e7ff887cf0953bde42da8"/>
+                <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\DataLoader\key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <entry key="sfdc.externalIdField" value="Id"/>
+                <entry key="sfdc.entity" value="Contact"/>
+                <entry key="process.operation" value="update"/>
+                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\DataLoader\Update-AM-Subs.sdl"/>
+                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\Import\Update-AM-Subs.csv"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="Insert-Contact-Training_Sandbox"
+          class="com.salesforce.dataloader.process.ProcessRunner"
+          singleton="false">
+        <description>Contact Insert job gets the Contact record updates from a CSV file and uploads them to salesforce using 'insert'.</description>
+        <property name="name" value="Insert-Contact-Training_Sandbox"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
+                <entry key="sfdc.username" value="db.ii@501commons.org.master"/>
+                <entry key="sfdc.password" value="eaa9fe54ed35f2d1b8dc73fa709a059a130e535da80c1f1b336be540361b701ebb4c2019189eada8cd6ea20257a57e50cf4081210b4e7ff887cf0953bde42da8"/>
+                <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\DataLoader\key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <entry key="sfdc.externalIdField" value="ii_Member_Id__c"/>
+                <entry key="sfdc.entity" value="Contact"/>
+                <entry key="process.operation" value="insert"/>
+                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\DataLoader\Insert-Contact-Training.sdl"/>
+                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\Import\Insert-Contact-Training.csv"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="Update-Contact-Training_Sandbox"
+          class="com.salesforce.dataloader.process.ProcessRunner"
+          singleton="false">
+        <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
+        <property name="name" value="Update-Contact-Training_Sandbox"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
+                <entry key="sfdc.username" value="db.ii@501commons.org.master"/>
+                <entry key="sfdc.password" value="eaa9fe54ed35f2d1b8dc73fa709a059a130e535da80c1f1b336be540361b701ebb4c2019189eada8cd6ea20257a57e50cf4081210b4e7ff887cf0953bde42da8"/>
+                <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\DataLoader\key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <entry key="sfdc.externalIdField" value="Id"/>
+                <entry key="sfdc.entity" value="Contact"/>
+                <entry key="process.operation" value="update"/>
+                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\DataLoader\Update-Contact-Training.sdl"/>
+                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\Import\Update-Contact-Training.csv"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="Update-Training-OutOfUnit_Sandbox"
+          class="com.salesforce.dataloader.process.ProcessRunner"
+          singleton="false">
+        <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
+        <property name="name" value="Update-Traininig-OutOfUnit_Sandbox"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
+                <entry key="sfdc.username" value="db.ii@501commons.org.master"/>
+                <entry key="sfdc.password" value="eaa9fe54ed35f2d1b8dc73fa709a059a130e535da80c1f1b336be540361b701ebb4c2019189eada8cd6ea20257a57e50cf4081210b4e7ff887cf0953bde42da8"/>
+                <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\DataLoader\key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <entry key="sfdc.externalIdField" value="Id"/>
+                <entry key="sfdc.entity" value="Contact"/>
+                <entry key="process.operation" value="update"/>
+                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\DataLoader\Update-Training-OutOfUnit.sdl"/>
+                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\Import\Update-Training-OutOfUnit.csv"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="Insert-Contact-FFN_Sandbox"
+          class="com.salesforce.dataloader.process.ProcessRunner"
+          singleton="false">
+        <description>Contact Insert job gets the Contact record updates from a CSV file and uploads them to salesforce using 'insert'.</description>
+        <property name="name" value="Insert-Contact-FFN_Sandbox"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
+                <entry key="sfdc.username" value="db.ii@501commons.org.master"/>
+                <entry key="sfdc.password" value="eaa9fe54ed35f2d1b8dc73fa709a059a130e535da80c1f1b336be540361b701ebb4c2019189eada8cd6ea20257a57e50cf4081210b4e7ff887cf0953bde42da8"/>
+                <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\DataLoader\key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <entry key="sfdc.externalIdField" value="ii_Member_Id__c"/>
+                <entry key="sfdc.entity" value="Contact"/>
+                <entry key="process.operation" value="insert"/>
+                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\DataLoader\Insert-Contact-Training.sdl"/>
+                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\Import\Insert-Contact-Training.csv"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="Update-Contact-FFN_Sandbox"
+          class="com.salesforce.dataloader.process.ProcessRunner"
+          singleton="false">
+        <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
+        <property name="name" value="Update-Contact-FFN_Sandbox"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
+                <entry key="sfdc.username" value="db.ii@501commons.org.master"/>
+                <entry key="sfdc.password" value="eaa9fe54ed35f2d1b8dc73fa709a059a130e535da80c1f1b336be540361b701ebb4c2019189eada8cd6ea20257a57e50cf4081210b4e7ff887cf0953bde42da8"/>
+                <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\DataLoader\key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <entry key="sfdc.externalIdField" value="Id"/>
+                <entry key="sfdc.entity" value="Contact"/>
+                <entry key="process.operation" value="update"/>
+                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\DataLoader\Update-Contact-Training.sdl"/>
+                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\Import\Update-Contact-Training.csv"/>
                 <entry key="dataAccess.type" value="csvRead"/>
                 <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
             </map>
