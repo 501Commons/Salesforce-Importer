@@ -568,8 +568,8 @@
                 <entry key="sfdc.externalIdField" value="ii_Member_Id__c"/>
                 <entry key="sfdc.entity" value="Contact"/>
                 <entry key="process.operation" value="insert"/>
-                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\DataLoader\Insert-Contact-Training.sdl"/>
-                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\Import\Insert-Contact-Training.csv"/>
+                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\DataLoader\Insert-Contact-FFN.sdl"/>
+                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\Import\Insert-Contact-FFN.csv"/>
                 <entry key="dataAccess.type" value="csvRead"/>
                 <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
             </map>
@@ -591,8 +591,8 @@
                 <entry key="sfdc.externalIdField" value="Id"/>
                 <entry key="sfdc.entity" value="Contact"/>
                 <entry key="process.operation" value="update"/>
-                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\DataLoader\Update-Contact-Training.sdl"/>
-                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\Import\Update-Contact-Training.csv"/>
+                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\DataLoader\Update-Contact-FFN.sdl"/>
+                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\Import\Update-Contact-FFN.csv"/>
                 <entry key="dataAccess.type" value="csvRead"/>
                 <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
             </map>
