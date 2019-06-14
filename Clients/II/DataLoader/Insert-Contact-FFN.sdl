@@ -1,0 +1,10 @@
+#Mapping values
+#Tue Jan 30 02:34:23 PST 2018
+ii_Stars_Id__c=ii_Stars_Id__c
+ii_SSPS_Number__c=ii_SSPS_Number__c
+FirstName=FirstName
+LastName=LastName
+npe01__PreferredPhone__c=npe01__PreferredPhone__c
+npe01__Preferred_Email__c=npe01__Preferred_Email__c
+npe01__Primary_Address_Type__c=npe01__Primary_Address_Type__c
+RecordTypeId=RecordTypeId
