@@ -10,6 +10,7 @@ MailingStreet=MailingStreet
 MailingCity=MailingCity
 MailingState=MailingState
 MailingPostalCode=MailingPostalCode
+ii_County__c=ii_County__c
 C501_FFN_Type__c=C501_FFN_Type__c
 ii_Languages__c=ii_Languages__c
 C501_EAS_Access_Code__c=C501_EAS_Access_Code__c
