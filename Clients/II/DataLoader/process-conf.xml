@@ -598,4 +598,27 @@
             </map>
         </property>
     </bean>
+    <bean id="Update-Contact-FFN-OutOfUnit_Sandbox"
+          class="com.salesforce.dataloader.process.ProcessRunner"
+          singleton="false">
+        <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
+        <property name="name" value="Update-Contact-FFN_Sandbox"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.endpoint" value="https://test.salesforce.com"/> 
+                <entry key="sfdc.username" value="db.ii@501commons.org.master"/>
+                <entry key="sfdc.password" value="c347e0598ea8455126755d47471397f251536bee9164f04783fea47428559fbabb71d46e60e6a078f86fa2d30ac340ff8e64c0ca66648917a8a949e7533de9ab"/>
+                <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\DataLoader\key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <entry key="sfdc.externalIdField" value="Id"/>
+                <entry key="sfdc.entity" value="Contact"/>
+                <entry key="process.operation" value="update"/>
+                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\DataLoader\Update-Contact-FFN-OutOfUnit.sdl"/>
+                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\Import\Update-Contact-FFN-OutOfUnit.csv"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
+            </map>
+        </property>
+    </bean>
 </beans>
