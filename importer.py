@@ -304,7 +304,7 @@ def refresh_and_export(importer_directory, salesforce_type,
         message = "\nImport Process - Pausing 30 seconds for Excel to load..."
         print message
         refresh_status += message + "\n"
-        time.sleep(wait_time)
+        time.sleep(30)
 
         #for connection in workbook.Connections:
             #print connection.name
