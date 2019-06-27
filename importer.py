@@ -302,8 +302,8 @@ def refresh_and_export(importer_directory, salesforce_type,
             excel_file_path + client_type + "-" + client_subtype + "_" + salesforce_type + ".xlsx"), False, True, None)
         books = win32.Dispath(workbook)
 
-        message = "\nImport Process - Pausing " + str(wait_time) +
-                  " seconds to wait for Excel to load..."
+        message = ("\nImport Process - Pausing " + str(wait_time) +
+                  " seconds to wait for Excel to load...")
         print message
         refresh_status += message + "\n"
         time.sleep(wait_time)
