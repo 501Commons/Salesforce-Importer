@@ -301,6 +301,9 @@ def refresh_and_export(importer_directory, salesforce_type,
         workbook = workbooks.Open((
             excel_file_path + client_type + "-" + client_subtype + "_" + salesforce_type + ".xlsx"), False, True, None)
 
+        message = "\nImport Process - Pausing 30 seconds to open Excel..."
+        print message
+
         message = ("\nImport Process - Pausing " + str(wait_time) +
                   " seconds to wait for Excel to load...")
         print message
