@@ -2,6 +2,7 @@
 #Tue Jan 30 02:46:50 PST 2018
 Id=Id
 ii_Stars_Id__c=ii_Stars_Id__c
+ii_Employer_Name__c=ii_Employer_Name__c
 FirstName=FirstName
 LastName=LastName
 Mobile=Mobile
