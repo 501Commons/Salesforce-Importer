@@ -289,18 +289,19 @@ def refresh_and_export(importer_directory, salesforce_type,
     import time
     import win32com.client as win32
 
+    refresh_status = "refresh_and_export\n"
+
+    excel_connection = win32.gencache.EnsureDispatch("Excel.Application")
+    excel_connection.Visible = False
+    excel_connection.DisplayAlerts = displayalerts
+
+    excel_file_path = importer_directory + "\\"
+    workbooks = excel_connection.Workbooks
+    # workbooks.open(file, UpdateLinks = No, ReadOnly = True, Format = 2 Commas)
+    workbook = workbooks.Open((
+        excel_file_path + client_type + "-" + client_subtype + "_" + salesforce_type + ".xlsx"), 0, True, 2)
+
     try:
-        refresh_status = "refresh_and_export\n"
-
-        excel_connection = win32.gencache.EnsureDispatch("Excel.Application")
-        excel_connection.Visible = False
-        excel_connection.DisplayAlerts = displayalerts
-
-        excel_file_path = importer_directory + "\\"
-        workbooks = excel_connection.Workbooks
-        # workbooks.open(file, UpdateLinks = No, ReadOnly = True, Format = 2 Commas)
-        workbook = workbooks.Open((
-            excel_file_path + client_type + "-" + client_subtype + "_" + salesforce_type + ".xlsx"), 0, True, 2)
 
         message = "\nImport Process - Pausing 30 seconds for Excel to load..."
         print message
@@ -412,6 +413,7 @@ def refresh_and_export(importer_directory, salesforce_type,
 
     finally:
         workbook.Close(False)
+
         # Marshal.ReleaseComObject(workbooks)
         # Marshal.ReleaseComObject(workbook)
         # Marshal.ReleaseComObject(excel_connection)
