@@ -466,6 +466,8 @@ def import_dataloader(importer_directory, client_type, salesforce_type, operatio
     return_stdout = ""
     return_stderr = ""
 
+    import_successful = false
+
     for file_name in listdir(bat_path):
         if not operation in file_name or ".sdl" not in file_name:
             continue
@@ -505,6 +507,14 @@ def import_dataloader(importer_directory, client_type, salesforce_type, operatio
 
         message = "Finished Import Process: " + bat_file + " for file: " + import_file
         print message
+
+        import_successful = true
+
+    # Update operation should have at least 1 file with data for updating
+    if (!import_successful
+            and operation == "Update"):
+        raise Exception("Update Error on Import", (
+            "No data available for import during Update process"))
 
     return return_code + return_stdout + return_stderr
 
