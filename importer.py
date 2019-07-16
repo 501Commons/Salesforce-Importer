@@ -511,7 +511,7 @@ def import_dataloader(importer_directory, client_type, salesforce_type, operatio
         import_successful = true
 
     # Update operation should have at least 1 file with data for updating
-    if (!import_successful
+    if (not import_successful
             and operation == "Update"):
         raise Exception("Update Error on Import", (
             "No data available for import during Update process"))
