@@ -206,7 +206,11 @@ def main():
     if contains_error(status_import) or contains_error(status_export):
         results = "Error"
     subject = "{}-{} Salesforce Importer Results - {}".format(client_type, client_subtype, results)
-    send_email(client_emaillist, subject, file_path, emailattachments, importer_log_directory)
+
+    try:
+        send_email(client_emaillist, subject, file_path, emailattachments, importer_log_directory)
+    except Exception as ex:
+        print "\nsend_email - Unexpected send email error:" + str(ex)
 
     print "\nImporter process completed\n"
 
