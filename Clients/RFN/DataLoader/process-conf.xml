@@ -1,10 +1,10 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
-    <bean id="Insert-ContactCache_Prod"
+    <bean id="Insert-ContactCache_O365Contact_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
           singleton="false">
         <description>Insert into Contact Cache object.</description>
-        <property name="name" value="Insert-ContactCache_Prod"/>
+        <property name="name" value="Insert-ContactCache_O365Contact_Prod"/>
         <property name="configOverrideMap">
             <map>
                 <entry key="sfdc.endpoint" value="https://login.salesforce.com"/> 
@@ -17,17 +17,40 @@
                 <entry key="sfdc.entity" value="C501_Contact_Cache__c"/>
                 <entry key="process.operation" value="insert"/>
                 <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\RFN\Salesforce-Importer\Clients\RFN\DataLoader\Insert-ContactCache.sdl"/>
-                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\RFN\Salesforce-Importer\Clients\RFN\Import\Insert-ContactCache.csv"/>
+                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\RFN\Salesforce-Importer\Clients\RFN\Import\Insert-ContactCache_O365Contact.csv"/>
                 <entry key="dataAccess.type" value="csvRead"/>
                 <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
             </map>
         </property>
     </bean>
-    <bean id="Update-ContactCache_Prod"
+    <bean id="Insert-ContactCache_O365ContactCache_Prod"
+          class="com.salesforce.dataloader.process.ProcessRunner"
+          singleton="false">
+        <description>Insert into Contact Cache object.</description>
+        <property name="name" value="Insert-ContactCache_O365ContactCache_Prod"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.endpoint" value="https://login.salesforce.com"/> 
+                <entry key="sfdc.username" value="501c@raikesfoundation.org"/>
+                <entry key="sfdc.password" value="606694898dc0bfbfb5e9700fbd9decd8095dbf7449d6533ff6cca4a6be81072a26db657836b12e6185b90506a10ae565b83c6199aff210c6eacd4a65f7fe93db"/>
+                <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\RFN\DataLoader\key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <entry key="sfdc.externalIdField" value=""/>
+                <entry key="sfdc.entity" value="C501_Contact_Cache__c"/>
+                <entry key="process.operation" value="insert"/>
+                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\RFN\Salesforce-Importer\Clients\RFN\DataLoader\Insert-ContactCache.sdl"/>
+                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\RFN\Salesforce-Importer\Clients\RFN\Import\Insert-ContactCache_O365Cache.csv"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="Update-ContactCache_O365Contact_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
           singleton="false">
         <description>Contact Cache Update job.</description>
-        <property name="name" value="Update-Contact-FFN_Prod"/>
+        <property name="name" value="Update-ContactCache_O365Contact_Prod"/>
         <property name="configOverrideMap">
             <map>
                 <entry key="sfdc.endpoint" value="https://login.salesforce.com"/> 
@@ -40,7 +63,30 @@
                 <entry key="sfdc.entity" value="C501_Contact_Cache__c"/>
                 <entry key="process.operation" value="update"/>
                 <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\RFN\Salesforce-Importer\Clients\RFN\DataLoader\Update-ContactCache.sdl"/>
-                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\RFN\Salesforce-Importer\Clients\RFN\Import\Update-ContactCache.csv"/>
+                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\RFN\Salesforce-Importer\Clients\RFN\Import\Update-ContactCache_O365Contact.csv"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="Update-ContactCache_O365Cache_Prod"
+          class="com.salesforce.dataloader.process.ProcessRunner"
+          singleton="false">
+        <description>Contact Cache Update job.</description>
+        <property name="name" value="Update-ContactCache_O365Cache_Prod"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.endpoint" value="https://login.salesforce.com"/> 
+                <entry key="sfdc.username" value="501c@raikesfoundation.org"/>
+                <entry key="sfdc.password" value="606694898dc0bfbfb5e9700fbd9decd8095dbf7449d6533ff6cca4a6be81072a26db657836b12e6185b90506a10ae565b83c6199aff210c6eacd4a65f7fe93db"/>
+                <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\RFN\DataLoader\key.txt"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+                <entry key="sfdc.externalIdField" value="Id"/>
+                <entry key="sfdc.entity" value="C501_Contact_Cache__c"/>
+                <entry key="process.operation" value="update"/>
+                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\RFN\Salesforce-Importer\Clients\RFN\DataLoader\Update-ContactCache.sdl"/>
+                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\RFN\Salesforce-Importer\Clients\RFN\Import\Update-ContactCache_O365Cache.csv"/>
                 <entry key="dataAccess.type" value="csvRead"/>
                 <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
             </map>
