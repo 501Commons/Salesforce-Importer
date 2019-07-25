@@ -23,11 +23,11 @@
             </map>
         </property>
     </bean>
-    <bean id="Insert-ContactCache_O365ContactCache_Prod"
+    <bean id="Insert-ContactCache_O365Cache_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
           singleton="false">
         <description>Insert into Contact Cache object.</description>
-        <property name="name" value="Insert-ContactCache_O365ContactCache_Prod"/>
+        <property name="name" value="Insert-ContactCache_O365Cache_Prod"/>
         <property name="configOverrideMap">
             <map>
                 <entry key="sfdc.endpoint" value="https://login.salesforce.com"/> 
