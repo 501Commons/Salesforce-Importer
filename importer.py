@@ -306,15 +306,14 @@ def refresh_and_export(importer_directory, salesforce_type,
 
     message = "Import Process - Attempting to open Excel: " + excel_file
     print message
-    if not os.path.exists():
+    if not os.path.exists(excel_file):
         message = "Import Process - ERROR File does not exist: " + excel_file
         print message
 
     try:
 
         # workbooks.open(file, UpdateLinks = No, ReadOnly = True, Format = 2 Commas)
-        workbook = workbooks.Open((
-            excel_file_path + client_type + "-" + client_subtype + "_" + salesforce_type + ".xlsx"), 0, True, 2)
+        workbook = workbooks.Open(excel_file, 0, True, 2)
 
         message = "\nImport Process - Pausing " + str(wait_time) + " seconds for Excel to load..."
         print message
