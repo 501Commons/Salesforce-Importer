@@ -3,10 +3,15 @@
 Id=Id
 LastName__c=LastName__c
 FirstName__c=FirstName__c
+MiddleName__c=MiddleName__c
 Email__c=Email__c
 Source__c=Source__c
 OwnerId=OwnerId
 Mobile__c=Mobile__c
+Phone__c=Phone__c
+HomePhone__c=HomePhone__c
+Company__c=Company__c
+Title__c=Title__c
 MailingStreet__c=MailingStreet__c
 MailingCity__c=MailingCity__c
 MailingState__c=MailingState__c

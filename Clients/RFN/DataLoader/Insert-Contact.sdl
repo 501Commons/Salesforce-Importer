@@ -2,6 +2,21 @@
 #Tue Mar 26 00:10:06 PDT 2019
 LastName=LastName
 FirstName=FirstName
+FGM_Base__Middle_Name__c=FGM_Base__Middle_Name__c
 Email=Email
 OwnerId=OwnerId
-MobilePhone=MobilePhone
+OtherPhone=OtherPhone
+Phone=Phone
+HomePhone=HomePhone
+Company__c=Company__c
+Title=Title
+MailingStreet=MailingStreet
+MailingCity=MailingCity
+MailingState=MailingState
+MailingPostalCode=MailingPostalCode
+MailingCountry=MailingCountry
+OtherStreet=OtherStreet
+OtherCity=OtherCity
+OtherState=OtherState
+OtherPostalCode=OtherPostalCode
+OtherCountry=OtherCountry
