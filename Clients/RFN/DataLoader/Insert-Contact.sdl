@@ -3,7 +3,6 @@
 AccountId=AccountId
 LastName=LastName
 FirstName=FirstName
-FGM_Base__Middle_Name__c=FGM_Base__Middle_Name__c
 Email=Email
 OwnerId=OwnerId
 OtherPhone=OtherPhone
