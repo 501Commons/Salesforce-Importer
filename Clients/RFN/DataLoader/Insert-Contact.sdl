@@ -8,7 +8,6 @@ OwnerId=OwnerId
 OtherPhone=OtherPhone
 Phone=Phone
 HomePhone=HomePhone
-Company__c=Company__c
 Title=Title
 MailingStreet=MailingStreet
 MailingCity=MailingCity
