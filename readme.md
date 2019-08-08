@@ -8,11 +8,13 @@ Importer Setup Instructions
 1) Install Git for Windows -> http://gitforwindows.org
     NOTE: Don't need to have an account just need the application installed
 
-2) **501 Admin** will provider zip file for custom settings ([Client].zip).  Extract zip into C:\repo.  After unzip there should be a c:\repo\Salesforce-Importer-Private directory
+2) Install Python 2.7.x for Windows -> https://www.python.org/downloads/release/python-2716/
+
+3) **501 Admin** will provider zip file for custom settings ([Client].zip).  Extract zip into C:\repo.  After unzip there should be a c:\repo\Salesforce-Importer-Private directory
 
 Example: C:\repo\Salesforce-Importer-Private\Clients\XYZ where XYZ are the ClientInitials should contain an Importer.bat file and a DataLoader directory.
 
-3) Edit c:\repo\Importer-Private\Importer.bat
+4) Edit c:\repo\Importer-Private\Importer.bat
     Check & Verify the following values - update accordingly
     * EMAIL_LIST - include client emails
     * IMPORT_DIRECTORY - Location of incoming data files (e.g., DropBox, OneDrive)
