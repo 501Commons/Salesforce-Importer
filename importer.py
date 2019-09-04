@@ -60,7 +60,7 @@ def main():
                "salesforce_type client_type client_subtype client_emaillist\n")
         return
 
-    print ("Incoming required paramters: " +
+    print ("Incoming required parameters: " +
            "salesforce_type: {} client_type: {} client_subtype: {} client_emaillist: {}\n"
            .format(salesforce_type, client_type, client_subtype, client_emaillist))
 
@@ -315,10 +315,10 @@ def refresh_and_export(importer_directory, salesforce_type,
         # workbooks.open(file, UpdateLinks = No, ReadOnly = True, Format = 2 Commas)
         workbook = workbooks.Open(excel_file, 0, True, 2)
 
-        message = "\nImport Process - Pausing " + str(wait_time) + " seconds for Excel to load..."
+        message = "\nImport Process - Pausing 60 seconds for Excel to load..."
         print message
         refresh_status += message + "\n"
-        time.sleep(wait_time)
+        time.sleep(60)
 
         #for connection in workbook.Connections:
             #print connection.name
