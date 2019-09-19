@@ -439,7 +439,7 @@ def refresh_and_export(importer_directory, salesforce_type,
 
         except Exception as ex:
             refresh_status += "Unexpected error:" + str(ex)
-            if open_attempt >= open_max_attempts
+            if open_attempt >= open_max_attempts:
                 raise Exception("refresh_and_export", refresh_status)
 
             time.sleep(30)
