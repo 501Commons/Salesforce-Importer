@@ -322,7 +322,7 @@ def refresh_and_export(importer_directory, salesforce_type,
 
         open_attempt += 1
 
-        message = "Import Process - Attempt " + open_attempt + ' of ' + open_max_attempts + ' to open Excel: " + excel_file
+        message = "\nImport Process - Attempt " + open_attempt + " of " + open_max_attempts + " to open Excel: " + excel_file
         print message
         if not os.path.exists(excel_file):
             message = "Import Process - ERROR File does not exist: " + excel_file
