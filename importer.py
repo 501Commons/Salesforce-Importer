@@ -315,7 +315,7 @@ def refresh_and_export(importer_directory, salesforce_type,
     excel_file = excel_file_path + client_type + "-" + client_subtype + "_" + salesforce_type + ".xlsx"
 
     global workbook
-    bool workbook_assigned = False
+    workbook_assigned = False
     open_max_attempts = 5
     open_attempt = 0
     while open_attempt < open_max_attempts
