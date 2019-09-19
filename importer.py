@@ -445,7 +445,7 @@ def refresh_and_export(importer_directory, salesforce_type,
             time.sleep(30)
 
         finally:
-            if workbook_assigned
+            if workbook_assigned:
                 workbook.Close(False)
 
             workbook_assigned = False
