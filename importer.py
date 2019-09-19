@@ -316,6 +316,7 @@ def refresh_and_export(importer_directory, salesforce_type,
 
     global workbook
     workbook_assigned = False
+    workbook_successful = False
     open_max_attempts = 5
     open_attempt = 0
     while open_attempt < open_max_attempts:
@@ -437,6 +438,8 @@ def refresh_and_export(importer_directory, salesforce_type,
                         "Insert sheet contains data and should be empty during update process: " +
                         sheet_file))
 
+            workbook_successful = True
+
         except Exception as ex:
             refresh_status += "Unexpected error:" + str(ex)
             if open_attempt >= open_max_attempts:
@@ -447,6 +450,9 @@ def refresh_and_export(importer_directory, salesforce_type,
         finally:
             if workbook_assigned:
                 workbook.Close(False)
+
+            if workbook_successful:
+                break;
 
             workbook_assigned = False
 
