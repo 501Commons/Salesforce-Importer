@@ -320,7 +320,7 @@ def refresh_and_export(importer_directory, salesforce_type,
     open_attempt = 0
     while open_attempt < open_max_attempts:
 
-        open_attempt++
+        open_attempt += 1
 
         message = "Import Process - Attempt " + open_attempt + ' of ' + open_max_attempts + ' to open Excel: " + excel_file
         print message
