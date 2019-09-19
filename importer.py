@@ -318,7 +318,7 @@ def refresh_and_export(importer_directory, salesforce_type,
     workbook_assigned = False
     open_max_attempts = 5
     open_attempt = 0
-    while open_attempt < open_max_attempts
+    while open_attempt < open_max_attempts:
 
         open_attempt++
 
