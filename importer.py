@@ -316,12 +316,13 @@ def refresh_and_export(importer_directory, salesforce_type,
 
     global workbook
     bool workbook_assigned = False
-    retries_remaining = 5
-    while retries_remaining > 0
+    open_max_attempts = 5
+    open_attempt = 0
+    while open_attempt < open_max_attempts
 
-        retries_remaining--
+        open_attempt++
 
-        message = "Import Process - Attempting to open Excel: " + excel_file
+        message = "Import Process - Attempt " + open_attempt + ' of ' + open_max_attempts + ' to open Excel: " + excel_file
         print message
         if not os.path.exists(excel_file):
             message = "Import Process - ERROR File does not exist: " + excel_file
@@ -438,7 +439,7 @@ def refresh_and_export(importer_directory, salesforce_type,
 
         except Exception as ex:
             refresh_status += "Unexpected error:" + str(ex)
-            if retries_remaining <= 0
+            if open_attempt >= open_max_attempts
                 raise Exception("refresh_and_export", refresh_status)
 
             time.sleep(30)
