@@ -238,7 +238,8 @@ def process_data(importer_directory, salesforce_type, client_type,
         else:
             status_process_data = "Skipping export from Salesforce"
     except Exception as ex:
-        output_log += "\n\nexport_dataloader - Unexpected export error:" + str(ex)
+        output_log += "\n\nexport_dataloader - Unexpected error:" + str(ex)
+        output_log += "\n\export_dataloader\n" + status_process_data
         status_process_data = "Error detected - Exception"
     else:
         output_log += "\n\nExport\n" + status_process_data
@@ -255,7 +256,8 @@ def process_data(importer_directory, salesforce_type, client_type,
         else:
             status_process_data = "Skipping refresh and export from Excel"
     except Exception as ex:
-        output_log += "\n\nrefresh_and_export - Unexpected export error:" + str(ex)
+        output_log += "\n\nrefresh_and_export - Unexpected error:" + str(ex)
+        output_log += "\n\refresh_and_export\n" + status_process_data
         status_process_data = "Error detected - Exception"
     else:
         output_log += "\n\nExport\n" + status_process_data
@@ -270,7 +272,8 @@ def process_data(importer_directory, salesforce_type, client_type,
         else:
             status_process_data = "Error detected so skipped"
     except Exception as ex:
-        output_log += "\n\nUnexpected import error:" + str(ex)
+        output_log += "\n\nrefresh_and_export - Unexpected error:" + str(ex)
+        output_log += "\n\import_dataloader\n" + status_process_data
         status_process_data = "Error detected - Exception"
     else:
         output_log += "\n\nImport\n" + status_process_data
@@ -321,6 +324,7 @@ def refresh_and_export(importer_directory, salesforce_type,
     open_attempt = 0
     while open_attempt < open_max_attempts:
 
+        open_wait_time = wait_time
         open_attempt += 1
 
         message = "\nImport Process - Attempt " + str(open_attempt) + " of " + str(open_max_attempts) + " to open Excel: " + excel_file
@@ -364,7 +368,7 @@ def refresh_and_export(importer_directory, salesforce_type,
             workbook.RefreshAll()
 
             # Wait for excel to finish refresh
-            message = ("Pausing " + str(wait_time) +
+            message = ("Pausing " + str(open_wait_time) +
                     " seconds to give Excel time to complete background query...")
     #                   "\n\t\t***if Excel background query complete then press any key to exit wait cycle")
             print message
@@ -375,20 +379,20 @@ def refresh_and_export(importer_directory, salesforce_type,
                 #Clear the input buffer
     #            keyboard_hook.reset()
 
-            while wait_time > 0:
-                if wait_time > 30:
+            while open_wait_time > 0:
+                if open_wait_time > 30:
                     time.sleep(30)
 
-                    wait_time -= 30
-                    message = ("\t" + str(wait_time) +
+                    open_wait_time -= 30
+                    message = ("\t" + str(open_wait_time) +
                                 " seconds remaining for Excel to complete background query...")
     #                               "\n\t\t***if Excel background query complete then press any key to exit wait cycle")
                     print message
                     refresh_status += message + "\n"
 
                 else:
-                    time.sleep(wait_time)
-                    wait_time = 0
+                    time.sleep(open_wait_time)
+                    open_wait_time = 0
                     break
 
     #                if keyboard_hook.key_pressed():
@@ -434,6 +438,7 @@ def refresh_and_export(importer_directory, salesforce_type,
                         and "insert" in sheet.Name.lower()
                         and contains_data(sheet_file)
                         and retries_remaining <= 0):
+
                     raise Exception("refresh_and_export: Update Error", (
                         "Insert sheet contains data and should be empty during update process: " +
                         sheet_file))
@@ -441,20 +446,27 @@ def refresh_and_export(importer_directory, salesforce_type,
             workbook_successful = True
 
         except Exception as ex:
-            refresh_status += "Unexpected error:" + str(ex)
+            message += "Unexpected error:" + str(ex)
+            print message
+            refresh_status += message + "\n"
+
             if open_attempt >= open_max_attempts:
+                excel_connection.Quit()
                 raise Exception("refresh_and_export", refresh_status)
 
+            message = "\nImport Process - Pausing 30 seconds for system to recover from error..."
+            print message
+            refresh_status += message + "\n"
             time.sleep(30)
 
         finally:
-            if workbook_assigned:
+            if not workbook is None and workbook_assigned:
                 workbook.Close(False)
+
+            workbook_assigned = False
 
             if workbook_successful:
                 break;
-
-            workbook_assigned = False
 
     excel_connection.Quit()
 
