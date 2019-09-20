@@ -436,8 +436,7 @@ def refresh_and_export(importer_directory, salesforce_type,
                 # Update check to make sure insert sheet is empty
                 if (operation == "Update"
                         and "insert" in sheet.Name.lower()
-                        and contains_data(sheet_file)
-                        and retries_remaining <= 0):
+                        and contains_data(sheet_file)):
 
                     raise Exception("refresh_and_export: Update Error", (
                         "Insert sheet contains data and should be empty during update process: " +
