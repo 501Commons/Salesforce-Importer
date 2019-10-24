@@ -337,7 +337,7 @@ def refresh_and_export(importer_directory, salesforce_type,
             workbook = open_workbook(excel_connection, excel_file)
             workbook_assigned = True
 
-            message = "\nImport Process - Pausing 60 seconds for Excel to load..."
+            message = "\nImport Process - Pausing 60 seconds for Excel to load in the background (You can see Excel in Task Manager but will be hidden from the desktop for better performance)..."
             print message
             refresh_status += message + "\n"
             time.sleep(60)
