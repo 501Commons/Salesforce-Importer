@@ -1,5 +1,5 @@
 #Mapping values
-#Tue Jan 30 02:34:23 PST 2018
+#Format Source=Destination
 npe01__PreferredPhone__c=npe01__PreferredPhone__c
 npe01__Preferred_Email__c=npe01__Preferred_Email__c
 FirstName=FirstName

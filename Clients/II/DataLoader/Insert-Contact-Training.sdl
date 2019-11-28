@@ -1,5 +1,5 @@
 #Mapping values
-#Tue Feb 27 14:31:21 PST 2018
+#Format Source=Destination
 LASTNAME=LastName
 npe01__PREFERREDPHONE__C=npe01__PreferredPhone__c
 ii_Member_Id__c=ii_Member_ID__c

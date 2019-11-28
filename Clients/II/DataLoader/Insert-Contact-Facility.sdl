@@ -1,8 +1,7 @@
 #Mapping values
-#Tue Jan 30 01:12:21 PST 2018
+#Format Source=Destination
 ii_Facility_Name__c=ii_Facility_Name__c
 ii_Famlink_Id__c=ii_FamLink_Id__c
 Firstname=FirstName
 Lastname=LastName
-ii_SSPS_Number__c=ii_SSPS_Number__c
 RecordTypeId=RecordTypeId

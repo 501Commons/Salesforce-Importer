@@ -1,5 +1,5 @@
 #Mapping values
-#Tue Jan 30 02:46:50 PST 2018
+#Format Source=Destination
 MailingCity=MailingCity
 MobilePhone=MobilePhone
 FirstName=FirstName
@@ -19,7 +19,6 @@ MailingPostalCode=MailingPostalCode
 ii_First_Aid_Cert_Date__c=ii_First_Aid_Cert_Date__c
 ii_Safe_Sleep_Cert_Status__c=ii_Safe_Sleep_Cert_Status__c
 ii_Languages__c=ii_Languages__c
-ii_Stars_id__c=ii_Stars_Id__c
 ii_First_Aid_Cert_Status__c=ii_First_Aid_Cert_Status__c
 ii_Annual_Continuing_Education_Training__c=ii_Annual_Continuing_Education_Training__c
 ii_Initial_Training_Req_Completed_Year__c=ii_Initial_Training_Req_Completed_Year__c

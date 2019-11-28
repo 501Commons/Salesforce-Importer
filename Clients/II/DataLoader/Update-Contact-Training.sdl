@@ -1,9 +1,8 @@
 #Mapping values
-#Tue Feb 27 14:47:41 PST 2018
+#Format Source=Destination
 ii_County__c=ii_County__c
 ii_Employer_Name__c=ii_Employer_Name__c
 ii_Licensed__c=ii_Licensed__c
-ii_SSPS_Number__c=ii_SSPS_Number__c
 npe01__HomeEmail__c=npe01__HomeEmail__c
 Last\ Name=LastName
 MailingPostalCode=MailingPostalCode

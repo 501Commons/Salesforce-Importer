@@ -1,6 +1,7 @@
 #Mapping values
-#Tue Jan 30 02:46:50 PST 2018
+#Format Source=Destination
 Id=Id
+ii_Stars_Id__c=ii_Stars_Id_Matching__c
 ii_Employer_Name__c=ii_Employer_Name__c
 FirstName=FirstName
 LastName=LastName
