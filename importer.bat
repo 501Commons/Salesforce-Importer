@@ -25,8 +25,9 @@ if NOT EXIST "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" (
 echo ***** Python Setup *****
 set PATH=%JAVA_HOME%;%PYTHON_HOME%;%PYTHON_HOME%\Scripts;%PATH%
 cd "%PYTHON_HOME%"
+
 python -m pip install --upgrade pip
-pip install pypiwin32
+pip install --upgrade pypiwin32
 
 echo ***** Authentication Setup *****
 copy /Y "%IMPORTER_PRIVATE_DIR%\DataLoader\key.txt" "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\DataLoader\key.txt"
