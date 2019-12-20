@@ -1,6 +1,8 @@
 
 """import Module for Excel to Salesforce"""
 
+"""Helpful Link: https://pbpython.com/windows-com.html"""
+
 try:
     from win32api import STD_INPUT_HANDLE
     from win32console import GetStdHandle, ENABLE_PROCESSED_INPUT
