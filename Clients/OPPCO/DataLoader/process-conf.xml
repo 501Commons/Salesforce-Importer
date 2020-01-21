@@ -128,6 +128,7 @@
                 <entry key="sfdc.loadBatchSize" value="200"/>
                 <entry key="sfdc.externalIdField" value="Id"/>
                 <entry key="sfdc.entity" value="C501_Service_Household__c"/>
+                <entry key="sfdc.insertNulls" value="true"/>
                 <entry key="process.operation" value="update"/>
                 <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\DataLoader\Update-ServiceHousehold.sdl"/>
                 <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\Import\Update-ServiceHousehold.csv"/>
@@ -151,6 +152,7 @@
                 <entry key="sfdc.loadBatchSize" value="200"/>
                 <entry key="sfdc.externalIdField" value="Id"/>
                 <entry key="sfdc.entity" value="C501_Service_Household__c"/>
+                <entry key="sfdc.insertNulls" value="true"/>
                 <entry key="process.operation" value="update"/>
                 <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\DataLoader\Update-ServiceHousehold.sdl"/>
                 <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\Import\Update-ServiceHousehold.csv"/>
@@ -289,6 +291,7 @@
                 <entry key="sfdc.loadBatchSize" value="200"/>
                 <entry key="sfdc.externalIdField" value="Id"/>
                 <entry key="sfdc.entity" value="C501_Service_Contact__c"/>
+                <entry key="sfdc.insertNulls" value="true"/>
                 <entry key="process.operation" value="update"/>
                 <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\DataLoader\Update-ServiceContact.sdl"/>
                 <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\Import\Update-ServiceContact.csv"/>
@@ -312,6 +315,7 @@
                 <entry key="sfdc.loadBatchSize" value="200"/>
                 <entry key="sfdc.externalIdField" value="Id"/>
                 <entry key="sfdc.entity" value="C501_Service_Contact__c"/>
+                <entry key="sfdc.insertNulls" value="true"/>
                 <entry key="process.operation" value="update"/>
                 <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\DataLoader\Update-ServiceContact.sdl"/>
                 <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\OPPCO\Salesforce-Importer\Clients\OPPCO\Import\Update-ServiceContact.csv"/>
