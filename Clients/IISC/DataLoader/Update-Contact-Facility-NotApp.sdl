@@ -1,0 +1,5 @@
+#Mapping values
+#Format Source=Destination
+ii_Substitute_Pool_Status__c=c501_cm__ii_Substitute_Pool_Status__c
+Id=Id
+ii_Primary_Contact__c=c501_cm__ii_Primary_Contact__c

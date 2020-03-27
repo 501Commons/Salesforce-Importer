@@ -1,0 +1,9 @@
+#Mapping values
+#Format Source=Destination
+npe01__PreferredPhone__c=npe01__PreferredPhone__c
+npe01__Preferred_Email__c=npe01__Preferred_Email__c
+FirstName=FirstName
+LastName=LastName
+ii_Stars_Id__c=c501_cm__ii_Stars_Id__c
+npe01__Primary_Address_Type__c=npe01__Primary_Address_Type__c
+RecordTypeId=RecordTypeId

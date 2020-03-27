@@ -1,0 +1,7 @@
+#Mapping values
+#Format Source=Destination
+ii_Facility_Name__c=c501_cm__ii_Facility_Name__c
+ii_Famlink_Id__c=c501_cm__ii_FamLink_Id__c
+Firstname=FirstName
+Lastname=LastName
+RecordTypeId=RecordTypeId

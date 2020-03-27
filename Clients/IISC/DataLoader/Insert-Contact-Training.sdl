@@ -1,0 +1,9 @@
+#Mapping values
+#Format Source=Destination
+LASTNAME=LastName
+npe01__PREFERREDPHONE__C=npe01__PreferredPhone__c
+ii_Member_Id__c=c501_cm__ii_Member_ID__c
+npe01__PREFERRED_EMAIL__C=npe01__Preferred_Email__c
+ii_SSPS_Number__c=c501_cm__ii_SSPS_Number__c
+RecordTypeId=RecordTypeId
+ii_Unit_Status__c=c501_cm__ii_Unit_Status__c
