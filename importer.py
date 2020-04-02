@@ -43,6 +43,8 @@ class KeyboardHook():
 def main():
     """Main entry point"""
 
+    print ("Salesforce Importer Version 04/02/2020 3:12 PM")
+
     import sys
     import os
     from os import listdir, makedirs
@@ -248,6 +250,7 @@ def process_data(importer_directory, salesforce_type, client_type,
 
     # Export data from Salesforce
 
+    print "noexportsf {}".format(noexportsf)
     try:
         if not noexportsf:
             status_process_data = export_dataloader(importer_directory,
