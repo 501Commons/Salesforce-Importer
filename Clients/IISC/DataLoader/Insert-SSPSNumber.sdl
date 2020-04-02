@@ -1,0 +1,13 @@
+#Mapping values
+#Thu Apr 02 14:16:02 PDT 2020
+II_SSPS_NUMBER_MATCHING__C=ii_SSPS_Number_Matching__c
+npe01__PreferredPhone__c=npe01__PreferredPhone__c
+RecordTypeId=RecordTypeId
+c501_cm__ii_SSPS_Number__c=c501_cm__ii_SSPS_Number__c
+c501_cm__ii_Member_ID__c=c501_cm__ii_Member_ID__c
+c501_cm__ii_FamLink_Id__c=c501_cm__ii_FamLink_Id__c
+c501_cm__ii_Stars_Id__c=c501_cm__ii_Stars_Id__c
+Imported_From__c=Imported_From__c
+LastName=LastName
+npe01__Preferred_Email__c=npe01__Preferred_Email__c
+II_STARS_ID_MATCHING__C=ii_Stars_Id_Matching__c

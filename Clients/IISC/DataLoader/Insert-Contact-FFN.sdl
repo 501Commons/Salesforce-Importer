@@ -1,8 +1,0 @@
-#Mapping values
-#Format Source=Destination
-ii_SSPS_Number__c=c501_cm__ii_SSPS_Number__c
-LastName=LastName
-npe01__PreferredPhone__c=npe01__PreferredPhone__c
-npe01__Preferred_Email__c=npe01__Preferred_Email__c
-npe01__Primary_Address_Type__c=npe01__Primary_Address_Type__c
-RecordTypeId=RecordTypeId
