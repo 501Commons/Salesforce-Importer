@@ -63,8 +63,8 @@ def main():
         return
 
     print ("Incoming required parameters: " +
-           "salesforce_type: {} client_type: {} client_subtype: {} client_emaillist: {}\n"
-           .format(salesforce_type, client_type, client_subtype, client_emaillist))
+           "salesforce_type: {} client_type: {} client_subtype: {} client_emaillist: {} sys.argv {}\n"
+           .format(salesforce_type, client_type, client_subtype, client_emaillist, sys.argv))
 
     #
     # Optional Parameters
@@ -72,46 +72,61 @@ def main():
 
     wait_time = 300
     if '-waittime' in sys.argv:
+        print ("Incoming required parameter: waittime {}\n"
+            .format(sys.argv[sys.argv.index('-waittime') + 1])
+
         wait_time = int(sys.argv[sys.argv.index('-waittime') + 1])
 
     norefresh = False
     if '-norefresh' in sys.argv:
+        print ("Incoming required parameter: norefresh True\n")
         norefresh = True
 
     noupdate = False
     if '-noupdate' in sys.argv:
+        print ("Incoming required parameter: noupdate True\n")
         noupdate = True
 
     enabledelete = False
     if '-enabledelete' in sys.argv:
+        print ("Incoming required parameter: enabledelete True\n")
         enabledelete = True
 
     noexportodbc = False
     if '-noexportodbc' in sys.argv:
+        print ("Incoming required parameter: noexportodbc True\n")
         noexportodbc = True
 
     noexportsf = False
     if '-noexportsf' in sys.argv:
+        print ("Incoming required parameter: noexportsf\n")
         noexportsf = True
 
     emailattachments = False
     if '-emailattachments' in sys.argv:
+        print ("Incoming required parameter: emailattachements True\n")
         emailattachments = True
 
     interactivemode = False
     if '-interactivemode' in sys.argv:
+        print ("Incoming required parameter: interactivemode {}\n"
         interactivemode = True
 
     displayalerts = False
     if '-displayalerts' in sys.argv:
+        print ("Incoming required parameter: displayalerts {}\n"
         displayalerts = True
 
     skipexcelrefresh = False
     if '-skipexcelrefresh' in sys.argv:
+        print ("Incoming required parameter: skipexcelrefresh {}\n"
         skipexcelrefresh = True
 
     insert_attempts = 10
     if '-insertattempts' in sys.argv:
+        print ("Incoming required parameter: insert_attempts {}\n"
+            .format(sys.argv[sys.argv.index('-insertattempts') + 1])
+
         insert_attempts = int(sys.argv[sys.argv.index('-insertattempts') + 1])
 
     importer_root = ("C:\\repo\\Salesforce-Importer-Private\\Clients\\" + client_type +
