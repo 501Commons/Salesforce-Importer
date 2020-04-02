@@ -75,7 +75,7 @@ def main():
     wait_time = 300
     if '-waittime' in sys.argv:
         print ("Incoming required parameter: waittime {}\n"
-            .format(sys.argv[sys.argv.index('-waittime') + 1])
+            .format(sys.argv[sys.argv.index('-waittime') + 1]))
 
         wait_time = int(sys.argv[sys.argv.index('-waittime') + 1])
 
@@ -127,7 +127,7 @@ def main():
     insert_attempts = 10
     if '-insertattempts' in sys.argv:
         print ("Incoming required parameter: insert_attempts {}\n"
-            .format(sys.argv[sys.argv.index('-insertattempts') + 1])
+            .format(sys.argv[sys.argv.index('-insertattempts') + 1]))
 
         insert_attempts = int(sys.argv[sys.argv.index('-insertattempts') + 1])
 
