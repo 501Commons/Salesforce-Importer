@@ -671,14 +671,6 @@ def contains_error(text):
 def send_email(client_emaillist, subject, file_path, emailattachments, log_path):
     """Send email via O365"""
 
-    message = "\n\nPreparing email results\n"
-    print message
-
-    send_to = client_emaillist.split(";")
-    send_from = 'db.powerbi@501commons.org'
-    server = "smtp.office365.com"
-
-    #https://stackoverflow.com/questions/3362600/how-to-send-email-attachments
     import base64
     from email.mime.application import MIMEApplication
     from email.mime.multipart import MIMEMultipart
@@ -688,6 +680,22 @@ def send_email(client_emaillist, subject, file_path, emailattachments, log_path)
     from os.path import basename
     from shutil import copy
     import smtplib
+
+    message = "\n\nPreparing email results\n"
+    print message
+
+    send_to = client_emaillist.split(";")
+
+    send_from = 'db.powerbi@501commons.org'
+    server = "smtp.office365.com"
+
+    if os.environ['SERVER_EMAIL_USERNAME']:
+        send_from = os.environ['SERVER_EMAIL_USERNAME']
+
+    if os.environ['SERVER_EMAIL']:
+        server = os.environ['SERVER_EMAIL']
+
+    #https://stackoverflow.com/questions/3362600/how-to-send-email-attachments
 
     msg = MIMEMultipart()
 
@@ -699,52 +707,56 @@ def send_email(client_emaillist, subject, file_path, emailattachments, log_path)
     from os import listdir
     from os.path import isfile, join, exists
 
-    onlyfiles = [join(file_path, f) for f in listdir(file_path)
-                 if isfile(join(file_path, f))]
-
     msgbody = subject + "\n\n"
     if not emailattachments:
         msgbody += "Attachments disabled: Result files can be accessed on the import client.\n\n"
 
-    msgbody += "Log Directory: {}\n\n".format(log_path)
+    if file_path:
+        onlyfiles = [join(file_path, f) for f in listdir(file_path)
+                    if isfile(join(file_path, f))]
 
-    for file_name in onlyfiles:
+        msgbody += "Log Directory: {}\n\n".format(log_path)
 
-        if contains_data(file_name) and ".sent" not in file_name:
+        for file_name in onlyfiles:
 
-            msgbody += "\t{}, with {} rows\n".format(basename(file_name), file_linecount(file_name))
+            if contains_data(file_name) and ".sent" not in file_name:
 
-            if emailattachments or (contains_error(subject) and "log" in file_name.lower()) or contains_error(file_name.lower()):
-                with open(file_name, "rb") as file_name_open:
-                    part = MIMEApplication(
-                        file_name_open.read(),
-                        Name=basename(file_name)
-                        )
+                msgbody += "\t{}, with {} rows\n".format(basename(file_name), file_linecount(file_name))
 
-                # After the file is closed
-                part['Content-Disposition'] = 'attachment; filename="%s"' % basename(file_name)
-                msg.attach(part)
+                if emailattachments or (contains_error(subject) and "log" in file_name.lower()) or contains_error(file_name.lower()):
+                    with open(file_name, "rb") as file_name_open:
+                        part = MIMEApplication(
+                            file_name_open.read(),
+                            Name=basename(file_name)
+                            )
 
-            # Rename file so do not attached again
-            sent_file = join(file_path, file_name)
-            filename, file_extension = os.path.splitext(sent_file)
-            sent_file = "{}.sent{}".format(filename, file_extension)
+                    # After the file is closed
+                    part['Content-Disposition'] = 'attachment; filename="%s"' % basename(file_name)
+                    msg.attach(part)
 
-            if exists(sent_file):
-                os.remove(sent_file)
+                # Rename file so do not attached again
+                sent_file = join(file_path, file_name)
+                filename, file_extension = os.path.splitext(sent_file)
+                sent_file = "{}.sent{}".format(filename, file_extension)
 
-            os.rename(file_name, sent_file)
+                if exists(sent_file):
+                    os.remove(sent_file)
 
-            #Save copy to log directory
-            copy(sent_file, log_path)
+                os.rename(file_name, sent_file)
+
+                #Save copy to log directory
+                copy(sent_file, log_path)
 
     print msgbody
     msg.attach(MIMEText(msgbody))
 
     server = smtplib.SMTP(server, 587)
-    server.ehlo()
     server.starttls()
+
     server_password = os.environ['SERVER_EMAIL_PASSWORD']
+    if os.environ['SERVER_EMAIL_PASSWORDOVERRIDE']:
+        server_password = os.environ['SERVER_EMAIL_PASSWORDOVERRIDE']
+
     server.login(send_from, base64.b64decode(server_password))
     text = msg.as_string()
     server.sendmail(send_from, send_to, text)
