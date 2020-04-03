@@ -43,8 +43,6 @@ class KeyboardHook():
 def main():
     """Main entry point"""
 
-    print ("Salesforce Importer Version 04/02/2020 3:12 PM")
-
     import sys
     import os
     from os import listdir, makedirs
@@ -74,61 +72,46 @@ def main():
 
     wait_time = 300
     if '-waittime' in sys.argv:
-        print ("Incoming required parameter: waittime {}\n"
-            .format(sys.argv[sys.argv.index('-waittime') + 1]))
-
         wait_time = int(sys.argv[sys.argv.index('-waittime') + 1])
 
     norefresh = False
     if '-norefresh' in sys.argv:
-        print ("Incoming required parameter: norefresh True\n")
         norefresh = True
 
     noupdate = False
     if '-noupdate' in sys.argv:
-        print ("Incoming required parameter: noupdate True\n")
         noupdate = True
 
     enabledelete = False
     if '-enabledelete' in sys.argv:
-        print ("Incoming required parameter: enabledelete True\n")
         enabledelete = True
 
     noexportodbc = False
     if '-noexportodbc' in sys.argv:
-        print ("Incoming required parameter: noexportodbc True\n")
         noexportodbc = True
 
     noexportsf = False
     if '-noexportsf' in sys.argv:
-        print ("Incoming required parameter: noexportsf\n")
         noexportsf = True
 
     emailattachments = False
     if '-emailattachments' in sys.argv:
-        print ("Incoming required parameter: emailattachements True\n")
         emailattachments = True
 
     interactivemode = False
     if '-interactivemode' in sys.argv:
-        print ("Incoming required parameter: interactivemode {}\n"
         interactivemode = True
 
     displayalerts = False
     if '-displayalerts' in sys.argv:
-        print ("Incoming required parameter: displayalerts {}\n"
         displayalerts = True
 
     skipexcelrefresh = False
     if '-skipexcelrefresh' in sys.argv:
-        print ("Incoming required parameter: skipexcelrefresh {}\n"
         skipexcelrefresh = True
 
     insert_attempts = 10
     if '-insertattempts' in sys.argv:
-        print ("Incoming required parameter: insert_attempts {}\n"
-            .format(sys.argv[sys.argv.index('-insertattempts') + 1]))
-
         insert_attempts = int(sys.argv[sys.argv.index('-insertattempts') + 1])
 
     importer_root = ("C:\\repo\\Salesforce-Importer-Private\\Clients\\" + client_type +
@@ -250,7 +233,6 @@ def process_data(importer_directory, salesforce_type, client_type,
 
     # Export data from Salesforce
 
-    print "noexportsf {}".format(noexportsf)
     try:
         if not noexportsf:
             status_process_data = export_dataloader(importer_directory,
@@ -290,6 +272,7 @@ def process_data(importer_directory, salesforce_type, client_type,
                                                     client_type, salesforce_type,
                                                     operation)
         else:
+            print status_process_data + output_log
             status_process_data = "Error detected so skipped"
     except Exception as ex:
         output_log += "\n\nrefresh_and_export - Unexpected error:" + str(ex)
@@ -304,7 +287,7 @@ def process_data(importer_directory, salesforce_type, client_type,
               "w") as text_file:
         text_file.write(output_log)
 
-    return status_process_data
+    return status_process_data + output_log
 
 def open_workbook(xlapp, xlfile):
     try:        
@@ -759,6 +742,7 @@ def send_email(client_emaillist, subject, file_path, emailattachments, log_path)
     msg.attach(MIMEText(msgbody))
 
     server = smtplib.SMTP(server, 587)
+    server.ehlo()
     server.starttls()
     server_password = os.environ['SERVER_EMAIL_PASSWORD']
     server.login(send_from, base64.b64decode(server_password))
