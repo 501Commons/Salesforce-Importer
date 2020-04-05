@@ -62,9 +62,14 @@ def main():
                "salesforce_type client_type client_subtype client_emaillist\n")
         return
 
-    print ("Incoming required parameters: " +
+    print ("\nIncoming required parameters: " +
            "salesforce_type: {} client_type: {} client_subtype: {} client_emaillist: {} sys.argv {}\n"
            .format(salesforce_type, client_type, client_subtype, client_emaillist, sys.argv))
+
+    print ("\n\nWhen import complete a status email with be sent to {}\n\n"
+           .format(client_emaillist))
+
+    print ("\n\nThis process can take up to 30 minutes to complete...")
 
     #
     # Optional Parameters
