@@ -689,11 +689,11 @@ def send_email(client_emaillist, subject, file_path, emailattachments, log_path)
     send_from = 'db.powerbi@501commons.org'
     server = "smtp.office365.com"
 
-    if os.environ['SERVER_EMAIL_USERNAME']:
-        send_from = os.environ['SERVER_EMAIL_USERNAME']
+    if 'SERVER_EMAIL_USERNAME' in os.environ:
+        send_from = os.environ.get('SERVER_EMAIL_USERNAME')
 
-    if os.environ['SERVER_EMAIL']:
-        server = os.environ['SERVER_EMAIL']
+    if 'SERVER_EMAIL' in os.environ:
+        server = os.environ.get('SERVER_EMAIL')
 
     #https://stackoverflow.com/questions/3362600/how-to-send-email-attachments
 
@@ -753,9 +753,12 @@ def send_email(client_emaillist, subject, file_path, emailattachments, log_path)
     server = smtplib.SMTP(server, 587)
     server.starttls()
 
-    server_password = os.environ['SERVER_EMAIL_PASSWORD']
-    if os.environ['SERVER_EMAIL_PASSWORDOVERRIDE']:
-        server_password = os.environ['SERVER_EMAIL_PASSWORDOVERRIDE']
+    server_password = 'unknown'
+    if 'SERVER_EMAIL_PASSWORD' in os.environ:
+        server_password = os.environ.get('SERVER_EMAIL_PASSWORD')
+
+    if 'SERVER_EMAIL_PASSWORDOVERRIDE' in os.environ:
+        server_password = os.environ.get('SERVER_EMAIL_PASSWORDOVERRIDE')
 
     server.login(send_from, base64.b64decode(server_password))
     text = msg.as_string()
