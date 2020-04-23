@@ -42,3 +42,7 @@ Resolution: Importer did not properly close the previous Excel session(s) - rest
 
 5) Importer Email says - Error Import and within the email there is a 'java.lang.RuntimeException: java.lang.NullPointerException'
 Resolution: This is probably related to empty columns in the generated CSV file.  Open your Excel file and save out each sheet then edit the CSV files in Notepad.  If you see a bunch of ,,,,,,,,,, in the header columns then that is the issue.  To fix open Excel and select all the empty columns after your last data column and delete the columns.  The other method is delete the sheet and then right click on your Data source and Load to... a new sheet.
+
+6) Using Excel 2013 or an Error in Excel Saying unable to find Data Source?
+Resolution: Install the latest Power Query Add-in from Microsoft
+http://www.microsoft.com/en-us/download/details.aspx?id=39379&CorrelationId=3639a8ed-75d1-46e8-8910-03452c00154f
