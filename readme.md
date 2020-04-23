@@ -10,6 +10,8 @@ Importer Setup Instructions
 
 2) Install Python 2.7.x for Windows -> https://www.python.org/downloads/release/python-2716/
 
+After install verify there is a C:\Python27 directory
+
 3) **501 Admin** will provider zip file for custom settings ([Client].zip).  Extract zip into C:\repo.  After unzip there should be a c:\repo\Salesforce-Importer-Private directory
 
 Example: C:\repo\Salesforce-Importer-Private\Clients\XYZ where XYZ are the ClientInitials should contain an Importer.bat file and a DataLoader directory.
