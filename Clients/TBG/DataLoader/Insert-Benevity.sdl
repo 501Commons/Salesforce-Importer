@@ -1,5 +1,5 @@
 #Mapping values
-#Tue Mar 26 00:10:06 PDT 2019
+#Mon Dec 30 14:39:56 PST 2019
 Company=npsp__Account1_Name__c
 Email=npsp__Contact1_Work_Email__c
 Address=npsp__Home_Street__c
@@ -18,7 +18,6 @@ Donation\ Online\ Donation=C501_Donation_Online_Donation__c
 Net\ Amount=C501_Donation_Net_Amount__c
 Donor\ First\ Name=npsp__Contact1_Firstname__c
 Donation\ Budget\ Constituency=C501_Donation_Budget_Constituency__c
-Contact.Duplicate\ Found=C501_Last_Import_Duplicate_Found__c
 Transaction\ ID=C501_Donation_Transaction_ID__c
 Donation\ Date=npsp__Donation_Date__c
 Donor\ Last\ Name=npsp__Contact1_Lastname__c
@@ -28,3 +27,4 @@ Contact1\ Last\ Import\ Date=C501_Contact1_Last_Import_Date__c
 State/Province=npsp__Home_State_Province__c
 Donation\ Donor=npsp__Donation_Donor__c
 Donation\ Pass-Through\ Organization=C501_Donation_Pass_Through_Organization__c
+Contact.Duplicate\ Found\ Date=C501_Last_Import_Duplicate_Found__c
