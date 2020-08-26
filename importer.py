@@ -158,9 +158,19 @@ def main():
                                     interactivemode,
                                     displayalerts)
 
+    # Check filename for operation
+    insertOnly = False
+    if "insert" in client_subtype.lower():
+        insertOnly = True
+
+    updateOnly = False
+    if "update" in client_subtype.lower():
+        updateOnly = True
+    
+
     # Insert Data
     status_import = ""
-    if not norefresh and "Invalid Return Code" not in status_export:
+    if not norefresh and not updateOnly and "Invalid Return Code" not in status_export:
         for insert_run in range(0, insert_attempts):
 
             print "\n\nImporter - Insert Data Process (run: %d)\n\n" % (insert_run)
@@ -177,7 +187,7 @@ def main():
                 break
 
     # Update Data
-    if not noupdate and not contains_error(status_import):
+    if not noupdate and not insertOnly and not contains_error(status_import):
         print "\n\nImporter - Update Data Process\n\n"
         status_import = process_data(importer_directory, salesforce_type, client_type,
                                      client_subtype, 'Update', wait_time,
