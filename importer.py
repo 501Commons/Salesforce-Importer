@@ -194,7 +194,7 @@ def main():
                                      noexportsf, interactivemode, displayalerts, skipexcelrefresh)
 
     # Delete Data
-    if enabledelete and not contains_error(status_import):
+    if enabledelete and not insertOnly and not updateOnly and not contains_error(status_import):
         print "\n\nImporter - Delete Data Process\n\n"
         status_import = process_data(importer_directory, salesforce_type, client_type,
                                      client_subtype, 'Delete', wait_time,
