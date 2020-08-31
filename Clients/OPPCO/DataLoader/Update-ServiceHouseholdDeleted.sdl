@@ -4,3 +4,4 @@ ID=Id
 C501_IsActive__c=C501_IsActive__c
 Denied_Service=C501_Service__c
 End_Date=C501_END_DATE__c
+C501_Outcomes__c=C501_Outcomes__c
