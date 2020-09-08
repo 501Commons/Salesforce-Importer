@@ -131,8 +131,8 @@
                 <entry key="sfdc.externalIdField" value="Id"/>
                 <entry key="sfdc.entity" value="Contact"/>
                 <entry key="process.operation" value="insert"/>
-                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\IISC\Salesforce-Importer\Clients\IISC\DataLoader\Insert-ContactFacilties.sdl"/>
-                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\IISC\Salesforce-Importer\Clients\IISC\Import\Insert-ContactFacilties.csv"/>
+                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\IISC\Salesforce-Importer\Clients\IISC\DataLoader\Insert-ContactFacilities.sdl"/>
+                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\IISC\Salesforce-Importer\Clients\IISC\Import\Insert-ContactFacilities.csv"/>
                 <entry key="dataAccess.type" value="csvRead"/>
                 <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
             </map>
