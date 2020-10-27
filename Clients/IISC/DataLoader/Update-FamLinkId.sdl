@@ -1,6 +1,6 @@
 #Mapping values
 #Format Source=Destination
-c501_cm__ii_County__c=County__c
+County__c=County__c
 Email=Email
 MobilePhone=MobilePhone
 c501_cm__ii_Facility_Name__c=c501_cm__ii_Facility_Name__c
