@@ -1,35 +1,32 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
-    "configurations": [
+    "configurations": [        
         {
             "name": "Python",
             "type": "python",
             "request": "launch",
             "stopOnEntry": true,
-            "pythonPath": "${config:python.pythonPath}",
             "program": "${file}",
             "cwd": "${workspaceFolder}",
             "env": {},
             "envFile": "${workspaceFolder}/.env",
             "args": [
-                "Sandbox"
-                ,"OPPCO"
-                ,"LIHEAP"
-                ,"db.oppco@501commons.org"
+                "Prod"
+                ,"II"
+                ,"FFN-Update4of4"
+                ,"daveb@501commons.org"
                 ,"-insertattempts"
                 ,"1"
 //                ,"-noupdate"
 //                ,"-rootdir"
 //                ,"C:\\repo\\Salesforce-Importer-Private"
                 ,"-noexportodbc"
-                ,"-noexportsf"
+//                ,"-noexportsf"
 //                ,"-skipexcelrefresh"
                 ,"-waittime"
                 ,"1"
                 ,"-interactivemode"
+                ,"-location Cloud"
             ],
             "debugOptions": [
                 "RedirectOutput"
