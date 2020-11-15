@@ -99,7 +99,7 @@ def main():
     if '-noexportsf' in sys.argv:
         noexportsf = True
 
-    emailattachments = False
+    global emailattachments = False
     if '-emailattachments' in sys.argv:
         emailattachments = True
 
@@ -119,6 +119,10 @@ def main():
     if '-insertattempts' in sys.argv:
         insert_attempts = int(sys.argv[sys.argv.index('-insertattempts') + 1])
 
+    location_local = True
+    if '-location Cloud' in sys.argv:
+        location_local = False
+
     importer_root = ("C:\\repo\\Salesforce-Importer-Private\\Clients\\" + client_type +
                      "\\Salesforce-Importer")
     if '-rootdir' in sys.argv:
@@ -132,6 +136,17 @@ def main():
 
     importer_directory = join(importer_root, "Clients\\" + client_type)
     print "Setting Importer Directory: " + importer_directory
+
+    #Cloud location setup status results
+    if not location_local:
+
+        if not export_extractcontentexists(importer_directory, client_subtype):
+            print "\nImporter process skip since running in Cloud and no valid Import Instance\n"
+            return
+
+        f = open(join(importer_directory, "ImportInstance_Status.txt"), "w")
+        f.write("Complete")
+        f.close()
 
     #Clear out log directory
     importer_log_directory = join(importer_root, "..\\Status\\")
@@ -150,6 +165,7 @@ def main():
 
     # Export External Data
     status_export = ""
+
     if not noexportodbc:
         print "\n\nExporter - Export External Data\n\n"
         status_export = export_odbc(importer_directory,
@@ -167,7 +183,6 @@ def main():
     if "update" in client_subtype.lower():
         updateOnly = True
     
-
     # Insert Data
     status_import = ""
     if not norefresh and not updateOnly and "Invalid Return Code" not in status_export:
@@ -180,7 +195,8 @@ def main():
                                          noexportsf,
                                          interactivemode,
                                          displayalerts,
-                                         skipexcelrefresh)
+                                         skipexcelrefresh,
+                                         location_local)
 
             # Insert files are empty so continue to update process
             if "import_dataloader (returncode)" not in status_import:
@@ -191,14 +207,14 @@ def main():
         print "\n\nImporter - Update Data Process\n\n"
         status_import = process_data(importer_directory, salesforce_type, client_type,
                                      client_subtype, 'Update', wait_time,
-                                     noexportsf, interactivemode, displayalerts, skipexcelrefresh)
+                                     noexportsf, interactivemode, displayalerts, skipexcelrefresh, location_local)
 
     # Delete Data
     if enabledelete and not insertOnly and not updateOnly and not contains_error(status_import):
         print "\n\nImporter - Delete Data Process\n\n"
         status_import = process_data(importer_directory, salesforce_type, client_type,
                                      client_subtype, 'Delete', wait_time,
-                                     noexportsf, interactivemode, displayalerts, skipexcelrefresh)
+                                     noexportsf, interactivemode, displayalerts, skipexcelrefresh, location_local)
 
     # Restore stdout
     sys.stdout = sys_stdout_previous_state
@@ -218,6 +234,13 @@ def main():
     #Write log to stdout
     print output_log
 
+    if contains_error(status_import):
+        #Cloud location setup status results
+        if not location_local:
+            f = open(join(importer_directory, "ImportInstance_Status.txt"), "w")
+            f.write("Complete With Errors")
+            f.close()
+
     # Send email results
     results = "Success"
     if contains_error(status_import) or contains_error(status_export):
@@ -233,7 +256,7 @@ def main():
 
 def process_data(importer_directory, salesforce_type, client_type,
                  client_subtype, operation, wait_time,
-                 noexportsf, interactivemode, displayalerts, skipexcelrefresh):
+                 noexportsf, interactivemode, displayalerts, skipexcelrefresh, location_local):
     """Process Data based on operation"""
 
     #Create log file for import status and reports
@@ -251,7 +274,7 @@ def process_data(importer_directory, salesforce_type, client_type,
     try:
         if not noexportsf:
             status_process_data = export_dataloader(importer_directory,
-                                                    salesforce_type, interactivemode, displayalerts)
+                                                    salesforce_type, interactivemode, displayalerts, location_local)
         else:
             status_process_data = "Skipping export from Salesforce"
     except Exception as ex:
@@ -582,13 +605,15 @@ def import_dataloader(importer_directory, client_type, salesforce_type, operatio
 
     return return_code + return_stdout + return_stderr
 
-def export_dataloader(importer_directory, salesforce_type, interactivemode, displayalerts):
+def export_dataloader(importer_directory, salesforce_type, interactivemode, displayalerts, location_local):
+    
     """Export out of Salesforce using DataLoader"""
 
-    from os.path import exists
+    from os.path import exists, join
     from subprocess import Popen, PIPE
 
-    exporter_directory = importer_directory.replace("Importer", "Exporter")
+    exporter_clientdirectory = importer_directory.replace("Importer", "Exporter")
+    exporter_directory = exporter_clientdirectory
     if "\\Salesforce-Exporter\\" in exporter_directory:
         exporter_directory += "\\..\\..\\.."
 
@@ -620,7 +645,90 @@ def export_dataloader(importer_directory, salesforce_type, interactivemode, disp
                 or "We couldn't find the Java Runtime Environment (JRE)" in return_stdout):
             raise Exception("Invalid Return Code", return_code + return_stdout + return_stderr)
 
+    #Check to extract the data from the content version if running in the cloud
+    if not location_local:
+        export_extractcontent(join(exporter_clientdirectory, 'Export'))
+
     return return_code + return_stdout + return_stderr
+
+def export_extractcontent(exporter_directory):
+
+    """Export - extract content version for CSV data when running in the cloud"""
+    import base64
+    from csv import DictReader
+    from os.path import join
+    import sys
+    import csv
+
+    try:
+        csv.field_size_limit(min(sys.maxsize, 2147483646))
+
+        # iterate over each line as a ordered dictionary and print only few column by column name 
+        with open(join(exporter_directory,'ContentVersionExtract-Prod.csv'), 'r') as read_obj:
+            csv_dict_reader = DictReader(read_obj)
+            for row in csv_dict_reader:
+
+                #Decode VersionData
+                outputFilename = join(exporter_directory, row['TITLE'] + '.' + row['FILEEXTENSION'])
+                with open(join(exporter_directory, outputFilename), 'w') as write_obj:
+                    write_obj.write(base64.b64decode(row['VERSIONDATA']).replace('\r\n','\n').replace('\r','\n'))
+    except Exception as ex:
+        print "\nexport_extractcontent - Unexpected error:" + str(ex)
+
+def export_extractcontentexists(importer_directory, client_subtype):
+
+    """Export - extract content exists - checks to see if running on cloud if there is any content scheduled for import"""
+    import base64
+    from csv import DictReader
+    from os.path import join
+    import sys
+    import csv
+
+    exporter_clientdirectory = join(importer_directory.replace("Importer", "Exporter"), "Export")
+
+    try:
+        csv.field_size_limit(min(sys.maxsize, 2147483646))
+
+        validImportInstance = False
+
+        # Check for scheduled import instance
+        with open(join(exporter_directory,'ImportInstanceExtract-Prod.csv'), 'r') as read_obj:
+            csv_dict_reader = DictReader(read_obj)
+            for row in csv_dict_reader:
+
+                #Check for schedule related to current client
+                if row['TYPE__C'] in client_subtype:
+
+                    #Valid Import Instance but no files required so return without attempting to extract files
+                    if row['EMAIL_ATTACH_LOGS__C'] = 'All Logs':
+                        emailattachments = True
+                    else:
+                        emailattachments = False
+
+                    #Valid Import Instance but no files required so return without attempting to extract files
+                    if row['REQUIRED_IMPORT_FILES__C'] <= 0:
+                        return True
+
+                    validImportInstance = True
+                    break
+
+        # No valid import instance so return to kick out of process until there is a valid instance
+        if not validImportInstance:
+            return False
+
+        # Attempt to extract file data
+        with open(join(exporter_directory,'ContentVersionExtract-Prod.csv'), 'r') as read_obj:
+            csv_dict_reader = DictReader(read_obj)
+            for row in csv_dict_reader:
+
+                #Decode VersionData
+                outputFilename = join(exporter_directory, row['TITLE'] + '.' + row['FILEEXTENSION'])
+                with open(join(exporter_directory, outputFilename), 'w') as write_obj:
+                    write_obj.write(base64.b64decode(row['VERSIONDATA']).replace('\r\n','\n').replace('\r','\n'))
+    except Exception as ex:
+        print "\nexport_extractcontent - Unexpected error:" + str(ex)
+
+    return True
 
 def export_odbc(importer_directory, salesforce_type, client_subtype, interactivemode, displayalerts):
     """Export out of Salesforce using DataLoader"""
@@ -669,13 +777,15 @@ def contains_error(text):
 
     modified_text = text.lower().replace("0 errors", "success")
 
+    errorFound = False
+
     if "error" in modified_text.lower():
-        return True
+        errorFound = True
 
     if "exception" in modified_text.lower():
-        return True
+        errorFound = True
 
-    return False
+    return errorFound
 
 def send_email(client_emaillist, subject, file_path, emailattachments, log_path):
     """Send email via O365"""

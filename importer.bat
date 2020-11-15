@@ -1,6 +1,11 @@
 @echo off
 SETLOCAL ENABLEDELAYEDEXPANSION
 
+REM Check if location is cloud then skip client import sync
+IF "%IMPORT_LOCATION%" == "Cloud" (
+    goto skip_import_directory_check
+)
+
 REM Using ! instead of % in case using special chars like parenthesis in path
 IF "!IMPORT_DIRECTORY!" == "" (
     goto skip_import_directory_check
