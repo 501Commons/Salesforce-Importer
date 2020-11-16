@@ -709,9 +709,8 @@ def export_extractcontentexists(importer_directory, client_subtype):
     #run extract
     commaList = ",".join(linkedEntityIds)
     p = Popen(['python', r'C:\repo\salesforce-files-download\download.py', '-o', exporter_clientdirectory, '-q', commaList], 
-        shell=True, 
-        stdin=PIPE, 
-        stdout=PIPE,
+        stdout=PIPE, 
+        stderr=PIPE,
         cwd=r'C:\repo\salesforce-files-download')
     output = p.communicate()
     print output[0]
