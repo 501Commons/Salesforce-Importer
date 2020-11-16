@@ -656,8 +656,6 @@ def export_dataloader(importer_directory, salesforce_type, interactivemode, disp
             print "\nImporter process skip since running in Cloud and no valid Import Instance\n"
             stop_processing = True
 
-            return
-
     return return_code + return_stdout + return_stderr
 
 def export_extractcontentexists(importer_directory, client_subtype):
