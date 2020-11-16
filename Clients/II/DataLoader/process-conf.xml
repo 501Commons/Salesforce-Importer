@@ -152,7 +152,7 @@
                 <entry key="sfdc.timeoutSecs" value="600"/>
                 <entry key="sfdc.loadBatchSize" value="200"/>
                 <entry key="sfdc.externalIdField" value="Id"/>
-                <entry key="sfdc.entity" value="Import_Instance__c"/>
+                <entry key="sfdc.entity" value="c501npo__Import_Instance__c"/>
                 <entry key="process.operation" value="update"/>
                 <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\DataLoader\Update-ImportInstance.sdl"/>
                 <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\II\Salesforce-Importer\Clients\II\Import\Update-ImportInstance.csv"/>
