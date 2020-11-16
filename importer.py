@@ -99,7 +99,8 @@ def main():
     if '-noexportsf' in sys.argv:
         noexportsf = True
 
-    global emailattachments = False
+    global emailattachments
+    emailattachments = False
     if '-emailattachments' in sys.argv:
         emailattachments = True
 
@@ -137,12 +138,12 @@ def main():
     importer_directory = join(importer_root, "Clients\\" + client_type)
     print "Setting Importer Directory: " + importer_directory
 
+    # Global to monitor if should exit all processing
+    global stop_processing
+    stop_processing = False
+
     #Cloud location setup status results
     if not location_local:
-
-        if not export_extractcontentexists(importer_directory, client_subtype):
-            print "\nImporter process skip since running in Cloud and no valid Import Instance\n"
-            return
 
         f = open(join(importer_directory, "ImportInstance_Status.txt"), "w")
         f.write("Complete")
@@ -197,6 +198,9 @@ def main():
                                          displayalerts,
                                          skipexcelrefresh,
                                          location_local)
+
+            if stop_processing:
+                return
 
             # Insert files are empty so continue to update process
             if "import_dataloader (returncode)" not in status_import:
@@ -274,7 +278,7 @@ def process_data(importer_directory, salesforce_type, client_type,
     try:
         if not noexportsf:
             status_process_data = export_dataloader(importer_directory,
-                                                    salesforce_type, interactivemode, displayalerts, location_local)
+                                                    salesforce_type, interactivemode, displayalerts, location_local, client_subtype)
         else:
             status_process_data = "Skipping export from Salesforce"
     except Exception as ex:
@@ -605,7 +609,7 @@ def import_dataloader(importer_directory, client_type, salesforce_type, operatio
 
     return return_code + return_stdout + return_stderr
 
-def export_dataloader(importer_directory, salesforce_type, interactivemode, displayalerts, location_local):
+def export_dataloader(importer_directory, salesforce_type, interactivemode, displayalerts, location_local, client_subtype):
     
     """Export out of Salesforce using DataLoader"""
 
@@ -647,33 +651,14 @@ def export_dataloader(importer_directory, salesforce_type, interactivemode, disp
 
     #Check to extract the data from the content version if running in the cloud
     if not location_local:
-        export_extractcontent(join(exporter_clientdirectory, 'Export'))
+        if not export_extractcontentexists(importer_directory, client_subtype):
+            
+            print "\nImporter process skip since running in Cloud and no valid Import Instance\n"
+            stop_processing = True
+
+            return
 
     return return_code + return_stdout + return_stderr
-
-def export_extractcontent(exporter_directory):
-
-    """Export - extract content version for CSV data when running in the cloud"""
-    import base64
-    from csv import DictReader
-    from os.path import join
-    import sys
-    import csv
-
-    try:
-        csv.field_size_limit(min(sys.maxsize, 2147483646))
-
-        # iterate over each line as a ordered dictionary and print only few column by column name 
-        with open(join(exporter_directory,'ContentVersionExtract-Prod.csv'), 'r') as read_obj:
-            csv_dict_reader = DictReader(read_obj)
-            for row in csv_dict_reader:
-
-                #Decode VersionData
-                outputFilename = join(exporter_directory, row['TITLE'] + '.' + row['FILEEXTENSION'])
-                with open(join(exporter_directory, outputFilename), 'w') as write_obj:
-                    write_obj.write(base64.b64decode(row['VERSIONDATA']).replace('\r\n','\n').replace('\r','\n'))
-    except Exception as ex:
-        print "\nexport_extractcontent - Unexpected error:" + str(ex)
 
 def export_extractcontentexists(importer_directory, client_subtype):
 
@@ -683,16 +668,16 @@ def export_extractcontentexists(importer_directory, client_subtype):
     from os.path import join
     import sys
     import csv
+    import os
+    from subprocess import Popen, PIPE
 
-    exporter_clientdirectory = join(importer_directory.replace("Importer", "Exporter"), "Export")
+    exporter_clientdirectory = join(importer_directory.replace("Importer", "Exporter"), "Export\\")
 
     try:
-        csv.field_size_limit(min(sys.maxsize, 2147483646))
-
         validImportInstance = False
 
         # Check for scheduled import instance
-        with open(join(exporter_directory,'ImportInstanceExtract-Prod.csv'), 'r') as read_obj:
+        with open(join(exporter_clientdirectory,'ImportInstanceExtract-Prod.csv'), 'r') as read_obj:
             csv_dict_reader = DictReader(read_obj)
             for row in csv_dict_reader:
 
@@ -700,14 +685,10 @@ def export_extractcontentexists(importer_directory, client_subtype):
                 if row['TYPE__C'] in client_subtype:
 
                     #Valid Import Instance but no files required so return without attempting to extract files
-                    if row['EMAIL_ATTACH_LOGS__C'] = 'All Logs':
+                    if row['EMAIL_ATTACH_LOGS__C'] == 'All Logs':
                         emailattachments = True
                     else:
                         emailattachments = False
-
-                    #Valid Import Instance but no files required so return without attempting to extract files
-                    if row['REQUIRED_IMPORT_FILES__C'] <= 0:
-                        return True
 
                     validImportInstance = True
                     break
@@ -717,16 +698,25 @@ def export_extractcontentexists(importer_directory, client_subtype):
             return False
 
         # Attempt to extract file data
-        with open(join(exporter_directory,'ContentVersionExtract-Prod.csv'), 'r') as read_obj:
+        linkedEntityIds = set()
+        with open(join(exporter_clientdirectory,'ContentDocumentLinkExtract-Prod.csv'), 'r') as read_obj:
             csv_dict_reader = DictReader(read_obj)
             for row in csv_dict_reader:
 
-                #Decode VersionData
-                outputFilename = join(exporter_directory, row['TITLE'] + '.' + row['FILEEXTENSION'])
-                with open(join(exporter_directory, outputFilename), 'w') as write_obj:
-                    write_obj.write(base64.b64decode(row['VERSIONDATA']).replace('\r\n','\n').replace('\r','\n'))
+                linkedEntityIds.add("'" + row['LINKEDENTITYID'] + "'")
+
     except Exception as ex:
         print "\nexport_extractcontent - Unexpected error:" + str(ex)
+
+    #run extract
+    commaList = ",".join(linkedEntityIds)
+    p = Popen(['python', r'C:\repo\salesforce-files-download\download.py', '-o', exporter_clientdirectory, '-q', commaList], 
+        shell=True, 
+        stdin=PIPE, 
+        stdout=PIPE,
+        cwd=r'C:\repo\salesforce-files-download')
+    output = p.communicate()
+    print output[0]
 
     return True
 
@@ -881,6 +871,7 @@ def send_email(client_emaillist, subject, file_path, emailattachments, log_path)
 
     server.login(send_from, base64.b64decode(server_password))
     text = msg.as_string()
+
     server.sendmail(send_from, send_to, text)
     server.quit()
 
