@@ -26,7 +26,8 @@
                 ,"-waittime"
                 ,"30"
                 ,"-interactivemode"
-                ,"-location Cloud"
+                ,"-location"
+                ,"Cloud"
             ],
         },
         {
