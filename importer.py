@@ -650,11 +650,11 @@ def export_dataloader(importer_directory, salesforce_type, interactivemode, disp
             raise Exception("Invalid Return Code", return_code + return_stdout + return_stderr)
 
     #Check to extract the data from the content version if running in the cloud
-    if not location_local:
-        if not export_extractcontentexists(importer_directory, client_subtype):
-            
-            print "\nImporter process skip since running in Cloud and no valid Import Instance\n"
-            stop_processing = True
+    #if not location_local:
+    if not export_extractcontentexists(importer_directory, client_subtype):
+        
+        print "\nImporter process skip since running in Cloud and no valid Import Instance\n"
+        stop_processing = True
 
     return return_code + return_stdout + return_stderr
 
