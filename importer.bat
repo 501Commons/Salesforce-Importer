@@ -2,7 +2,7 @@
 SETLOCAL ENABLEDELAYEDEXPANSION
 
 REM Check if location is cloud then skip client import sync
-IF "%IMPORT_LOCATION%" == "Cloud" (
+IF "%IMPORT_LOCATION%" == "-location Cloud" (
     goto skip_import_directory_check
 )
 
