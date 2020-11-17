@@ -34,6 +34,7 @@ cd "%PYTHON_HOME%"
 python -m pip install --upgrade pip
 pip install --upgrade pypiwin32
 pip install pywin32==223
+pip install simple_salesforce==0.75.3
 
 echo ***** Authentication Setup *****
 copy /Y "%IMPORTER_PRIVATE_DIR%\DataLoader\key.txt" "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\DataLoader\key.txt"
