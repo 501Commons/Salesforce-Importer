@@ -213,12 +213,18 @@ def main():
                                      client_subtype, 'Update', wait_time,
                                      noexportsf, interactivemode, displayalerts, skipexcelrefresh, location_local)
 
+    if stop_processing:
+        return
+
     # Delete Data
     if enabledelete and not insertOnly and not updateOnly and not contains_error(status_import):
         print "\n\nImporter - Delete Data Process\n\n"
         status_import = process_data(importer_directory, salesforce_type, client_type,
                                      client_subtype, 'Delete', wait_time,
                                      noexportsf, interactivemode, displayalerts, skipexcelrefresh, location_local)
+
+    if stop_processing:
+        return
 
     # Restore stdout
     sys.stdout = sys_stdout_previous_state
@@ -287,6 +293,10 @@ def process_data(importer_directory, salesforce_type, client_type,
         status_process_data = "Error detected - Exception"
     else:
         output_log += "\n\nExport\n" + status_process_data
+
+    global stop_processing
+    if stop_processing:
+        return ""
 
     # Export data from Excel
 
@@ -654,6 +664,7 @@ def export_dataloader(importer_directory, salesforce_type, interactivemode, disp
         if not export_extractcontentexists(importer_directory, client_subtype):
             
             print "\nImporter process skip since running in Cloud and no valid Import Instance\n"
+            global stop_processing
             stop_processing = True
 
     return return_code + return_stdout + return_stderr
@@ -672,6 +683,7 @@ def export_extractcontentexists(importer_directory, client_subtype):
     exporter_clientdirectory = join(importer_directory.replace("Importer", "Exporter"), "Export\\")
 
     try:
+        global emailattachments
         validImportInstance = False
 
         # Check for scheduled import instance
