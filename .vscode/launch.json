@@ -13,7 +13,8 @@
             "args": [
                 "Prod"
                 ,"IISC"
-                ,"Compass-Update2of2"
+//                ,"Compass-Update2of2"
+                ,"SYNC-Update2of2"
                 ,"daveb@501commons.org"
                 ,"-insertattempts"
                 ,"1"
