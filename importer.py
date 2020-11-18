@@ -284,7 +284,7 @@ def process_data(importer_directory, salesforce_type, client_type,
     try:
         if not noexportsf:
             status_process_data = export_dataloader(importer_directory,
-                                                    salesforce_type, interactivemode, displayalerts, location_local, client_subtype)
+                                                    salesforce_type, interactivemode, displayalerts, location_local, client_type, client_subtype)
         else:
             status_process_data = "Skipping export from Salesforce"
     except Exception as ex:
@@ -619,7 +619,7 @@ def import_dataloader(importer_directory, client_type, salesforce_type, operatio
 
     return return_code + return_stdout + return_stderr
 
-def export_dataloader(importer_directory, salesforce_type, interactivemode, displayalerts, location_local, client_subtype):
+def export_dataloader(importer_directory, salesforce_type, interactivemode, displayalerts, location_local, client_type, client_subtype):
     
     """Export out of Salesforce using DataLoader"""
 
@@ -661,7 +661,7 @@ def export_dataloader(importer_directory, salesforce_type, interactivemode, disp
 
     #Check to extract the data from the content version if running in the cloud
     if not location_local:
-        if not export_extractcontentexists(importer_directory, client_subtype):
+        if not export_extractcontentexists(importer_directory, client_type, client_subtype):
             
             print "\nImporter process skip since running in Cloud and no valid Import Instance\n"
             global stop_processing
@@ -669,7 +669,7 @@ def export_dataloader(importer_directory, salesforce_type, interactivemode, disp
 
     return return_code + return_stdout + return_stderr
 
-def export_extractcontentexists(importer_directory, client_subtype):
+def export_extractcontentexists(importer_directory, client_type, client_subtype):
 
     """Export - extract content exists - checks to see if running on cloud if there is any content scheduled for import"""
     import base64
@@ -720,7 +720,7 @@ def export_extractcontentexists(importer_directory, client_subtype):
 
     #run extract
     commaList = ",".join(linkedEntityIds)
-    p = Popen(['python', r'C:\repo\salesforce-files-download\download.py', '-o', exporter_clientdirectory, '-q', commaList], 
+    p = Popen(['python', r'C:\repo\salesforce-files-download\download.py', '-o', exporter_clientdirectory, '-q', commaList, '-t', client_type], 
         stdout=PIPE, 
         stderr=PIPE,
         cwd=r'C:\repo\salesforce-files-download')
