@@ -83,7 +83,7 @@
                 <entry key="sfdc.timeoutSecs" value="600"/>
                 <entry key="sfdc.loadBatchSize" value="200"/>
                 <entry key="sfdc.externalIdField" value="Id"/>
-                <entry key="sfdc.entity" value="Contact"/>
+                <entry key="sfdc.entity" value="npe4__Relationship__c"/>
                 <entry key="process.operation" value="insert"/>
                 <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\IISC\Salesforce-Importer\Clients\IISC\DataLoader\Insert-RelationshipByFamlinkId.sdl"/>
                 <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\IISC\Salesforce-Importer\Clients\IISC\Import\Insert-RelationshipByFamlinkId.csv"/>
@@ -106,7 +106,7 @@
                 <entry key="sfdc.timeoutSecs" value="600"/>
                 <entry key="sfdc.loadBatchSize" value="200"/>
                 <entry key="sfdc.externalIdField" value="Id"/>
-                <entry key="sfdc.entity" value="Contact"/>
+                <entry key="sfdc.entity" value="npe4__Relationship__c"/>
                 <entry key="process.operation" value="insert"/>
                 <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\IISC\Salesforce-Importer\Clients\IISC\DataLoader\Insert-RelationshipBySSPS.sdl"/>
                 <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\IISC\Salesforce-Importer\Clients\IISC\Import\Insert-RelationshipBySSPS.csv"/>
