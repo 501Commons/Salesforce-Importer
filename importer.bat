@@ -28,7 +28,11 @@ if NOT EXIST "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" (
 :skip_import_directory_check
 
 echo ***** Python Setup *****
-set PATH=%JAVA_HOME%;%PYTHON_HOME%;%PYTHON_HOME%\Scripts;%PATH%
+IF NOT "%PYTHONPATH:~0,11%" == "ADDEDPYTHON" (
+	echo Update Path for Python
+	set PYTHONPATH=ADDEDPYTHON
+	set PATH=%JAVA_HOME%;%PYTHON_HOME%;%PYTHON_HOME%\Scripts;%PATH%
+)
 cd "%PYTHON_HOME%"
 
 python -m pip install --upgrade pip
