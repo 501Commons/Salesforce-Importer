@@ -28,10 +28,9 @@ if NOT EXIST "%IMPORTER_DIRECTORY%\%CLIENT_TYPE%\Incoming" (
 :skip_import_directory_check
 
 echo ***** Python Setup *****
-IF NOT "%PYTHONPATH:~0,11%" == "ADDEDPYTHON" (
+IF NOT "%PATH:~0,11%" == "%PYTHON_HOME:~0,11%" (
 	echo Update Path for Python
-	set PYTHONPATH=ADDEDPYTHON
-	set PATH=%JAVA_HOME%;%PYTHON_HOME%;%PYTHON_HOME%\Scripts;%PATH%
+	set PATH=%PYTHON_HOME%;%PYTHON_HOME%\Scripts;%JAVA_HOME%;%PATH%
 )
 cd "%PYTHON_HOME%"
 
