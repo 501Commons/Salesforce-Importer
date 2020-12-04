@@ -798,6 +798,7 @@ def send_email(client_emaillist, subject, file_path, emailattachments, log_path)
     from os.path import basename
     from shutil import copy
     import smtplib
+    import re
 
     message = "\n\nPreparing email results\n"
     print message
@@ -818,7 +819,6 @@ def send_email(client_emaillist, subject, file_path, emailattachments, log_path)
     msg = MIMEMultipart()
 
     msg['From'] = send_from
-    msg['To'] = COMMASPACE.join(send_to)
     msg['Date'] = formatdate(localtime=True)
     msg['Subject'] = subject
 
@@ -829,6 +829,9 @@ def send_email(client_emaillist, subject, file_path, emailattachments, log_path)
     if not emailattachments:
         msgbody += "Attachments disabled: Result files can be accessed on the import client.\n\n"
 
+    # Send To Admin Only unless there is a csv file which means there was at least a load attempt and not a system failure
+    sendTo_AdminOnly = True
+
     if file_path:
         onlyfiles = [join(file_path, f) for f in listdir(file_path)
                     if isfile(join(file_path, f))]
@@ -838,6 +841,9 @@ def send_email(client_emaillist, subject, file_path, emailattachments, log_path)
         for file_name in onlyfiles:
 
             if contains_data(file_name) and ".sent" not in file_name:
+
+                if "csv" in file_name:
+                    sendTo_AdminOnly = False
 
                 msgbody += "\t{}, with {} rows\n".format(basename(file_name), file_linecount(file_name))
 
@@ -864,6 +870,16 @@ def send_email(client_emaillist, subject, file_path, emailattachments, log_path)
 
                 #Save copy to log directory
                 copy(sent_file, log_path)
+
+
+    # Check if sending email only to the Admin
+    if sendTo_AdminOnly:
+        for sendToEmail in send_to:
+            if re.search("501commons", sendToEmail, re.IGNORECASE):
+                msg['To'] = sendToEmail
+                break
+    else:
+        msg['To'] = COMMASPACE.join(send_to)
 
     print msgbody
     msg.attach(MIMEText(msgbody))
