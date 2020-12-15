@@ -184,8 +184,6 @@ def main():
     if "update" in client_subtype.lower():
         updateOnly = True
     
-    send_email(client_emaillist, 'subject', importer_directory + "\\Status", emailattachments, importer_log_directory)
-
     # Insert Data
     status_import = ""
     if not norefresh and not updateOnly and "Invalid Return Code" not in status_export:
