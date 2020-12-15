@@ -184,6 +184,8 @@ def main():
     if "update" in client_subtype.lower():
         updateOnly = True
     
+    send_email(client_emaillist, 'subject', importer_directory + "\\Status", emailattachments, importer_log_directory)
+
     # Insert Data
     status_import = ""
     if not norefresh and not updateOnly and "Invalid Return Code" not in status_export:
@@ -842,9 +844,6 @@ def send_email(client_emaillist, subject, file_path, emailattachments, log_path)
 
             if contains_data(file_name) and ".sent" not in file_name:
 
-                if "csv" in file_name:
-                    sendTo_AdminOnly = False
-
                 msgbody += "\t{}, with {} rows\n".format(basename(file_name), file_linecount(file_name))
 
                 if emailattachments or (contains_error(subject) and "log" in file_name.lower()) or contains_error(file_name.lower()):
@@ -857,6 +856,9 @@ def send_email(client_emaillist, subject, file_path, emailattachments, log_path)
                     # After the file is closed
                     part['Content-Disposition'] = 'attachment; filename="%s"' % basename(file_name)
                     msg.attach(part)
+
+                    if "csv" in file_name:
+                        sendTo_AdminOnly = False
 
                 # Rename file so do not attached again
                 sent_file = join(file_path, file_name)
@@ -880,6 +882,9 @@ def send_email(client_emaillist, subject, file_path, emailattachments, log_path)
                 break
     else:
         msg['To'] = COMMASPACE.join(send_to)
+
+    import time
+    msgbody += "\n\n501 Commons ETL Version: %s\n\n" % format(time.ctime(os.path.getmtime(join(file_path, '..\\..\\..\\importer.py'))))
 
     print msgbody
     msg.attach(MIMEText(msgbody))
