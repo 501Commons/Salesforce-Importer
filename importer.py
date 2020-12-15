@@ -846,6 +846,9 @@ def send_email(client_emaillist, subject, file_path, emailattachments, log_path)
 
                 msgbody += "\t{}, with {} rows\n".format(basename(file_name), file_linecount(file_name))
 
+                if "csv" in file_name:
+                    sendTo_AdminOnly = False
+
                 if emailattachments or (contains_error(subject) and "log" in file_name.lower()) or contains_error(file_name.lower()):
                     with open(file_name, "rb") as file_name_open:
                         part = MIMEApplication(
@@ -856,9 +859,6 @@ def send_email(client_emaillist, subject, file_path, emailattachments, log_path)
                     # After the file is closed
                     part['Content-Disposition'] = 'attachment; filename="%s"' % basename(file_name)
                     msg.attach(part)
-
-                    if "csv" in file_name:
-                        sendTo_AdminOnly = False
 
                 # Rename file so do not attached again
                 sent_file = join(file_path, file_name)
