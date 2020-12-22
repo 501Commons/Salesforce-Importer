@@ -40,8 +40,13 @@ set PATH=%PYTHON_HOME%;%PYTHON_HOME%\Scripts;%JAVA_HOME%;%PATH%
 cd "%PYTHON_HOME%"
 
 python -m pip install --upgrade pip
+
+REM pip uninstall -y pypiwin32
 pip install --upgrade pypiwin32
-pip install pywin32==223
+
+REM pip uninstall -y pywin32
+REM pip install pywin32==223
+
 pip install simple_salesforce==0.75.3
 
 echo ***** Authentication Setup *****
