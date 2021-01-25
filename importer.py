@@ -681,6 +681,7 @@ def export_extractcontentexists(importer_directory, client_type, client_subtype)
     from subprocess import Popen, PIPE
 
     exporter_clientdirectory = join(importer_directory.replace("Importer", "Exporter"), "Export\\")
+    linked_entity_ids = set()
 
     try:
         global emailattachments
@@ -708,22 +709,24 @@ def export_extractcontentexists(importer_directory, client_type, client_subtype)
             return False
 
         # Attempt to extract file data
-        linkedEntityIds = set()
-        with open(join(exporter_clientdirectory,'ContentDocumentLinkExtract-Prod.csv'), 'r') as read_obj:
+        with open(join(exporter_clientdirectory, 'ContentDocumentLinkExtract-Prod.csv'), 'r') as read_obj:
             csv_dict_reader = DictReader(read_obj)
             for row in csv_dict_reader:
 
-                linkedEntityIds.add("'" + row['LINKEDENTITYID'] + "'")
+                linked_entity_ids.add("'" + row['LINKEDENTITYID'] + "'")
 
     except Exception as ex:
         print "\nexport_extractcontent - Unexpected error:" + str(ex)
 
+    if len(linked_entity_ids) <= 0:
+        return True
+
     #run extract
-    commaList = ",".join(linkedEntityIds)
-    p = Popen(['python', r'C:\repo\salesforce-files-download\download.py', '-o', exporter_clientdirectory, '-q', commaList, '-t', client_type], 
-        stdout=PIPE, 
-        stderr=PIPE,
-        cwd=r'C:\repo\salesforce-files-download')
+    comma_list = ",".join(linked_entity_ids)
+    p = Popen(['python', r'C:\repo\salesforce-files-download\download.py', '-o', exporter_clientdirectory, '-q', comma_list, '-t', client_type],
+              stdout=PIPE,
+              stderr=PIPE,
+              cwd=r'C:\repo\salesforce-files-download')
     output = p.communicate()
     print output[0]
 
