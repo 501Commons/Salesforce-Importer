@@ -290,7 +290,7 @@ def process_data(importer_directory, salesforce_type, client_type,
     except Exception as ex:
         output_log += "\n\nexport_dataloader - Unexpected error:" + str(ex)
         output_log += "\n\export_dataloader\n" + status_process_data
-        status_process_data = "Error detected - Exception"
+        status_process_data = "Error detected so skip processing - Exception"
     else:
         output_log += "\n\nExport\n" + status_process_data
 
@@ -312,7 +312,7 @@ def process_data(importer_directory, salesforce_type, client_type,
     except Exception as ex:
         output_log += "\n\nrefresh_and_export - Unexpected error:" + str(ex)
         output_log += "\n\refresh_and_export\n" + status_process_data
-        status_process_data = "Error detected - Exception"
+        status_process_data = "Error detected so skip processing - Exception"
     else:
         output_log += "\n\nExport\n" + status_process_data
 
@@ -325,11 +325,11 @@ def process_data(importer_directory, salesforce_type, client_type,
                                                     operation)
         else:
             print status_process_data + output_log
-            status_process_data = "Error detected so skipped"
+            status_process_data = "Error detected so skip processing"
     except Exception as ex:
         output_log += "\n\nrefresh_and_export - Unexpected error:" + str(ex)
         output_log += "\n\import_dataloader\n" + status_process_data
-        status_process_data = "Error detected - Exception"
+        status_process_data = "Error detected so skip processing - Exception"
     else:
         output_log += "\n\nImport\n" + status_process_data
 
@@ -663,7 +663,7 @@ def export_dataloader(importer_directory, salesforce_type, interactivemode, disp
     if not location_local:
         if not export_extractcontentexists(importer_directory, client_type, client_subtype):
             
-            print "\nImporter process skip since running in Cloud and no valid Import Instance\n"
+            print "\nRunning in Cloud and no valid Import Instance so skip processing\n"
             global stop_processing
             stop_processing = True
 
