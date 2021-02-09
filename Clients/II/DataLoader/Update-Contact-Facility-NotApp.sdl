@@ -1,7 +1,0 @@
-#Mapping values
-#Format Source=Destination
-ii_Substitute_Pool_Status__c=ii_Substitute_Pool_Status__c
-Id=Id
-ii_Primary_Contact__c=ii_Primary_Contact__c
-ii_Serving_Children_On_Subsidy__c=ii_Serving_Children_On_Subsidy__c
-ii_Early_Achievers_Participation_Status__c=ii_Early_Achievers_Participation_Status__c
