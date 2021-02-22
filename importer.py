@@ -835,6 +835,12 @@ def send_email(client_emaillist, subject, file_path, emailattachments, log_path)
     # Send To Admin Only unless there is a csv file which means there was at least a load attempt and not a system failure
     sendTo_AdminOnly = True
 
+    sendTo_AdminAddress = "sfconsulting@501commons.org"
+    for sendToEmail in send_to:
+        if re.search("501commons", sendToEmail, re.IGNORECASE):
+            sendTo_AdminAddress = sendToEmail
+            break
+
     if file_path:
         onlyfiles = [join(file_path, f) for f in listdir(file_path)
                     if isfile(join(file_path, f))]
@@ -847,10 +853,11 @@ def send_email(client_emaillist, subject, file_path, emailattachments, log_path)
 
                 msgbody += "\t{}, with {} rows\n".format(basename(file_name), file_linecount(file_name))
 
-                if "csv" in file_name:
-                    sendTo_AdminOnly = False
-
                 if emailattachments or (contains_error(subject) and "log" in file_name.lower()) or contains_error(file_name.lower()):
+
+                    if "csv" in file_name:
+                        sendTo_AdminOnly = False
+
                     with open(file_name, "rb") as file_name_open:
                         part = MIMEApplication(
                             file_name_open.read(),
@@ -877,10 +884,7 @@ def send_email(client_emaillist, subject, file_path, emailattachments, log_path)
 
     # Check if sending email only to the Admin
     if sendTo_AdminOnly:
-        for sendToEmail in send_to:
-            if re.search("501commons", sendToEmail, re.IGNORECASE):
-                msg['To'] = sendToEmail
-                break
+        msg['To'] = sendTo_AdminAddress
     else:
         msg['To'] = COMMASPACE.join(send_to)
 
