@@ -155,6 +155,7 @@ def main():
         makedirs(importer_log_directory)
 
     importer_log_directory = join(importer_log_directory, client_subtype)
+    print "Check Status Directory: " + importer_log_directory
     if not exists(importer_log_directory):
         makedirs(importer_log_directory)
 
