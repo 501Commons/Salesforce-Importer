@@ -186,7 +186,7 @@ def main():
     if "update" in client_subtype.lower():
         updateOnly = True
 
-    print "updateOnly: " + updateOnly
+    print "updateOnly: " + updateOnly ? 'True' : 'False'
 
     # Insert Data
     status_import = ""
