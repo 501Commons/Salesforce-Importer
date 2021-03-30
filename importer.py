@@ -187,6 +187,7 @@ def main():
         updateOnly = True
 
     print "norefresh: " + str(norefresh)
+    print "noupdate: " + str(noupdate)
     print "insertOnly: " + str(insertOnly)
     print "updateOnly: " + str(updateOnly)
 
