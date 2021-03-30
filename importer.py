@@ -185,7 +185,9 @@ def main():
     updateOnly = False
     if "update" in client_subtype.lower():
         updateOnly = True
-    
+
+    print "updateOnly: " + updateOnly
+
     # Insert Data
     status_import = ""
     if not norefresh and not updateOnly and "Invalid Return Code" not in status_export:
