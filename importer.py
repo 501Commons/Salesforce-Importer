@@ -235,9 +235,6 @@ def main():
             output_log = exportlog.read()
 
     file_path = importer_directory + "\\Status"
-    if not exists(file_path):
-        makedirs(file_path)
-
     import datetime
     date_tag = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     with open(join(file_path, "Salesforce-Importer-Log-{}.txt".format(date_tag)),
