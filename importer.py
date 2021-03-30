@@ -186,6 +186,8 @@ def main():
     if "update" in client_subtype.lower():
         updateOnly = True
 
+    print "norefresh: " + str(norefresh)
+    print "updateOnly: " + str(updateOnly)
     print "updateOnly: " + str(updateOnly)
 
     # Insert Data
