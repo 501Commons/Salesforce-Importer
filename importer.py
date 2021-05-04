@@ -469,6 +469,7 @@ def refresh_and_export(importer_directory, salesforce_type,
 
             update_sheet_found = False
             for sheet in workbook.Sheets:
+                sheet_name_lower = sheet.Name.lower()
                 if "update" in sheet_name_lower:
                     update_sheet_found = True
                     break
