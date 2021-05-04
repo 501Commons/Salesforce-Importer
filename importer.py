@@ -255,7 +255,7 @@ def main():
         #Cloud location setup status results
         if not location_local:
             f = open(join(importer_directory, "ImportInstance_Status.txt"), "w")
-            f.write("Complete With Errors")
+            f.write("Complete_With_Errors")
             f.close()
 
     # Send email results
@@ -467,6 +467,12 @@ def refresh_and_export(importer_directory, salesforce_type,
             if not os.path.exists(excel_file_path + "Import\\"):
                 os.makedirs(excel_file_path + "Import\\")
 
+            update_sheet_found = False
+            for sheet in workbook.Sheets:
+                if "update" in sheet_name_lower:
+                    update_sheet_found = True
+                    break
+
             for sheet in workbook.Sheets:
 
                 # Only export update, insert, delete, or report sheets
@@ -499,6 +505,7 @@ def refresh_and_export(importer_directory, salesforce_type,
 
                 # Update check to make sure insert sheet is empty
                 if (operation == "Update"
+                        and update_sheet_found
                         and "insert" in sheet.Name.lower()
                         and contains_data(sheet_file)):
 
