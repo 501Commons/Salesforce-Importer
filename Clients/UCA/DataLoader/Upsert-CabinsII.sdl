@@ -1,0 +1,11 @@
+#Mapping values
+#Thu Nov 18 12:25:18 PST 2021
+Cruise_ID__c=Cruise_ID__c
+Category_Code__c=Category_Code__c
+Cruise_ExternalId=Cruise__r\:External_Id__c
+Number_of_Passengers__c=Number_of_Passengers__c
+Max_Pax_Occupancy__c=Max_PAX_Occupancy__c
+Name=Name
+Type__c=Type__c
+Unique_Id__c=Unique_Id__c
+Category_Description__c=Category_Description__c

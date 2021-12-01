@@ -1,0 +1,7 @@
+#Mapping values
+#Tue Nov 23 15:14:23 PST 2021
+Booking\ Number=BookingNo__c
+First_Payment_Date__c=First_Payment_Date__c
+Booking\ Date=CloseDate
+First_Payment_Notes__c=First_Payment_Notes__c
+First_Payment_Type__c=First_Payment_Type__c

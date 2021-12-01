@@ -1,0 +1,8 @@
+#Mapping values
+#Fri Nov 19 12:11:21 PST 2021
+Itinerary_Code__c=Itinerary_Code__c
+Itinerary_Description__c=Itinerary_Description__c
+Ship\ Code=Ship__r\:Ship_Code__c
+Name=Name
+Destination_Code__c=Destination_Code__c
+External_Id__c=External_Id__c
