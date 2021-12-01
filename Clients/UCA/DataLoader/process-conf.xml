@@ -14,7 +14,7 @@
                 <entry key="sfdc.timeoutSecs" value="600"/>
                 <entry key="sfdc.loadBatchSize" value="200"/>
                 <entry key="sfdc.externalIdField" value="Id"/>
-                <entry key="sfdc.entity" value="Contact"/>
+                <entry key="sfdc.entity" value="Opportunity"/>
                 <entry key="process.operation" value="update"/>
                 <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\UCA\Salesforce-Importer\Clients\UCA\DataLoader\Update-BookingCruise.sdl"/>
                 <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\UCA\Salesforce-Importer\Clients\UCA\Import\Update-BookingCruise.csv"/>
@@ -37,7 +37,7 @@
                 <entry key="sfdc.timeoutSecs" value="600"/>
                 <entry key="sfdc.loadBatchSize" value="200"/>
                 <entry key="sfdc.externalIdField" value="Id"/>
-                <entry key="sfdc.entity" value="Contact"/>
+                <entry key="sfdc.entity" value="Opportunity"/>
                 <entry key="process.operation" value="update"/>
                 <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\UCA\Salesforce-Importer\Clients\UCA\DataLoader\Update-BookingFirstCruise.sdl"/>
                 <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\UCA\Salesforce-Importer\Clients\UCA\Import\Update-BookingFirstCruise.csv"/>
