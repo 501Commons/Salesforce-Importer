@@ -373,7 +373,7 @@ def refresh_and_export(importer_directory, salesforce_type,
     refresh_status = "refresh_and_export\n"
 
     excel_connection = win32.gencache.EnsureDispatch("Excel.Application")
-    excel_connection.Visible = False
+    excel_connection.Visible = interactivemode
 
     excel_file_path = importer_directory + "\\"
     excel_file = excel_file_path + client_type + "-" + client_subtype + "_" + salesforce_type + ".xlsx"
