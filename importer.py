@@ -386,24 +386,14 @@ def refresh_and_export(importer_directory, salesforce_type,
     excel_file_path = importer_directory + "\\"
     excel_file = excel_file_path + client_type + "-" + client_subtype + "_" + salesforce_type + ".xlsx"
 
-    found_operation_sheet = False
-    for sheet in workbook.Sheets:
-        sheet_name_lower = sheet.Name.lower()
-        if operation in sheet_name_lower:
-            found_operation_sheet = True
-            break
-
     global workbook
     workbook_assigned = False
     workbook_successful = False
     open_max_attempts = 5
     open_attempt = 0
+    found_operation_sheet = True
 
-    if not found_operation_sheet:
-        refresh_status += "no sheets matched the operation: " + operation + "\n"
-        return refresh_status
-
-    while open_attempt < open_max_attempts:
+    while open_attempt < open_max_attempts and found_operation_sheet:
 
         open_wait_time = wait_time
         open_attempt += 1
@@ -418,122 +408,135 @@ def refresh_and_export(importer_directory, salesforce_type,
             workbook = open_workbook(excel_connection, excel_file)
             workbook_assigned = True
 
-            message = "\nImport Process - Pausing 30 seconds for Excel to load in the background (You can see Excel in Task Manager but will be hidden from the desktop for better performance)..."
-            print message
-            refresh_status += message + "\n"
-            time.sleep(30)
-
-            #for connection in workbook.Connections:
-                #print connection.name
-                # BackgroundQuery does not work so have to do manually in Excel for each Connection
-                #connection.BackgroundQuery = False
-
-            # RefreshAll is Synchronous iif
-            #   1) Enable background refresh disabled/unchecked in xlsx for all Connections
-            #   2) Include in Refresh All enabled/checked in xlsx for all Connections
-            #   To verify: Open xlsx Data > Connections > Properties for each to verify
-            message = "\nImport Process - Refreshing all connections..."
-            print message
-            refresh_status += message + "\n"
-
-            # RefreshAll - if direct Salesforce connection then will prompt for username & password
-            #       under a couple of scenarios and will block until creds updates
-            #   Scenario 1: First time running automation on a particular machine.
-            #       User needs to select Remember me or this Scenario will repeat
-            #   Scenario 2: Salesforce Password changed
-            #   Scenario 3: Excel I think has a 3 month expiration for the user cred cookie
-            #
-            # Avoid adding connections to Excel that require username/password
-            #   (e.g., Salesforce, Database).
-            #   Instead use Exporter to pull the data external to Excel.
-            workbook.RefreshAll()
-
-            # Wait for excel to finish refresh
-            message = ("Pausing " + str(open_wait_time) +
-                    " seconds to give Excel time to complete background query...")
-    #                   "\n\t\t***if Excel background query complete then press any key to exit wait cycle")
-            print message
-            refresh_status += message + "\n"
-
-    #        with KeyboardHook() as keyboard_hook:
-
-                #Clear the input buffer
-    #            keyboard_hook.reset()
-
-            while open_wait_time > 0:
-                if open_wait_time > 30:
-                    time.sleep(30)
-
-                    open_wait_time -= 30
-                    message = ("\t" + str(open_wait_time) +
-                                " seconds remaining for Excel to complete background query...")
-    #                               "\n\t\t***if Excel background query complete then press any key to exit wait cycle")
-                    print message
-                    refresh_status += message + "\n"
-
-                else:
-                    time.sleep(open_wait_time)
-                    open_wait_time = 0
-                    break
-
-    #                if keyboard_hook.key_pressed():
-    #                    print "\nUser interrupted wait cycle\n"
-    #                    break
-
-            message = "Import Process - Refreshing all connections...Completed"
-            print message
-            refresh_status += message + "\n"
-
-            if not os.path.exists(excel_file_path + "Import\\"):
-                os.makedirs(excel_file_path + "Import\\")
-
-            update_sheet_found = False
+            found_operation_sheet = False
             for sheet in workbook.Sheets:
                 sheet_name_lower = sheet.Name.lower()
-                if "update" in sheet_name_lower:
-                    update_sheet_found = True
+                if operation in sheet_name_lower:
+                    found_operation_sheet = True
                     break
 
-            for sheet in workbook.Sheets:
+            if not found_operation_sheet:
+                refresh_status += "no sheets matched the operation: " + operation + "\n"
+                print refresh_status
 
-                # Only export update, insert, upsert, delete, or report sheets
-                sheet_name_lower = sheet.Name.lower()
-                if ("update" not in sheet_name_lower
-                        and "upsert" not in sheet_name_lower
-                        and "insert" not in sheet_name_lower
-                        and "delete" not in sheet_name_lower
-                        and "report" not in sheet_name_lower):
-                    continue
+            else:
 
-                excel_connection.Sheets(sheet.Name).Select()
-                sheet_file = excel_file_path + "Import\\" + sheet.Name + ".csv"
+                message = "\nImport Process - Pausing 30 seconds for Excel to load in the background (You can see Excel in Task Manager but will be hidden from the desktop for better performance)..."
+                print message
+                refresh_status += message + "\n"
+                time.sleep(30)
 
-                message = "Exporting csv for sheet: " + sheet_file
+                #for connection in workbook.Connections:
+                    #print connection.name
+                    # BackgroundQuery does not work so have to do manually in Excel for each Connection
+                    #connection.BackgroundQuery = False
+
+                # RefreshAll is Synchronous iif
+                #   1) Enable background refresh disabled/unchecked in xlsx for all Connections
+                #   2) Include in Refresh All enabled/checked in xlsx for all Connections
+                #   To verify: Open xlsx Data > Connections > Properties for each to verify
+                message = "\nImport Process - Refreshing all connections..."
                 print message
                 refresh_status += message + "\n"
 
-                # Save report to Status to get attached to email
-                if "report" in sheet.Name.lower():
-                    sheet_file = excel_file_path + "Status\\" + sheet.Name + ".csv"
+                # RefreshAll - if direct Salesforce connection then will prompt for username & password
+                #       under a couple of scenarios and will block until creds updates
+                #   Scenario 1: First time running automation on a particular machine.
+                #       User needs to select Remember me or this Scenario will repeat
+                #   Scenario 2: Salesforce Password changed
+                #   Scenario 3: Excel I think has a 3 month expiration for the user cred cookie
+                #
+                # Avoid adding connections to Excel that require username/password
+                #   (e.g., Salesforce, Database).
+                #   Instead use Exporter to pull the data external to Excel.
+                workbook.RefreshAll()
 
-                # Check for existing file
-                if os.path.isfile(sheet_file):
-                    os.remove(sheet_file)
+                # Wait for excel to finish refresh
+                message = ("Pausing " + str(open_wait_time) +
+                        " seconds to give Excel time to complete background query...")
+        #                   "\n\t\t***if Excel background query complete then press any key to exit wait cycle")
+                print message
+                refresh_status += message + "\n"
 
-                # By Design - set displayalerts before saveas so not prompting w/ save dialogs during automation.  Moved this here so that any RefreshAll errors will still surface and cause the refresh process not to finish thus an error will be detected
-                excel_connection.DisplayAlerts = displayalerts
+        #        with KeyboardHook() as keyboard_hook:
 
-                workbook.SaveAs(sheet_file, 6)
+                    #Clear the input buffer
+        #            keyboard_hook.reset()
 
-                # Update check to make sure insert or upsert sheet is empty
-                if (operation == "Update"
-                        and update_sheet_found
-                        and ("insert" in sheet.Name.lower() or "upsert" in sheet_name_lower)
-                        and contains_data(sheet_file)):
+                while open_wait_time > 0:
+                    if open_wait_time > 30:
+                        time.sleep(30)
 
-                    raise Exception("refresh_and_export: Update Error", (
-                        "Insert sheet contains data and should be empty during update process: " +
-                        sheet_file))
+                        open_wait_time -= 30
+                        message = ("\t" + str(open_wait_time) +
+                                    " seconds remaining for Excel to complete background query...")
+        #                               "\n\t\t***if Excel background query complete then press any key to exit wait cycle")
+                        print message
+                        refresh_status += message + "\n"
+
+                    else:
+                        time.sleep(open_wait_time)
+                        open_wait_time = 0
+                        break
+
+        #                if keyboard_hook.key_pressed():
+        #                    print "\nUser interrupted wait cycle\n"
+        #                    break
+
+                message = "Import Process - Refreshing all connections...Completed"
+                print message
+                refresh_status += message + "\n"
+
+                if not os.path.exists(excel_file_path + "Import\\"):
+                    os.makedirs(excel_file_path + "Import\\")
+
+                update_sheet_found = False
+                for sheet in workbook.Sheets:
+                    sheet_name_lower = sheet.Name.lower()
+                    if "update" in sheet_name_lower:
+                        update_sheet_found = True
+                        break
+
+                for sheet in workbook.Sheets:
+
+                    # Only export update, insert, upsert, delete, or report sheets
+                    sheet_name_lower = sheet.Name.lower()
+                    if ("update" not in sheet_name_lower
+                            and "upsert" not in sheet_name_lower
+                            and "insert" not in sheet_name_lower
+                            and "delete" not in sheet_name_lower
+                            and "report" not in sheet_name_lower):
+                        continue
+
+                    excel_connection.Sheets(sheet.Name).Select()
+                    sheet_file = excel_file_path + "Import\\" + sheet.Name + ".csv"
+
+                    message = "Exporting csv for sheet: " + sheet_file
+                    print message
+                    refresh_status += message + "\n"
+
+                    # Save report to Status to get attached to email
+                    if "report" in sheet.Name.lower():
+                        sheet_file = excel_file_path + "Status\\" + sheet.Name + ".csv"
+
+                    # Check for existing file
+                    if os.path.isfile(sheet_file):
+                        os.remove(sheet_file)
+
+                    # By Design - set displayalerts before saveas so not prompting w/ save dialogs during automation.  Moved this here so that any RefreshAll errors will still surface and cause the refresh process not to finish thus an error will be detected
+                    excel_connection.DisplayAlerts = displayalerts
+
+                    workbook.SaveAs(sheet_file, 6)
+
+                    # Update check to make sure insert or upsert sheet is empty
+                    if (operation == "Update"
+                            and update_sheet_found
+                            and ("insert" in sheet.Name.lower() or "upsert" in sheet_name_lower)
+                            and contains_data(sheet_file)):
+
+                        raise Exception("refresh_and_export: Update Error", (
+                            "Insert sheet contains data and should be empty during update process: " +
+                            sheet_file))
 
             workbook_successful = True
 
