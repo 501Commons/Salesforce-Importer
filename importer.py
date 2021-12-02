@@ -411,12 +411,12 @@ def refresh_and_export(importer_directory, salesforce_type,
             found_operation_sheet = False
             for sheet in workbook.Sheets:
                 sheet_name_lower = sheet.Name.lower()
-                if operation in sheet_name_lower:
+                if operation.lower() in sheet_name_lower:
                     found_operation_sheet = True
                     break
 
             if not found_operation_sheet:
-                refresh_status += "no sheets matched the operation: " + operation + "\n"
+                refresh_status += "No sheets matched the operation: " + operation + "\n"
                 print refresh_status
 
             else:
