@@ -206,6 +206,14 @@ def main():
                                          skipexcelrefresh,
                                          location_local)
 
+            status_import += process_data(importer_directory, salesforce_type, client_type,
+                                         client_subtype, 'Upsert', wait_time,
+                                         noexportsf,
+                                         interactivemode,
+                                         displayalerts,
+                                         skipexcelrefresh,
+                                         location_local)
+
             if stop_processing:
                 return
 
@@ -377,6 +385,17 @@ def refresh_and_export(importer_directory, salesforce_type,
 
     excel_file_path = importer_directory + "\\"
     excel_file = excel_file_path + client_type + "-" + client_subtype + "_" + salesforce_type + ".xlsx"
+
+    found_operation_sheet = False
+    for sheet in workbook.Sheets:
+        sheet_name_lower = sheet.Name.lower()
+        if operation in sheet_name_lower:
+            found_operation_sheet = True
+            break
+
+    if not found_operation_sheet:
+        refresh_status += "no sheets matched the operation: " + operation + "\n"
+        return refresh_status
 
     global workbook
     workbook_assigned = False
