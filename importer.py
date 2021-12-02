@@ -476,7 +476,7 @@ def refresh_and_export(importer_directory, salesforce_type,
 
             for sheet in workbook.Sheets:
 
-                # Only export update, insert, delete, or report sheets
+                # Only export update, insert, upsert, delete, or report sheets
                 sheet_name_lower = sheet.Name.lower()
                 if ("update" not in sheet_name_lower
                         and "upsert" not in sheet_name_lower
