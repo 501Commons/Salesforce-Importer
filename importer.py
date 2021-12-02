@@ -479,6 +479,7 @@ def refresh_and_export(importer_directory, salesforce_type,
                 # Only export update, insert, delete, or report sheets
                 sheet_name_lower = sheet.Name.lower()
                 if ("update" not in sheet_name_lower
+                        and "upsert" not in sheet_name_lower
                         and "insert" not in sheet_name_lower
                         and "delete" not in sheet_name_lower
                         and "report" not in sheet_name_lower):
@@ -504,10 +505,10 @@ def refresh_and_export(importer_directory, salesforce_type,
 
                 workbook.SaveAs(sheet_file, 6)
 
-                # Update check to make sure insert sheet is empty
+                # Update check to make sure insert or upsert sheet is empty
                 if (operation == "Update"
                         and update_sheet_found
-                        and "insert" in sheet.Name.lower()
+                        and ("insert" in sheet.Name.lower() or "upsert" in sheet_name_lower)
                         and contains_data(sheet_file)):
 
                     raise Exception("refresh_and_export: Update Error", (
