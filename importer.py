@@ -393,15 +393,16 @@ def refresh_and_export(importer_directory, salesforce_type,
             found_operation_sheet = True
             break
 
-    if not found_operation_sheet:
-        refresh_status += "no sheets matched the operation: " + operation + "\n"
-        return refresh_status
-
     global workbook
     workbook_assigned = False
     workbook_successful = False
     open_max_attempts = 5
     open_attempt = 0
+
+    if not found_operation_sheet:
+        refresh_status += "no sheets matched the operation: " + operation + "\n"
+        return refresh_status
+
     while open_attempt < open_max_attempts:
 
         open_wait_time = wait_time
