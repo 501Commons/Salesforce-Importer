@@ -69,29 +69,6 @@
             </map>
         </property>
     </bean>
-    <bean id="Upsert-BookingFirstPayment_Prod"
-          class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
-        <description>Update for Booking First Cruise.</description>
-        <property name="name" value="Upsert-BookingFirstPayment_Prod"/>
-        <property name="configOverrideMap">
-            <map>
-                <entry key="sfdc.endpoint" value="https://un-cruise.my.salesforce.com"/> 
-                <entry key="sfdc.username" value="daveb@uncruise.com"/>
-                <entry key="sfdc.password" value="bdba07b48a69c4a9d6234204b74cee2f8ef767bb44d18f38597040fcf4127adef9bb82ebb68de973041227e1336498d0ec2265a1baff7b12748b9d479012b76d"/>
-                <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\UCA\DataLoader\key.txt"/>
-                <entry key="sfdc.timeoutSecs" value="600"/>
-                <entry key="sfdc.loadBatchSize" value="200"/>
-                <entry key="sfdc.externalIdField" value="BookingNo__c"/>
-                <entry key="sfdc.entity" value="Opportunity"/>
-                <entry key="process.operation" value="upsert"/>
-                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\UCA\Salesforce-Importer\Clients\UCA\DataLoader\Upsert-BookingFirstPayment.sdl"/>
-                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\UCA\Salesforce-Importer\Clients\UCA\Import\Upsert-BookingFirstPayment.csv"/>
-                <entry key="dataAccess.type" value="csvRead"/>
-                <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
-            </map>
-        </property>
-    </bean>
     <bean id="Upsert-BookingHistory_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
           singleton="false">
