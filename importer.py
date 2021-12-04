@@ -179,7 +179,7 @@ def main():
 
     # Check filename for operation
     insertOnly = False
-    if "insert" in client_subtype.lower():
+    if "insert" in client_subtype.lower() or "upsert" in client_subtype.lower():
         insertOnly = True
 
     updateOnly = False
