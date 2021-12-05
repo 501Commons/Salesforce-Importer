@@ -7,7 +7,7 @@ set IMPORT_NOEXPORTODBC=-noexportodbc
 set IMPORT_NOEXPORTSF=-noexportsf
 set IMPORT_INSERTATTEMPTS=
 set IMPORT_EMAILATTACHMENTS=-emailattachments
-set IMPORT_INTERACTIVEMODE=-interactivemode
-set IMPORT_DISPLAYALERTS=-displayalerts
+set IMPORT_INTERACTIVEMODE=
+set IMPORT_DISPLAYALERTS=
 
 call "%IMPORTER_DIRECTORY%\..\importer.bat" 
