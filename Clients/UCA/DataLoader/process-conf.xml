@@ -4,7 +4,7 @@
           class="com.salesforce.dataloader.process.ProcessRunner"
           singleton="false">
         <description>Update for Booking Cruise.</description>
-        <property name="name" value="Insert-FamLinkId_Prod"/>
+        <property name="name" value="Update-BookingCruise_Prod"/>
         <property name="configOverrideMap">
             <map>
                 <entry key="sfdc.endpoint" value="https://un-cruise.my.salesforce.com"/> 
