@@ -1,7 +1,0 @@
-#Mapping values
-#Thu Nov 18 12:24:30 PST 2021
-Type__c=Type__c
-Cruise_ID__c=Cruise_ID__c
-Unique_Id__c=Unique_Id__c
-Cruise-ExternalId=Cruise__r\:External_Id__c
-Name=Name
