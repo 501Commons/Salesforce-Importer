@@ -106,6 +106,7 @@
                 <entry key="sfdc.timeoutSecs" value="600"/>
                 <entry key="sfdc.loadBatchSize" value="200"/>
                 <entry key="sfdc.externalIdField" value="Unique_Id__c"/>
+                <entry key="sfdc.insertNulls" value="true"/>
                 <entry key="sfdc.entity" value="Cabin__c"/>
                 <entry key="process.operation" value="upsert"/>
                 <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\UCA\Salesforce-Importer\Clients\UCA\DataLoader\Upsert-CabinBookingNumber.sdl"/>
