@@ -5,6 +5,7 @@ IF "%JAVA_HOME%" == "" (
     IF NOT EXIST "%JAVA_HOME%" (
         set JAVA_HOME=C:\Program Files\Zulu\zulu-17
         echo exporter: setting JAVA_HOME to %JAVA_HOME%
+    )
 )
 
 set PYTHON_HOME=C:\Python27
@@ -18,4 +19,5 @@ IF "%SF_DATALOADER%" == "" (
     IF NOT EXIST "%SF_DATALOADER%" (
         set SF_DATALOADER=C:\repo\Salesforce-Importer-Private\Clients\%CLIENT_TYPE%\Salesforce-Importer\dependencies\salesforce.com\dataloader\v53.0.2
         echo exporter: setting SF_DATALOADER to %SF_DATALOADER%
+    )
 )
