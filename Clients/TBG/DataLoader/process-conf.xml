@@ -2,7 +2,7 @@
 <beans>
     <bean id="Update-ImportInstance_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>ImportInstance Update job gets the ImportInstance record updates from a CSV file and uploads them to salesforce using 'update'.</description>
         <property name="name" value="Update-ImportInstance_Prod"/>
         <property name="configOverrideMap">
@@ -25,7 +25,7 @@
     </bean>
     <bean id="Insert-PayPal_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Insert into NPSP Object.</description>
         <property name="name" value="Insert-PayPal_Prod"/>
         <property name="configOverrideMap">
@@ -48,7 +48,7 @@
     </bean>
     <bean id="Insert-Benevity_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Insert into NPSP Object.</description>
         <property name="name" value="Insert-Benevity_Prod"/>
         <property name="configOverrideMap">
@@ -71,7 +71,7 @@
     </bean>
     <bean id="Insert-BrightFunds_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Insert into NPSP Object.</description>
         <property name="name" value="Insert-BrightFunds_Prod"/>
         <property name="configOverrideMap">

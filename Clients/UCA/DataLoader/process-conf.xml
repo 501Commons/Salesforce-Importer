@@ -2,7 +2,7 @@
 <beans>
     <bean id="Update-BookingCruise_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Update for Booking Cruise.</description>
         <property name="name" value="Update-BookingCruise_Prod"/>
         <property name="configOverrideMap">
@@ -25,7 +25,7 @@
     </bean>
     <bean id="Update-BookingFirstCruise_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Update for Booking First Cruise.</description>
         <property name="name" value="Update-BookingFirstCruise_Prod"/>
         <property name="configOverrideMap">
@@ -48,7 +48,7 @@
     </bean>
     <bean id="Upsert-BookingFirstPayment_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Update for Booking First Cruise.</description>
         <property name="name" value="Upsert-BookingFirstPayment_Prod"/>
         <property name="configOverrideMap">
@@ -71,7 +71,7 @@
     </bean>
     <bean id="Upsert-BookingHistory_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Update for Booking First Cruise.</description>
         <property name="name" value="Upsert-BookingHistory_Prod"/>
         <property name="configOverrideMap">
@@ -94,7 +94,7 @@
     </bean>
     <bean id="Upsert-CabinBookingNumber_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Update for Booking First Cruise.</description>
         <property name="name" value="Upsert-CabinBookingNumber_Prod"/>
         <property name="configOverrideMap">
@@ -118,7 +118,7 @@
     </bean>
     <bean id="Upsert-Cruises_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Upsert Cruises based on Inventory.</description>
         <property name="name" value="Upsert-Cruises_Prod"/>
         <property name="configOverrideMap">
@@ -141,7 +141,7 @@
     </bean>
     <bean id="Upsert-Cabins_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Upsert Cabins based on Inventory.</description>
         <property name="name" value="Upsert-Cabins_Prod"/>
         <property name="configOverrideMap">

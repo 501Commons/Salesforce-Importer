@@ -2,7 +2,7 @@
 <beans>
     <bean id="Insert-FamLinkId_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Insert job gets the Contact record updates from a CSV file and uploads them to salesforce using 'insert'.</description>
         <property name="name" value="Insert-FamLinkId_Prod"/>
         <property name="configOverrideMap">
@@ -25,7 +25,7 @@
     </bean>
     <bean id="Insert-StarsId_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Insert job gets the Contact record updates from a CSV file and uploads them to salesforce using 'insert'.</description>
         <property name="name" value="Insert-StarsId_Prod"/>
         <property name="configOverrideMap">
@@ -48,7 +48,7 @@
     </bean>
     <bean id="Insert-SSPSNumber_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Insert job gets the Contact record updates from a CSV file and uploads them to salesforce using 'insert'.</description>
         <property name="name" value="Insert-SSPSNumber_Prod"/>
         <property name="configOverrideMap">
@@ -71,7 +71,7 @@
     </bean>
     <bean id="Insert-RelationshipByFamlinkId_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Insert job gets the Contact record updates from a CSV file and uploads them to salesforce using 'insert'.</description>
         <property name="name" value="Insert-RelationshipByFamlinkId_Prod"/>
         <property name="configOverrideMap">
@@ -94,7 +94,7 @@
     </bean>
     <bean id="Insert-RelationshipBySSPS_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Insert job gets the Contact record updates from a CSV file and uploads them to salesforce using 'insert'.</description>
         <property name="name" value="Insert-RelationshipBySSPS_Prod"/>
         <property name="configOverrideMap">
@@ -117,7 +117,7 @@
     </bean>
     <bean id="Insert-ContactFacilities_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Insert job gets the Contact record updates from a CSV file and uploads them to salesforce using 'insert'.</description>
         <property name="name" value="Insert-ContactFacilities_Prod"/>
         <property name="configOverrideMap">
@@ -140,7 +140,7 @@
     </bean>
     <bean id="Update-ImportInstance_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>ImportInstance Update job gets the ImportInstance record updates from a CSV file and uploads them to salesforce using 'update'.</description>
         <property name="name" value="Update-ImportInstance_Prod"/>
         <property name="configOverrideMap">
@@ -163,7 +163,7 @@
     </bean>
     <bean id="Update-FamLinkId_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
         <property name="name" value="Update-FamLinkId_Prod"/>
         <property name="configOverrideMap">
@@ -186,7 +186,7 @@
     </bean>
     <bean id="Update-StarsId_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
         <property name="name" value="Update-StarsId_Prod"/>
         <property name="configOverrideMap">
@@ -209,7 +209,7 @@
     </bean>
     <bean id="Update-SSPSNumber_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
         <property name="name" value="Update-SSPSNumber_Prod"/>
         <property name="configOverrideMap">
@@ -232,7 +232,7 @@
     </bean>
     <bean id="Update-ContactFacilities_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
         <property name="name" value="Update-ContactFacilities_Prod"/>
         <property name="configOverrideMap">
@@ -255,7 +255,7 @@
     </bean>
     <bean id="Update-FacilitiesByRelationship_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
         <property name="name" value="Update-FacilitiesByRelationship_Prod"/>
         <property name="configOverrideMap">
@@ -278,7 +278,7 @@
     </bean>
     <bean id="Update-FacilityNoData_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
         <property name="name" value="Update-FacilityNoData_Prod"/>
         <property name="configOverrideMap">

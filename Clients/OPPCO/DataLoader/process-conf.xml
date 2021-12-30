@@ -2,7 +2,7 @@
 <beans>
     <bean id="Delete-ServiceHousehold_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Service Delete job'.</description>
         <property name="name" value="Delete-ServiceHousehold_Prod"/>
         <property name="configOverrideMap">
@@ -25,7 +25,7 @@
     </bean>
     <bean id="Insert-ServiceHousehold_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Service Insert job'.</description>
         <property name="name" value="Insert-ServiceHousehold_Prod"/>
         <property name="configOverrideMap">
@@ -48,7 +48,7 @@
     </bean>
     <bean id="Insert-ServiceHousehold_Sandbox"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Service Insert job'.</description>
         <property name="name" value="Insert-ServiceHousehold_Sandbox"/>
         <property name="configOverrideMap">
@@ -71,7 +71,7 @@
     </bean>
     <bean id="Insert-ContactOtherNames_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Service Insert job'.</description>
         <property name="name" value="Insert-ContactOtherNames_Prod"/>
         <property name="configOverrideMap">
@@ -93,7 +93,7 @@
     </bean>
     <bean id="Insert-ContactOtherNames_Sandbox"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Service Insert job'.</description>
         <property name="name" value="Insert-ContactOtherNames_Sandbox"/>
         <property name="configOverrideMap">
@@ -115,7 +115,7 @@
     </bean>
     <bean id="Update-ServiceHousehold_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Service Insert job'.</description>
         <property name="name" value="Update-ServiceHousehold_Prod"/>
         <property name="configOverrideMap">
@@ -139,7 +139,7 @@
     </bean>
     <bean id="Update-ServiceHousehold_Sandbox"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Service Insert job'.</description>
         <property name="name" value="Update-ServiceHousehold_Sandbox"/>
         <property name="configOverrideMap">
@@ -163,7 +163,7 @@
     </bean>
     <bean id="Update-ServiceHouseholdDeleted_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Service Insert job'.</description>
         <property name="name" value="Update-ServiceHouseholdDeleted_Prod"/>
         <property name="configOverrideMap">
@@ -187,7 +187,7 @@
     </bean>
     <bean id="Update-ServiceHouseholdDeleted_Sandbox"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Service Insert job'.</description>
         <property name="name" value="Update-ServiceHouseholdDeleted_Sandbox"/>
         <property name="configOverrideMap">
@@ -210,7 +210,7 @@
     </bean>
     <bean id="Delete-ServiceContact_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Service Delete job'.</description>
         <property name="name" value="Delete-ServiceContact_Prod"/>
         <property name="configOverrideMap">
@@ -233,7 +233,7 @@
     </bean>
     <bean id="Insert-ServiceContact_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Service Insert job'.</description>
         <property name="name" value="Insert-ServiceContact_Prod"/>
         <property name="configOverrideMap">
@@ -256,7 +256,7 @@
     </bean>
     <bean id="Insert-ServiceContact_Sandbox"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Service Insert job'.</description>
         <property name="name" value="Insert-ServiceContact_Sandbox"/>
         <property name="configOverrideMap">
@@ -279,7 +279,7 @@
     </bean>
     <bean id="Update-ServiceContact_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Service Insert job'.</description>
         <property name="name" value="Update-ServiceContact_Prod"/>
         <property name="configOverrideMap">
@@ -303,7 +303,7 @@
     </bean>
     <bean id="Update-ServiceContact_Sandbox"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Service Insert job'.</description>
         <property name="name" value="Update-ServiceContact_Sandbox"/>
         <property name="configOverrideMap">
@@ -327,7 +327,7 @@
     </bean>
     <bean id="Insert-Household_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Service Insert job'.</description>
         <property name="name" value="Insert-Household_Prod"/>
         <property name="configOverrideMap">
@@ -350,7 +350,7 @@
     </bean>
     <bean id="Insert-Household_Sandbox"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Service Insert job'.</description>
         <property name="name" value="Insert-Household_Sandbox"/>
         <property name="configOverrideMap">
@@ -373,7 +373,7 @@
     </bean>
     <bean id="Insert-Contact_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Service Insert job'.</description>
         <property name="name" value="Insert-Contact_Prod"/>
         <property name="configOverrideMap">
@@ -396,7 +396,7 @@
     </bean>
     <bean id="Insert-Contact_Sandbox"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Service Insert job'.</description>
         <property name="name" value="Insert-Contact_Sandbox"/>
         <property name="configOverrideMap">

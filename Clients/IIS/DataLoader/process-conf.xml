@@ -2,7 +2,7 @@
 <beans>
     <bean id="Insert-Contact-Facility_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Insert job gets the Contact record updates from a CSV file and uploads them to salesforce using 'insert'.</description>
         <property name="name" value="Insert-Contact-Facility_Prod"/>
         <property name="configOverrideMap">
@@ -25,7 +25,7 @@
     </bean>
     <bean id="Insert-Contact-Subs_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Insert job gets the Contact record updates from a CSV file and uploads them to salesforce using 'insert'.</description>
         <property name="name" value="Insert-Contact-Subs_Prod"/>
         <property name="configOverrideMap">
@@ -48,7 +48,7 @@
     </bean>
     <bean id="Update-Contact-Facility_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
         <property name="name" value="Update-Contact-Facility_Prod"/>
         <property name="configOverrideMap">
@@ -71,7 +71,7 @@
     </bean>
     <bean id="Update-Contact-Subs_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
         <property name="name" value="Update-Contact-Subs_Prod"/>
         <property name="configOverrideMap">
@@ -94,7 +94,7 @@
     </bean>    
     <bean id="Update-Contact-Facility-NotApp_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
         <property name="name" value="Update-Contact-Facility-NotApp_Prod"/>
         <property name="configOverrideMap">
@@ -117,7 +117,7 @@
     </bean>
     <bean id="Update-Contact-Subs-NotApp_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
         <property name="name" value="Update-Contact-Subs-NotApp_Prod"/>
         <property name="configOverrideMap">
@@ -140,7 +140,7 @@
     </bean>
     <bean id="Update-ImportInstance_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>ImportInstance Update job gets the ImportInstance record updates from a CSV file and uploads them to salesforce using 'update'.</description>
         <property name="name" value="Update-ImportInstance_Prod"/>
         <property name="configOverrideMap">
@@ -163,7 +163,7 @@
     </bean>
     <bean id="Update-AM-Campus-User_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
         <property name="name" value="Update-AM-Campus-User_Prod"/>
         <property name="configOverrideMap">
@@ -186,7 +186,7 @@
     </bean>
     <bean id="Update-AM-Facility_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
         <property name="name" value="Update-AM-Facility_Prod"/>
         <property name="configOverrideMap">
@@ -209,7 +209,7 @@
     </bean>
     <bean id="Update-AM-Subs_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
         <property name="name" value="Update-AM-Subs_Prod"/>
         <property name="configOverrideMap">
@@ -232,7 +232,7 @@
     </bean>
     <bean id="Insert-Contact-Training_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Insert job gets the Contact record updates from a CSV file and uploads them to salesforce using 'insert'.</description>
         <property name="name" value="Insert-Contact-Training_Prod"/>
         <property name="configOverrideMap">
@@ -255,7 +255,7 @@
     </bean>
     <bean id="Update-Contact-Training_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
         <property name="name" value="Update-Contact-Training_Prod"/>
         <property name="configOverrideMap">
@@ -278,7 +278,7 @@
     </bean>
     <bean id="Update-Training-OutOfUnit_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
         <property name="name" value="Update-Traininig-OutOfUnit_Prod"/>
         <property name="configOverrideMap">
@@ -301,7 +301,7 @@
     </bean>
     <bean id="Insert-Contact-Facility_Sandbox"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Insert job gets the Contact record updates from a CSV file and uploads them to salesforce using 'insert'.</description>
         <property name="name" value="Insert-Contact-Facility_Sandbox"/>
         <property name="configOverrideMap">
@@ -324,7 +324,7 @@
     </bean>
     <bean id="Insert-Contact-Subs_Sandbox"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Insert job gets the Contact record updates from a CSV file and uploads them to salesforce using 'insert'.</description>
         <property name="name" value="Insert-Contact-Subs_Sandbox"/>
         <property name="configOverrideMap">
@@ -347,7 +347,7 @@
     </bean>
     <bean id="Update-Contact-Facility_Sandbox"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
         <property name="name" value="Update-Contact-Facility_Sandbox"/>
         <property name="configOverrideMap">
@@ -370,7 +370,7 @@
     </bean>
     <bean id="Update-Contact-Subs_Sandbox"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
         <property name="name" value="Update-Contact-Subs_Sandbox"/>
         <property name="configOverrideMap">
@@ -393,7 +393,7 @@
     </bean>    
     <bean id="Update-Contact-Facility-NotApp_Sandbox"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
         <property name="name" value="Update-Contact-Facility-NotApp_Sandbox"/>
         <property name="configOverrideMap">
@@ -416,7 +416,7 @@
     </bean>
     <bean id="Update-Contact-Subs-NotApp_Sandbox"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
         <property name="name" value="Update-Contact-Subs-NotApp_Sandbox"/>
         <property name="configOverrideMap">
@@ -439,7 +439,7 @@
     </bean>
     <bean id="Update-AM-Campus-User_Sandbox"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
         <property name="name" value="Update-AM-Campus-User_Sandbox"/>
         <property name="configOverrideMap">
@@ -462,7 +462,7 @@
     </bean>
     <bean id="Update-AM-Facility_Sandbox"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
         <property name="name" value="Update-AM-Facility_Sandbox"/>
         <property name="configOverrideMap">
@@ -485,7 +485,7 @@
     </bean>
     <bean id="Update-AM-Subs_Sandbox"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
         <property name="name" value="Update-AM-Subs_Sandbox"/>
         <property name="configOverrideMap">
@@ -508,7 +508,7 @@
     </bean>
     <bean id="Insert-Contact-Training_Sandbox"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Insert job gets the Contact record updates from a CSV file and uploads them to salesforce using 'insert'.</description>
         <property name="name" value="Insert-Contact-Training_Sandbox"/>
         <property name="configOverrideMap">
@@ -531,7 +531,7 @@
     </bean>
     <bean id="Update-Contact-Training_Sandbox"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
         <property name="name" value="Update-Contact-Training_Sandbox"/>
         <property name="configOverrideMap">
@@ -554,7 +554,7 @@
     </bean>
     <bean id="Update-Training-OutOfUnit_Sandbox"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
         <property name="name" value="Update-Traininig-OutOfUnit_Sandbox"/>
         <property name="configOverrideMap">
@@ -577,7 +577,7 @@
     </bean>
     <bean id="Insert-Contact-FFN_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Insert job gets the Contact record updates from a CSV file and uploads them to salesforce using 'insert'.</description>
         <property name="name" value="Insert-Contact-FFN_Prod"/>
         <property name="configOverrideMap">
@@ -600,7 +600,7 @@
     </bean>
     <bean id="Update-Contact-FFN_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
         <property name="name" value="Update-Contact-FFN_Prod"/>
         <property name="configOverrideMap">
@@ -623,7 +623,7 @@
     </bean>
     <bean id="Update-Contact-StarsId-FFN_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
         <property name="name" value="Update-Contact-StarsId-FFN_Prod"/>
         <property name="configOverrideMap">
@@ -646,7 +646,7 @@
     </bean>
     <bean id="Update-Contact-FFN-OutOfUnit_Prod"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
         <property name="name" value="Update-Contact-FFN_Prod"/>
         <property name="configOverrideMap">
@@ -669,7 +669,7 @@
     </bean>
     <bean id="Insert-Contact-FFN_Sandbox"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Insert job gets the Contact record updates from a CSV file and uploads them to salesforce using 'insert'.</description>
         <property name="name" value="Insert-Contact-FFN_Sandbox"/>
         <property name="configOverrideMap">
@@ -692,7 +692,7 @@
     </bean>
     <bean id="Update-Contact-FFN_Sandbox"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
         <property name="name" value="Update-Contact-FFN_Sandbox"/>
         <property name="configOverrideMap">
@@ -715,7 +715,7 @@
     </bean>
     <bean id="Update-Contact-FFN-OutOfUnit_Sandbox"
           class="com.salesforce.dataloader.process.ProcessRunner"
-          singleton="false">
+          scope="prototype">
         <description>Contact Update job gets the Contact record updates from a CSV file and uploads them to salesforce using 'update'.</description>
         <property name="name" value="Update-Contact-FFN_Sandbox"/>
         <property name="configOverrideMap">
