@@ -1,5 +1,11 @@
-set JAVA_HOME=C:\repo\Salesforce-Importer-Private\Clients\%CLIENT_TYPE%\Salesforce-Importer\dependencies\Java\jre1.8.0_201
-echo exporter: setting JAVA_HOME to %JAVA_HOME%
+IF "%JAVA_HOME%" == "" (
+    set JAVA_HOME=C:\Program Files\Zulu\zulu-17
+    echo exporter: setting JAVA_HOME to %JAVA_HOME%
+) ELSE (
+    IF NOT EXIST "%JAVA_HOME%" (
+        set JAVA_HOME=C:\Program Files\Zulu\zulu-17
+        echo exporter: setting JAVA_HOME to %JAVA_HOME%
+)
 
 set PYTHON_HOME=C:\Python27
 set PATH=C:\Python27;C:\Python27\Scripts;%PATH%
