@@ -1,0 +1,13 @@
+#Mapping values
+#Thu Nov 18 12:26:16 PST 2021
+Commission__c=Commission__c
+Cruise_Date_FY__c=Cruise_Date_FY__c
+Total_Base_Price__c=Total_Base_Price__c
+Booking_Date__c=Booking_Date__c
+Cabin-ExternalId=Cabin__r\:Unique_Id__c
+Booking_Time__c=Booking_Time__c
+Change_Action__c=Change_Action__c
+Change_Type__c=Change_Type__c
+Number_of_Passengers__c=Number_of_Passengers__c
+Booking\ Number=Booking__r\:BookingNo__c
+Unique_Id__c=Unique_Id__c
