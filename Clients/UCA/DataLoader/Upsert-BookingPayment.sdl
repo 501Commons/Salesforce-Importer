@@ -1,0 +1,14 @@
+#Mapping values
+#Mon Feb 07 16:24:14 PST 2022
+Group_Id__c=Group_Id__c
+Date__c=Date__c
+Comment__c=Comment__c
+FOP__c=FOP__c
+Refund_Amount__c=Refund_Amount__c
+User_Id__c=User_Id__c
+External_Id__c=External_Id__c
+Doc_No__c=Doc_No__c
+From__c=From__c
+Amount__c=Amount__c
+Booking_Number__c=Booking__r\:BookingNo__c
+Type__c=Type__c
