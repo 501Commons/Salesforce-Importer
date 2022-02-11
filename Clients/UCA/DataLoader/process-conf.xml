@@ -9,7 +9,7 @@
             <map>
                 <entry key="sfdc.endpoint" value="https://un-cruise.my.salesforce.com"/> 
                 <entry key="sfdc.username" value="daveb@uncruise.com"/>
-                <entry key="sfdc.password" value="bdba07b48a69c4a9d6234204b74cee2f8ef767bb44d18f38597040fcf4127adef9bb82ebb68de973041227e1336498d0ec2265a1baff7b12748b9d479012b76d"/>
+                <entry key="sfdc.password" value="bf101e62933d48555e60d5fb653ee89fefd5e09c6c02db5a5c0812333aaa7dbf96e6830001aec8fd42ef798a8ee61e30460c3da1535864bfd0660658d27822c7"/>
                 <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\UCA\DataLoader\key.txt"/>
                 <entry key="sfdc.timeoutSecs" value="600"/>
                 <entry key="sfdc.loadBatchSize" value="200"/>
@@ -32,7 +32,7 @@
             <map>
                 <entry key="sfdc.endpoint" value="https://un-cruise.my.salesforce.com"/> 
                 <entry key="sfdc.username" value="daveb@uncruise.com"/>
-                <entry key="sfdc.password" value="bdba07b48a69c4a9d6234204b74cee2f8ef767bb44d18f38597040fcf4127adef9bb82ebb68de973041227e1336498d0ec2265a1baff7b12748b9d479012b76d"/>
+                <entry key="sfdc.password" value="bf101e62933d48555e60d5fb653ee89fefd5e09c6c02db5a5c0812333aaa7dbf96e6830001aec8fd42ef798a8ee61e30460c3da1535864bfd0660658d27822c7"/>
                 <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\UCA\DataLoader\key.txt"/>
                 <entry key="sfdc.timeoutSecs" value="600"/>
                 <entry key="sfdc.loadBatchSize" value="200"/>
@@ -55,7 +55,7 @@
             <map>
                 <entry key="sfdc.endpoint" value="https://un-cruise.my.salesforce.com"/> 
                 <entry key="sfdc.username" value="daveb@uncruise.com"/>
-                <entry key="sfdc.password" value="bdba07b48a69c4a9d6234204b74cee2f8ef767bb44d18f38597040fcf4127adef9bb82ebb68de973041227e1336498d0ec2265a1baff7b12748b9d479012b76d"/>
+                <entry key="sfdc.password" value="bf101e62933d48555e60d5fb653ee89fefd5e09c6c02db5a5c0812333aaa7dbf96e6830001aec8fd42ef798a8ee61e30460c3da1535864bfd0660658d27822c7"/>
                 <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\UCA\DataLoader\key.txt"/>
                 <entry key="sfdc.timeoutSecs" value="600"/>
                 <entry key="sfdc.loadBatchSize" value="200"/>
@@ -78,7 +78,7 @@
             <map>
                 <entry key="sfdc.endpoint" value="https://un-cruise.my.salesforce.com"/> 
                 <entry key="sfdc.username" value="daveb@uncruise.com"/>
-                <entry key="sfdc.password" value="bdba07b48a69c4a9d6234204b74cee2f8ef767bb44d18f38597040fcf4127adef9bb82ebb68de973041227e1336498d0ec2265a1baff7b12748b9d479012b76d"/>
+                <entry key="sfdc.password" value="bf101e62933d48555e60d5fb653ee89fefd5e09c6c02db5a5c0812333aaa7dbf96e6830001aec8fd42ef798a8ee61e30460c3da1535864bfd0660658d27822c7"/>
                 <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\UCA\DataLoader\key.txt"/>
                 <entry key="sfdc.timeoutSecs" value="600"/>
                 <entry key="sfdc.loadBatchSize" value="200"/>
@@ -101,7 +101,7 @@
             <map>
                 <entry key="sfdc.endpoint" value="https://un-cruise.my.salesforce.com"/> 
                 <entry key="sfdc.username" value="daveb@uncruise.com"/>
-                <entry key="sfdc.password" value="bdba07b48a69c4a9d6234204b74cee2f8ef767bb44d18f38597040fcf4127adef9bb82ebb68de973041227e1336498d0ec2265a1baff7b12748b9d479012b76d"/>
+                <entry key="sfdc.password" value="bf101e62933d48555e60d5fb653ee89fefd5e09c6c02db5a5c0812333aaa7dbf96e6830001aec8fd42ef798a8ee61e30460c3da1535864bfd0660658d27822c7"/>
                 <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\UCA\DataLoader\key.txt"/>
                 <entry key="sfdc.timeoutSecs" value="600"/>
                 <entry key="sfdc.loadBatchSize" value="200"/>
@@ -125,7 +125,7 @@
             <map>
                 <entry key="sfdc.endpoint" value="https://un-cruise.my.salesforce.com"/> 
                 <entry key="sfdc.username" value="daveb@uncruise.com"/>
-                <entry key="sfdc.password" value="bdba07b48a69c4a9d6234204b74cee2f8ef767bb44d18f38597040fcf4127adef9bb82ebb68de973041227e1336498d0ec2265a1baff7b12748b9d479012b76d"/>
+                <entry key="sfdc.password" value="bf101e62933d48555e60d5fb653ee89fefd5e09c6c02db5a5c0812333aaa7dbf96e6830001aec8fd42ef798a8ee61e30460c3da1535864bfd0660658d27822c7"/>
                 <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\UCA\DataLoader\key.txt"/>
                 <entry key="sfdc.timeoutSecs" value="600"/>
                 <entry key="sfdc.loadBatchSize" value="200"/>
@@ -148,7 +148,7 @@
             <map>
                 <entry key="sfdc.endpoint" value="https://un-cruise.my.salesforce.com"/> 
                 <entry key="sfdc.username" value="daveb@uncruise.com"/>
-                <entry key="sfdc.password" value="bdba07b48a69c4a9d6234204b74cee2f8ef767bb44d18f38597040fcf4127adef9bb82ebb68de973041227e1336498d0ec2265a1baff7b12748b9d479012b76d"/>
+                <entry key="sfdc.password" value="bf101e62933d48555e60d5fb653ee89fefd5e09c6c02db5a5c0812333aaa7dbf96e6830001aec8fd42ef798a8ee61e30460c3da1535864bfd0660658d27822c7"/>
                 <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\UCA\DataLoader\key.txt"/>
                 <entry key="sfdc.timeoutSecs" value="600"/>
                 <entry key="sfdc.loadBatchSize" value="200"/>
@@ -171,7 +171,7 @@
             <map>
                 <entry key="sfdc.endpoint" value="https://un-cruise.my.salesforce.com"/> 
                 <entry key="sfdc.username" value="daveb@uncruise.com"/>
-                <entry key="sfdc.password" value="bdba07b48a69c4a9d6234204b74cee2f8ef767bb44d18f38597040fcf4127adef9bb82ebb68de973041227e1336498d0ec2265a1baff7b12748b9d479012b76d"/>
+                <entry key="sfdc.password" value="bf101e62933d48555e60d5fb653ee89fefd5e09c6c02db5a5c0812333aaa7dbf96e6830001aec8fd42ef798a8ee61e30460c3da1535864bfd0660658d27822c7"/>
                 <entry key="process.encryptionKeyFile" value="C:\repo\Salesforce-Importer-Private\Clients\UCA\DataLoader\key.txt"/>
                 <entry key="sfdc.timeoutSecs" value="600"/>
                 <entry key="sfdc.loadBatchSize" value="200"/>
