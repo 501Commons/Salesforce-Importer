@@ -12,3 +12,4 @@ From__c=From__c
 Amount__c=Amount__c
 Booking_Number__c=Booking__r\:BookingNo__c
 Type__c=Type__c
+Payment_After_Cruise__c=Payment_After_Cruise__c
