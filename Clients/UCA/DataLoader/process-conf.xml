@@ -179,8 +179,8 @@
                 <entry key="sfdc.insertNulls" value="true"/>
                 <entry key="sfdc.entity" value="Payment__c"/>
                 <entry key="process.operation" value="upsert"/>
-                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\UCA\Salesforce-Importer\Clients\UCA\DataLoader\Upsert-BookingPayment.sdl"/>
-                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\UCA\Salesforce-Importer\Clients\UCA\Import\Upsert-BookingPayment.csv"/>
+                <entry key="process.mappingFile" value="C:\repo\Salesforce-Importer-Private\Clients\UCA\Salesforce-Importer\Clients\UCA\DataLoader\Upsert-Payment.sdl"/>
+                <entry key="dataAccess.name" value="C:\repo\Salesforce-Importer-Private\Clients\UCA\Salesforce-Importer\Clients\UCA\Import\Upsert-Payment.csv"/>
                 <entry key="dataAccess.type" value="csvRead"/>
                 <entry key="process.initialLastRunDate" value="2006-12-01T00:00:00.000-0800"/>
             </map>
