@@ -9,3 +9,4 @@ Name=Name
 Type__c=Type__c
 Unique_Id__c=Unique_Id__c
 FY_End__c=FY_End__c
+Cabin_Category__c=Cabin_Category__c
