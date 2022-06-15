@@ -8,7 +8,6 @@ name_last=C501_Last_Name__c
 name_nickname=C501_Nickname__c
 name_last_preferred=C501_Last_Name_Other__c
 dob=C501_Birthdate__c
-ssn_conversion=C501_Partial_Social_Security_Id__c
 age=C501_Age__c
 C501_Military_Status__c=C501_Military_Status__c
 C501_Disabling_Condition_Special_Needs__c=C501_Disabling_Condition_Special_Needs__c

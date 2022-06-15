@@ -13,3 +13,4 @@ Amount__c=Amount__c
 Booking_Number__c=Booking__r\:BookingNo__c
 Type__c=Type__c
 Payment_After_Cruise__c=Payment_After_Cruise__c
+Paid_In_Dynamics__c=Paid_In_Dynamics__c
