@@ -6,3 +6,5 @@ Name=Name
 Ship_Code__c=Ship__r\:Ship_Code__c
 Destination_Code__c=Destination_Code__c
 External_Id__c=External_Id__c
+Itinerary_Embark__c=Itinerary_Embark__c
+Itinerary_Disembark__c=Itinerary_Disembark__c

@@ -179,11 +179,11 @@ def main():
 
     # Check filename for operation
     insertOnly = False
-    if "insert" in client_subtype.lower() or "upsert" in client_subtype.lower():
+    if "insert" in client_subtype.lower():
         insertOnly = True
 
     updateOnly = False
-    if "update" in client_subtype.lower():
+    if "update" in client_subtype.lower() or "upsert" in client_subtype.lower():
         updateOnly = True
 
     print "norefresh: " + str(norefresh)
@@ -206,14 +206,6 @@ def main():
                                          skipexcelrefresh,
                                          location_local)
 
-            status_import += process_data(importer_directory, salesforce_type, client_type,
-                                         client_subtype, 'Upsert', wait_time,
-                                         noexportsf,
-                                         interactivemode,
-                                         displayalerts,
-                                         skipexcelrefresh,
-                                         location_local)
-
             if stop_processing:
                 return
 
@@ -224,7 +216,16 @@ def main():
     # Update Data
     if not noupdate and not insertOnly and not contains_error(status_import):
         print "\n\nImporter - Update Data Process\n\n"
+
         status_import = process_data(importer_directory, salesforce_type, client_type,
+                                    client_subtype, 'Upsert', wait_time,
+                                    noexportsf,
+                                    interactivemode,
+                                    displayalerts,
+                                    skipexcelrefresh,
+                                    location_local)
+
+        status_import += process_data(importer_directory, salesforce_type, client_type,
                                      client_subtype, 'Update', wait_time,
                                      noexportsf, interactivemode, displayalerts, skipexcelrefresh, location_local)
 
@@ -528,10 +529,10 @@ def refresh_and_export(importer_directory, salesforce_type,
 
                     workbook.SaveAs(sheet_file, 6)
 
-                    # Update check to make sure insert or upsert sheet is empty
+                    # Update check to make sure insert sheet is empty
                     if (operation == "Update"
                             and update_sheet_found
-                            and ("insert" in sheet.Name.lower() or "upsert" in sheet_name_lower)
+                            and "insert" in sheet.Name.lower()
                             and contains_data(sheet_file)):
 
                         raise Exception("refresh_and_export: Update Error", (
