@@ -8,3 +8,5 @@ Destination_Code__c=Destination_Code__c
 External_Id__c=External_Id__c
 Itinerary_Embark__c=Itinerary_Embark__c
 Itinerary_Disembark__c=Itinerary_Disembark__c
+Charter__c=Charter__c
+Possible_Charter__c=Possible_Charter__c
