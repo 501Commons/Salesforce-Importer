@@ -629,9 +629,6 @@ def process_manifest(workbook, sheet_name, statusDirectory):
         groupFileName = os.path.join(statusDirectory, "{}-{}-{}.csv".format(sheet_name, cruiseID, manifestType))
         group.to_csv(groupFileName, index=False)
 
-    # Remove full sheet data file
-    os.remove(sheetFile)
-
 def contains_data(file_name):
     """Check if file contains data after header"""
 
