@@ -606,7 +606,7 @@ def process_manifest(workbook, sheet_name, statusDirectory):
 
     print "process_manifest: " + sheet_name
 
-    sheetFile = os.path.join(statusDirectory, sheet_name)
+    sheetFile = os.path.join(statusDirectory, sheet_name, ".csv")
 
     # Check for existing file
     if os.path.isfile(sheetFile):
