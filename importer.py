@@ -605,11 +605,11 @@ def process_manifest(workbook, sheet_name, statusDirectory):
     from os import listdir, makedirs
     from datetime import datetime
 
-    tempDirectory = os.path.join(statusDirectory, "temp")
+    tempDirectory = os.path.join(statusDirectory, "temp\\")
     if not os.path.exists(tempDirectory):
         makedirs(tempDirectory)
     
-    sheetFile = os.path.join(statusDirectory, "temp", sheet_name + ".csv")
+    sheetFile = os.path.join(tempDirectory, sheet_name + ".csv")
 
     print("process_manifest: ", sheetFile)
 
