@@ -605,6 +605,7 @@ def process_manifest(workbook, sheet_name, statusDirectory):
     from os import listdir, makedirs
     from datetime import datetime
 
+    #Create temp directory
     tempDirectory = os.path.join(statusDirectory, "temp\\")
     if not os.path.exists(tempDirectory):
         makedirs(tempDirectory)
