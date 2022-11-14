@@ -617,9 +617,10 @@ def process_manifest(workbook, sheet_file, statusDirectory):
     # read DataFrame
     data = pd.read_csv(sheet_file)
 
-    for (cruiseID,cruiseDate), group in data.groupby(['Cruise ID', 'Cruise Date']):
+    for (cruiseID, cruiseDate), group in data.groupby(['Cruise ID', 'Cruise Date']):
 
-        cruiseDateValue = datetime.strptime(cruiseDate, "%Y-%m-%d")
+        cruiseDateValue = cruiseDate
+        cruiseDateValue = datetime.strptime(cruiseDateValue, "%Y-%m-%d")
         daysDifference = abs((cruiseDateValue - dateToday).days)
 
         manifestType = "Preliminary"
