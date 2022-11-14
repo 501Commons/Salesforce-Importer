@@ -540,7 +540,7 @@ def refresh_and_export(importer_directory, salesforce_type,
                         if "manifest" in sheet.Name.lower():
 
                             sheet_file = ""
-                            process_manifest(workbook, excel_file_path + "Status\\" + sheet.Name + ".csv")
+                            process_manifest(workbook, excel_file_path + "Status\\" + sheet.Name + ".csv", excel_file_path + "Status\\")
                         else:
                             sheet_file = excel_file_path + "Status\\" + sheet.Name + ".csv"
 
@@ -593,8 +593,13 @@ def refresh_and_export(importer_directory, salesforce_type,
 
     return refresh_status
 
-def process_manifest(workbook, sheet_file):
+# workbook details: https://learn.microsoft.com/en-us/office/vba/api/excel.workbook
+def process_manifest(workbook, sheet_file, statusDirectory):
 
+    import csv
+    import pandas as pd
+    print("The Version of Pandas is: ", pd.__version__)
+    import sys
     import os
     import os.path
 
@@ -605,6 +610,12 @@ def process_manifest(workbook, sheet_file):
         os.remove(sheet_file)
 
     workbook.SaveAs(sheet_file, 6)
+
+    # read DataFrame
+    data = pd.read_csv(sheet_file)
+
+    for (cruiseID), group in data.groupby(['Cruise ID']):
+        group.to_csv(statusDirectory + f'{cruiseID}.csv', index=False)
 
 def contains_data(file_name):
     """Check if file contains data after header"""
