@@ -604,7 +604,7 @@ def process_manifest(workbook, sheet_name, statusDirectory):
     import os.path
     from datetime import datetime
 
-    sheetFile = os.path.join(statusDirectory, sheet_name + ".csv")
+    sheetFile = os.path.join(statusDirectory, "temp", sheet_name + ".csv")
 
     print("process_manifest: ", sheetFile)
 
