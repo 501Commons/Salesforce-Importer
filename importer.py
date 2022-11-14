@@ -540,7 +540,7 @@ def refresh_and_export(importer_directory, salesforce_type,
                         if "manifest" in sheet.Name.lower():
 
                             sheet_file = ""
-                            process_manifest(workbook, excel_file_path + "Status\\" + sheet.Name + ".csv", excel_file_path + "Status\\")
+                            process_manifest(workbook, sheet.Name, excel_file_path + "Status\\")
                         else:
                             sheet_file = excel_file_path + "Status\\" + sheet.Name + ".csv"
 
@@ -594,7 +594,7 @@ def refresh_and_export(importer_directory, salesforce_type,
     return refresh_status
 
 # workbook details: https://learn.microsoft.com/en-us/office/vba/api/excel.workbook
-def process_manifest(workbook, sheet_file, statusDirectory):
+def process_manifest(workbook, sheet_name, statusDirectory):
 
     import csv
     import pandas as pd
@@ -604,18 +604,18 @@ def process_manifest(workbook, sheet_file, statusDirectory):
     import os.path
     from datetime import datetime
 
-    print "process_manifest: " + sheet_file
+    print "process_manifest: " + sheet_name
+
+    sheetFile = os.path.join(statusDirectory, sheet_name)
 
     # Check for existing file
-    if os.path.isfile(sheet_file):
-        os.remove(sheet_file)
+    if os.path.isfile(sheetFile):
+        os.remove(sheetFile)
 
-    workbook.SaveAs(sheet_file, 6)
+    workbook.SaveAs(sheetFile, 6)
+    data = pd.read_csv(sheetFile)
 
     dateToday = datetime.today()
-
-    # read DataFrame
-    data = pd.read_csv(sheet_file)
 
     for (cruiseID, cruiseDate), group in data.groupby(['Cruise ID', 'Cruise Date']):
 
@@ -626,8 +626,11 @@ def process_manifest(workbook, sheet_file, statusDirectory):
         if daysDifference <= 10:
             manifestType = "Final"
 
-        groupFileName = os.path.join(statusDirectory, "{}-{}.csv".format(cruiseID, manifestType))
+        groupFileName = os.path.join(statusDirectory, "{}-{}-{}.csv".format(sheet_name, cruiseID, manifestType))
         group.to_csv(groupFileName, index=False)
+
+    # Remove full sheet data file
+    os.remove(sheetFile)
 
 def contains_data(file_name):
     """Check if file contains data after header"""
