@@ -188,14 +188,19 @@ def main():
     if "update" in client_subtype.lower() or "upsert" in client_subtype.lower():
         updateOnly = True
 
+    reportOnly = False
+    if "report" in client_subtype.lower() and not updateOnly and not insertOnly:
+        reportOnly = True
+
     print "norefresh: " + str(norefresh)
     print "noupdate: " + str(noupdate)
     print "insertOnly: " + str(insertOnly)
     print "updateOnly: " + str(updateOnly)
+    print "reportOnly: " + str(reportOnly)
 
     # Insert Data
     status_import = ""
-    if not norefresh and not updateOnly and "Invalid Return Code" not in status_export:
+    if not norefresh and not updateOnly and not reportOnly and "Invalid Return Code" not in status_export:
         for insert_run in range(0, insert_attempts):
 
             print "\n\nImporter - Insert Data Process (run: %d)\n\n" % (insert_run)
@@ -216,7 +221,7 @@ def main():
                 break
 
     # Update Data
-    if not noupdate and not insertOnly and not contains_error(status_import):
+    if not noupdate and not insertOnly and not reportOnly and not contains_error(status_import):
         print "\n\nImporter - Update Data Process\n\n"
 
         status_import = process_data(importer_directory, salesforce_type, client_type,
@@ -229,6 +234,14 @@ def main():
 
         status_import += process_data(importer_directory, salesforce_type, client_type,
                                      client_subtype, 'Update', wait_time,
+                                     noexportsf, interactivemode, displayalerts, skipexcelrefresh, location_local)
+
+    # Report Data
+    if reportOnly and not insertOnly and not updateOnly:
+        print "\n\nImporter - Report Data Process\n\n"
+
+        status_import += process_data(importer_directory, salesforce_type, client_type,
+                                     client_subtype, 'Report', wait_time,
                                      noexportsf, interactivemode, displayalerts, skipexcelrefresh, location_local)
 
     if stop_processing:
@@ -336,20 +349,22 @@ def process_data(importer_directory, salesforce_type, client_type,
 
     # Import Data into Salesforce
 
-    try:
-        if not contains_error(status_process_data) and not contains_error(output_log):
-            status_process_data = import_dataloader(importer_directory,
-                                                    client_type, salesforce_type,
-                                                    operation)
+    if not "report" == operation.lower():
+
+        try:
+            if not contains_error(status_process_data) and not contains_error(output_log):
+                status_process_data = import_dataloader(importer_directory,
+                                                        client_type, salesforce_type,
+                                                        operation)
+            else:
+                print status_process_data + output_log
+                status_process_data = "Error detected so skip processing"
+        except Exception as ex:
+            output_log += "\n\nrefresh_and_export - Unexpected error:" + str(ex)
+            output_log += "\n\import_dataloader\n" + status_process_data
+            status_process_data = "Error detected so skip processing - Exception"
         else:
-            print status_process_data + output_log
-            status_process_data = "Error detected so skip processing"
-    except Exception as ex:
-        output_log += "\n\nrefresh_and_export - Unexpected error:" + str(ex)
-        output_log += "\n\import_dataloader\n" + status_process_data
-        status_process_data = "Error detected so skip processing - Exception"
-    else:
-        output_log += "\n\nImport\n" + status_process_data
+            output_log += "\n\nImport\n" + status_process_data
 
     import datetime
     date_tag = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
