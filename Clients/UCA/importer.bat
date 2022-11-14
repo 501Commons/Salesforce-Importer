@@ -1,6 +1,6 @@
 @echo off
 
-set IMPORT_WAITTIME=-waittime 30
+set IMPORT_WAITTIME=-waittime 600
 set IMPORT_NOREFRESH=
 set IMPORT_NOUPDATE=
 set IMPORT_NOEXPORTODBC=-noexportodbc
