@@ -602,6 +602,7 @@ def process_manifest(workbook, sheet_file, statusDirectory):
     import sys
     import os
     import os.path
+    from datetime import datetime
 
     print "process_manifest: " + sheet_file
 
@@ -611,11 +612,21 @@ def process_manifest(workbook, sheet_file, statusDirectory):
 
     workbook.SaveAs(sheet_file, 6)
 
+    dateToday = datetime.today.strptime(dateToday, "%Y-%m-%d")
+
     # read DataFrame
     data = pd.read_csv(sheet_file)
 
-    for (cruiseID), group in data.groupby(['Cruise ID']):
-        groupFileName = os.path.join(statusDirectory, "{}.csv".format(cruiseID))
+    for (cruiseID,cruiseDate), group in data.groupby(['Cruise ID', 'Cruise Date']):
+
+        cruiseDateValue = datetime.strptime(cruiseDate, "%Y-%m-%d")
+        daysDifference = abs((cruiseDateValue - dateToday).days)
+
+        manifestType = "Preliminary"
+        if daysDifference <= 10:
+            manifestType = "Final"
+
+        groupFileName = os.path.join(statusDirectory, "{}-{}.csv".format(cruiseID, manifestType))
         group.to_csv(groupFileName, index=False)
 
 def contains_data(file_name):
