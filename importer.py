@@ -540,7 +540,7 @@ def refresh_and_export(importer_directory, salesforce_type,
                         if "manifest" in sheet.Name.lower():
 
                             sheet_file = ""
-                            process_manifest workbook, excel_file_path + "Status\\" + sheet.Name + ".csv"
+                            process_manifest(workbook, excel_file_path + "Status\\" + sheet.Name + ".csv")
                         else:
                             sheet_file = excel_file_path + "Status\\" + sheet.Name + ".csv"
 
