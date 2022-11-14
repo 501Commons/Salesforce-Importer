@@ -615,7 +615,8 @@ def process_manifest(workbook, sheet_file, statusDirectory):
     data = pd.read_csv(sheet_file)
 
     for (cruiseID), group in data.groupby(['Cruise ID']):
-        group.to_csv(statusDirectory + '{cruiseID}.csv', index=False)
+        groupFileName = os.path.join(statusDirectory, "{}.csv".format(cruiseID))
+        group.to_csv(groupFileName, index=False)
 
 def contains_data(file_name):
     """Check if file contains data after header"""
