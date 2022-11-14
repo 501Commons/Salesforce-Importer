@@ -604,9 +604,9 @@ def process_manifest(workbook, sheet_name, statusDirectory):
     import os.path
     from datetime import datetime
 
-    print "process_manifest: " + sheet_name
-
     sheetFile = os.path.join(statusDirectory, sheet_name, ".csv")
+
+    print "process_manifest: " + sheetFile
 
     # Check for existing file
     if os.path.isfile(sheetFile):
