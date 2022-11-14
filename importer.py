@@ -535,7 +535,14 @@ def refresh_and_export(importer_directory, salesforce_type,
 
                     # Save report to Status to get attached to email
                     if "report" in sheet.Name.lower():
-                        sheet_file = excel_file_path + "Status\\" + sheet.Name + ".csv"
+
+                        # Check if Manifest meaning report needs to be split  up
+                        if "report" in sheet.Name.lower():
+
+                            sheet_file = ""
+                            process_manifest workbook, excel_file_path + "Status\\" + sheet.Name + ".csv"
+                        else:
+                            sheet_file = excel_file_path + "Status\\" + sheet.Name + ".csv"
 
                     # Check for existing file
                     if os.path.isfile(sheet_file):
@@ -544,7 +551,8 @@ def refresh_and_export(importer_directory, salesforce_type,
                     # By Design - set displayalerts before saveas so not prompting w/ save dialogs during automation.  Moved this here so that any RefreshAll errors will still surface and cause the refresh process not to finish thus an error will be detected
                     excel_connection.DisplayAlerts = displayalerts
 
-                    workbook.SaveAs(sheet_file, 6)
+                    if not sheet_file == "":
+                        workbook.SaveAs(sheet_file, 6)
 
                     # Update check to make sure insert sheet is empty
                     if (operation == "Update"
@@ -584,6 +592,19 @@ def refresh_and_export(importer_directory, salesforce_type,
     excel_connection.Quit()
 
     return refresh_status
+
+def process_manifest(workbook, sheet_file):
+
+    import os
+    import os.path
+
+    print "process_manifest: " + sheet_file
+
+    # Check for existing file
+    if os.path.isfile(sheet_file):
+        os.remove(sheet_file)
+
+    workbook.SaveAs(sheet_file, 6)
 
 def contains_data(file_name):
     """Check if file contains data after header"""
