@@ -48,3 +48,5 @@ Resolution: This is probably related to empty columns in the generated CSV file.
 6) Using Excel 2013 or an Error in Excel Saying unable to find Data Source?
 Resolution: Install the latest Power Query Add-in from Microsoft
 http://www.microsoft.com/en-us/download/details.aspx?id=39379&CorrelationId=3639a8ed-75d1-46e8-8910-03452c00154f
+
+7) missing columns in pQ
