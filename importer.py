@@ -915,7 +915,7 @@ def send_email(client_emaillist, subject, file_path, emailattachments, log_path)
 
     send_to = client_emaillist.split(";")
 
-    send_from = 'db.powerbi@501commons.org'
+    send_from = 'daveb@adventurereadyconsulting.com'
     server = "smtp.office365.com"
 
     if 'SERVER_EMAIL_USERNAME' in os.environ:
@@ -940,11 +940,11 @@ def send_email(client_emaillist, subject, file_path, emailattachments, log_path)
         msgbody += "Attachments disabled: Result files can be accessed on the import client.\n\n"
 
     # Send To Admin Only unless there is a csv file which means there was at least a load attempt and not a system failure
-    sendTo_AdminOnly = True
+    # sendTo_AdminOnly = True
 
-    sendTo_AdminAddress = "sfconsulting@501commons.org"
+    sendTo_AdminAddress = "daveb@adventurereadyconsulting.com"
     for sendToEmail in send_to:
-        if re.search("501commons", sendToEmail, re.IGNORECASE):
+        if re.search("adventure", sendToEmail, re.IGNORECASE):
             sendTo_AdminAddress = sendToEmail
             break
 
