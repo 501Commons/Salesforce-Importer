@@ -1,4 +1,4 @@
-set JAVA_HOME=C:\repo\Salesforce-Importer-Private\Clients\%CLIENT_TYPE%\Salesforce-Importer\dependencies\java\jdk1.8.0_201
+set JAVA_HOME=C:\Program Files\Java\jdk-17.0.1
 
 set PYTHON_HOME=C:\Python27
 set PATH=C:\Python27;C:\Python27\Scripts;%PATH%
