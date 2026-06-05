@@ -400,12 +400,25 @@ def refresh_and_export(importer_directory, salesforce_type,
 
     excel_connection = win32.gencache.EnsureDispatch("Excel.Application")
 
-    excel_connection.Visible = True
-    excel_connection.DisplayAlerts = True
-    excel_connection.ScreenUpdating = True
-    excel_connection.EnableEvents = True
+    # Debugging Values
+#    excel_connection.Visible = True
+#    excel_connection.DisplayAlerts = True
+#    excel_connection.ScreenUpdating = True
+#    excel_connection.EnableEvents = True
+#    excel_connection.AskToUpdateLinks = False
+#    excel_connection.WindowState = -4137  # xlMaximized
+
+    # Normal Run Values
+    excel_connection.Visible = False
+    excel_connection.DisplayAlerts = False
+    excel_connection.ScreenUpdating = False
+    excel_connection.EnableEvents = False
     excel_connection.AskToUpdateLinks = False
-    excel_connection.WindowState = -4137  # xlMaximized
+    excel_connection.WindowState = -4140  # xlMinimized (optional)
+
+    excel_connection.Interactive = False
+    excel_connection.UserControl = False
+    excel_connection.DisplayStatusBar = False    
 
     excel_file_path = importer_directory + "\\"
     excel_file = excel_file_path + client_type + "-" + client_subtype + "_" + salesforce_type + ".xlsx"
