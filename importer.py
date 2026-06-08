@@ -661,38 +661,35 @@ def contains_data(file_name):
     """Check if CSV contains any non-empty data row after header."""
     import csv
     import sys
-    import builtins
 
     print("\ncontains_data DEBUG")
-    print("  file_name:", file_name)
-    print("  Python Version:", sys.version)
-    print("  Python Executable:", sys.executable)
-    print("  open:", open)
-    print("  builtins.open:", builtins.open)
+    print("  file_name: {}".format(file_name))
+    print("  Python Version: {}".format(sys.version))
+    print("  Python Executable: {}".format(sys.executable))
 
     try:
-        with builtins.open(file_name, mode='r', encoding='utf-8-sig') as file_open:
+        with open(file_name, 'rb') as file_open:
             reader = csv.reader(file_open)
 
             # Skip header
             next(reader, None)
 
             for row_index, row in enumerate(reader, start=2):
-                if any(str(cell).strip() for cell in row):
-                    print("  contains_data=True (row {})".format(row_index))
+                if any((cell or '').strip() for cell in row):
+                    print("  contains_data=True row={}".format(row_index))
                     return True
 
         print("  contains_data=False")
         return False
 
     except Exception as ex:
-        print("contains_data ERROR:", str(ex))
+        print("contains_data ERROR: {}".format(str(ex)))
 
         import traceback
         traceback.print_exc()
 
         raise
-
+    
 def file_linecount(file_name):
     """Count how many lines after the header"""
 
