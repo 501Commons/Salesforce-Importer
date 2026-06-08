@@ -293,6 +293,9 @@ def main():
     except Exception as ex:
         print("\nsend_email - Unexpected send email error:", str(ex))
 
+        import traceback
+        traceback.print_exc()
+
     print("\nImporter process completed\n")
 
 def process_data(importer_directory, salesforce_type, client_type,
@@ -657,18 +660,38 @@ def process_manifest(workbook, sheet_name, statusDirectory):
 def contains_data(file_name):
     """Check if CSV contains any non-empty data row after header."""
     import csv
+    import sys
+    import builtins
 
-    with open(file_name, newline='', encoding='utf-8-sig') as file_open:
-        reader = csv.reader(file_open)
+    print("\ncontains_data DEBUG")
+    print("  file_name:", file_name)
+    print("  Python Version:", sys.version)
+    print("  Python Executable:", sys.executable)
+    print("  open:", open)
+    print("  builtins.open:", builtins.open)
 
-        # skip header
-        next(reader, None)
+    try:
+        with builtins.open(file_name, mode='r', encoding='utf-8-sig') as file_open:
+            reader = csv.reader(file_open)
 
-        for row in reader:
-            if any((cell or '').strip() for cell in row):
-                return True
+            # Skip header
+            next(reader, None)
 
-    return False
+            for row_index, row in enumerate(reader, start=2):
+                if any(str(cell).strip() for cell in row):
+                    print("  contains_data=True (row {})".format(row_index))
+                    return True
+
+        print("  contains_data=False")
+        return False
+
+    except Exception as ex:
+        print("contains_data ERROR:", str(ex))
+
+        import traceback
+        traceback.print_exc()
+
+        raise
 
 def file_linecount(file_name):
     """Count how many lines after the header"""
