@@ -655,20 +655,18 @@ def process_manifest(workbook, sheet_name, statusDirectory):
         group.to_csv(groupFileName, index=False)
 
 def contains_data(file_name):
-    """Check if file contains data after header"""
+    """Check if CSV contains any non-empty data row after header."""
+    import csv
 
-    line_index = 1
-    with open(file_name) as file_open:
-        for line in file_open:
-            # Check if line empty
-            line_check = line.replace(",", "")
-            line_check = line_check.replace('"', '')
-            if (line_index == 2 and line_check != "\n"):
-                return True
-            elif line_index > 2:
-                return True
+    with open(file_name, newline='', encoding='utf-8-sig') as file_open:
+        reader = csv.reader(file_open)
 
-            line_index += 1
+        # skip header
+        next(reader, None)
+
+        for row in reader:
+            if any((cell or '').strip() for cell in row):
+                return True
 
     return False
 
