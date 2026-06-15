@@ -658,8 +658,11 @@ def process_manifest(workbook, sheet_name, statusDirectory):
         group.to_csv(groupFileName, index=False)
 
 def contains_data(file_name):
-    """Check if CSV contains any non-empty data row after header."""
+    """Check if CSV contains any non-empty data row after header.
+       If data is detected, write a debug CSV next to the source CSV.
+    """
     import csv
+    import os
     import sys
 
     print("\ncontains_data DEBUG")
@@ -668,16 +671,43 @@ def contains_data(file_name):
     print("  Python Executable: {}".format(sys.executable))
 
     try:
+        non_empty_rows = []
+
         with open(file_name, 'rb') as file_open:
             reader = csv.reader(file_open)
 
-            # Skip header
-            next(reader, None)
+            header = next(reader, None)
 
             for row_index, row in enumerate(reader, start=2):
-                if any((cell or '').strip() for cell in row):
+                cleaned = [(cell or '').strip() for cell in row]
+
+                if any(cleaned):
                     print("  contains_data=True row={}".format(row_index))
-                    return True
+                    print("  raw row={!r}".format(row))
+                    print("  cleaned row={!r}".format(cleaned))
+
+                    non_empty_rows.append((row_index, row, cleaned))
+
+        if non_empty_rows:
+            debug_file = os.path.splitext(file_name)[0] + "_contains_data_debug.csv"
+
+            with open(debug_file, 'wb') as debug_open:
+                writer = csv.writer(debug_open)
+
+                writer.writerow(["Detected Row Number"] + (header or []))
+
+                for row_index, row, cleaned in non_empty_rows:
+                    writer.writerow([row_index] + row)
+
+                writer.writerow([])
+                writer.writerow(["Cleaned Values"])
+                writer.writerow(["Detected Row Number"] + (header or []))
+
+                for row_index, row, cleaned in non_empty_rows:
+                    writer.writerow([row_index] + cleaned)
+
+            print("  Debug file written: {}".format(debug_file))
+            return True
 
         print("  contains_data=False")
         return False
@@ -689,7 +719,7 @@ def contains_data(file_name):
         traceback.print_exc()
 
         raise
-    
+        
 def file_linecount(file_name):
     """Count how many lines after the header"""
 
